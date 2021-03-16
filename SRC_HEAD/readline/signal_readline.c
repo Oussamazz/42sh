@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 14:41:42 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/02/11 23:20:18 by macos            ###   ########.fr       */
+/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ void	handle_sigwindch(int sig)
 	}
 }
 
-static void	ft_ctl_c(int sig)
+void	ft_ctl_c(int sig)
 {
 	if (sig == SIGINT)
 	{
-		ioctl(0, TIOCSTI, "\012");
+		ioctl(0, TIOCSTI, "\12");
 		g_clt_c = 1;
 	}
 }

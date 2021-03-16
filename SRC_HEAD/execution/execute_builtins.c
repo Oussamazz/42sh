@@ -91,12 +91,17 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			type_builtin(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "cd"))
 			blt_cd(tree->cmd, env_list);
+		else if (ft_strequ(tree->cmd[0], "fc"))
+			parce_param_fc(tree->cmd);
 		else if (ft_strequ(tree->cmd[0], "setenv"))
 			blt_setenv(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "unsetenv"))
 			blt_unsetenv(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "exit"))
+		{
+			print_in_history(PATH_HISTORY_FILE);
 			exit(0);
+		}
 	}
 	return ;
 }

@@ -28,8 +28,7 @@ SRC_MAIN =	envirement.o error_handler.o free1.o\
 			ft_free.o his.o main.o node.o printing.o utils.o utils2.o quote_handling.o signals.o here_doc_fd.o \
 			utils3.o utils4.o utils5.o 
 
-SRC_READLINE =	ft_readline.o history.o keys_alt.o move_cursor.o selection.o tools_readline.o builtins_readline.o \
-				prepare_readline.o signal_readline.o helper_readline.o
+SRC_READLINE = ft_readline.o history.o keys_alt.o move_cursor.o selection.o tools_readline.o builtins_readline.o prepare_readline.o signal_readline.o helper_readline.o mode_r.o auto_completion.o read_fc.o fc_l.o fc_e.o
 SRC_JOB_CTRL = nodes_jobs.o get_job_members.o jobs_blt.o show_info.o
 
 
