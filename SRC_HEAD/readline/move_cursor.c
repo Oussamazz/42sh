@@ -14,6 +14,7 @@
 
 void	move_right(t_line *line, char *str)
 {
+	ft_disable_mode_r(line);
 	if (line->slct)
 	{
 		if (line->slctd > line->c_len)
@@ -41,6 +42,7 @@ void	move_right(t_line *line, char *str)
 
 void	move_left(t_line *line, char *str)
 {
+	ft_disable_mode_r(line);
 	if (line->slct && line->cursor > 0)
 	{
 		if (line->slctd >= line->c_len)

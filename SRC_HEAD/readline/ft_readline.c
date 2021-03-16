@@ -6,11 +6,14 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/01/31 16:22:19 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
+
+char	*g_str;
+t_line	*g_line;
 
 int			ft_output(int str)
 {
@@ -87,11 +90,11 @@ char		*ft_readline(int flag)
 	char	buff[MAX_INDEX];
 	t_node	*current;
 	t_line	line;
-
+	flag = 0;
 	ft_init(&(line), &current);
-	ft_signale();
 	while (TRUE)
 	{
+		ft_signale();
 		g_line = &line;
 		g_str = current->tmp;
 		line.r = 0;

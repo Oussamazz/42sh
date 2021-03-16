@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 23:59:46 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/01/31 16:38:13 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/01/01 13:21:15 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,39 @@
 
 static t_node *g_history_head;
 
+void ft_rev_list(t_node **history)
+{
+	while ((*history))
+	{
+		if ((*history)->next == NULL)
+			break;
+		(*history) = (*history)->next;
+	}
+}
+
+void print_in_history(const char *file)
+{
+	int fd;
+	t_node *new;
+
+	new = add_to_history(NULL);
+	ft_rev_list(&(new));
+	if ((fd = open(file, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
+		return ;
+	while (new)
+	{
+		ft_putendl_fd(new->content,fd);
+		new = new->prev;
+	}
+	close(fd);
+}
+
 void	ft_free_history(void)
 {
 	t_node *new;
 
 	new = add_to_history(NULL);
+	
 	while (new)
 	{
 		ft_strdel(&(new->content));
@@ -100,5 +128,12 @@ char	*ft_end(t_node **current, t_line *line)
 	ft_memdel((void **)&(line->tabl));
 	if (line->sltstr && *line->sltstr)
 		free(line->sltstr);
+	if (line->mode_r.s && *line->mode_r.s)
+		free(line->mode_r.s);
+	if (line->mode_r.flag)
+	{
+		tputs(tgoto(tgetstr("cm", 0), 0, line->mode_r.y), 0, ft_output);
+		tputs(tgetstr("cd", 0), 0, ft_output);
+	}
 	return (return_line);
 }

@@ -45,14 +45,31 @@
 # define TRUE		1
 # define ALT_C		42947
 # define CTRL_L		12
-# define DELETE		2117294875
+# define CTRL_R		18
+# define TAB		9
+# define PATH_HISTORY_FILE	"./.42sh_history"
+# define PATH_FC_FILE	"./.fc-42sh"
 
-typedef struct		s_init
+// #define EQUAL 0
+// #define NOT_EQUAL 1
+
+typedef	struct		s_opt
 {
-	int				k;
+	int				l;
+	int				n;
+	int				s;
+	int				e;
 	int				r;
-	char			c[2];
-}					t_init;
+	int				i;
+	char			*editeur;
+	int				check;
+	int				sizeoflist;
+	int				fin;
+	int				count;
+	int				debut;
+}					t_opt;
+
+
 
 typedef struct		s_node
 {
@@ -70,10 +87,51 @@ typedef struct		s_point
 	int				y;
 }					t_point;
 
+
+typedef struct		s_affcmpl
+{
+	char			*content;
+	struct s_affcmpl *next;
+}					t_affcmpl;
+
+typedef struct		s_cmplt
+{
+	int				prefix_pos;
+	int				len;
+	int				type;
+	char			*path;
+	char			*str;
+	char			*search;
+	int				count;
+}					t_cmplt;
+
+typedef struct s_affichfile
+{
+	int pos_row;
+	int blen;
+	int col_count;
+	int pos_col;
+	int i;
+}				t_affichfile;
+
+
+typedef struct		s_mode_r
+{
+	int				flag;
+	char			*s;
+	char			c[2];
+	char			tmp;
+	int 			x;
+	int 			y;
+	int				count;
+}					t_mode_r;
+
 typedef struct		s_line
 {
 	t_point			c_o;
 	t_point			c_v;
+	t_mode_r		mode_r;
+	t_cmplt			compl;
 	int				col;
 	int				row;
 	int				len;
@@ -87,7 +145,6 @@ typedef struct		s_line
 	int				slctd;
 	int				slctf;
 	char			*sltstr;
-	int				k;
 	int				r;
 	char			c[2];
 }					t_line;
@@ -96,6 +153,7 @@ t_line				*g_line;
 char				*g_str;
 int					g_clt_c;
 int					g_clt_d;
+int					g_lohtory;
 
 /*
 ** readline function
@@ -121,7 +179,6 @@ void				home_deep(t_line *line, char *str);
 void				esc(void);
 void				esc1(void);
 void				ft_init(t_line *line, t_node **current);
-void				ft_multi(char **str, t_line *line, char **tmp);
 void				ft_multilne(char *str, t_line *line);
 void				move_up(t_line *line);
 void				move_down(t_line *line);
@@ -143,7 +200,6 @@ void				free_history_node(t_node *node);
 void				ft_unset_terminal(void);
 void				ft_put_multistring(char **strings);
 void				ft_free_history(void);
-void				ft_free_history(void);
 void				ft_signale(void);
 void				ft_ctl_l(t_line *line, char *str);
 void				ft_ctl_d(int flag);
@@ -153,5 +209,52 @@ int					count_row(t_line *line);
 int					ft_readline_builtines(int flag, char *buff,
 	t_line *line, t_node **current);
 t_node				*add_to_history(const char *str);
+void				prompte_mode_r(char c,char **str);
+void				mode_r(t_line *line);
+void				delet_mode_r(char **str,t_line *line);
+int					get_index_mode_r(t_line *line,int *index);
+void				print_prompte_(t_line *line, int error);
+void				search_mode_r(t_line *line, t_node **current);
+void				ft_disable_mode_r(t_line *line);
+void				ft_auto_completion(t_line *line, char **str);
+void				completion_files(t_affcmpl *head, t_line *line);
+void				ft_d(t_line *line);
+void				completion_str(t_affcmpl *head, t_line *line,char **str);
 
+
+
+/*
+** fc function
+*/
+void opt_error(char c);
+int ft_isnumber(char *str);
+int check_index_fc(char *str, int *index);
+int check_isnbrvalide(char *str);
+int index2_fc(char *str, int *index);
+int get_index_fc(char *hold, int *index);
+int preparer_path(char *editeur, t_opt *opt);
+int check_debut_fin_e(t_opt *opt, char **hold);
+void count_arg_fc(t_opt *opt);
+int check_opt(t_opt *opt, char *hold);
+void execute_commande_fc(const char *file);
+void ft_fc_l3adiya(t_opt *opt, char **hold);
+void ft_handel_fc(t_opt *opt, char **hold);
+void parce_param_fc(char **hold);
+int ft_abs(int num);
+void get_index_in_list(t_node **history,int debut);
+char *get_content_in_list(int debut);
+int calc_list(t_node *history);
+int ft_sin(int i);
+void ft_affiche_tab_l(char **result,int size,t_opt *opt,int sin);
+void ft_calc_debut_fin(t_opt *opt);
+int    ft_get_debut_fin(t_opt *opt,char **hold);
+int ft_get_debut_fin_l(t_opt *opt,char **hold);
+void ft_calc_range_of_debut_fin(t_opt *opt,int *size,char ***result);
+int fc_l(t_opt *opt,char **hold);
+void		ft_affiche_tab_e(char **result, int size, t_opt *opt, int sin);
+int			fc_e(t_opt *opt, char **hold, t_node *history);
+t_node *ft_get_tail(t_node *history);
+int				ft_calc(char **hold);
+void load_hsitory(char const *str);
+void print_in_history(const char *file);
 #endif

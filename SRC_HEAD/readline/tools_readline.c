@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 11:47:27 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/02 15:07:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	cur_goto(t_line *line, int cursor)
 void	ft_put_multistring(char **strings)
 {
 	while (*strings)
-		ft_putstr_fd(*strings++, 1);
+		ft_putstr(*strings++);
 }
 
 void	print_line(char *str)
