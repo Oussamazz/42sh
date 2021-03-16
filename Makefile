@@ -8,7 +8,6 @@ OBJ_DIR_HEAD:= ./objs/
 
 FLAGS =# -Wall -Wextra -Werror
 
-
 SRC_CMDSUB = sub_shell.o
 
 SRC_TOOLS = get_pipes_members.o
