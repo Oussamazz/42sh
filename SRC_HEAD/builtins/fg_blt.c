@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:35:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/11 16:36:27 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:38:36 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static int  get_job_id(char **cmd)
 {
     int size;
 
+    size = 0;
     if ((size = get_arr_size(cmd)) == 1)
         return (0);
     if (size > 1)
@@ -61,14 +62,16 @@ int     fg_blt(char **cmd)
     signal(SIGCHLD, NULL);
     while (ptr && job_id >= 0)
     {
-        if (((ptr->c == '+' && job_id == 0) || (ptr->job_id == job_id)) && ((ptr->mode & IS_BACKGROUD) || (ptr->mode & IS_RUNNING)))
+        if (((ptr->c == '+' && !job_id) || (ptr->job_id == job_id && job_id))) // && ((ptr->mode & IS_BACKGROUD) || (ptr->mode & IS_RUNNING))
         {
+            ft_putendl_fd("fg idkhlt", 2);
             if (tcsetpgrp(fd, ptr->grp_pid) == -1)
             {
                 close(fd);
                 perror("tcsetpgrp");
                 return (1);
             }
+            close(fd);
             kill(ptr->grp_pid * -1, SIGCONT);
             ptr->mode = IS_FOURGROUND | IS_RUNNING;
             while ((waitpid(ptr->grp_pid * -1, &status, WUNTRACED | WCONTINUED)) > 0)
@@ -88,7 +91,6 @@ int     fg_blt(char **cmd)
         }
         ptr = ptr->next;
     }
-    close(fd);
     signal(SIGCHLD, checkchild2);
     return (0);
 }

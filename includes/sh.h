@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/11 16:23:20 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:09:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,10 @@ typedef struct			s_mypipe
 {
 	int					pipe[2];
 	pid_t				pid;
-	pid_t				g_pid;
+	pid_t				g_pid; //
 	int					temp;
 	int					cmd_no;
-	int					status;
+	int					status; //
 }						t_mypipe;
 
 typedef struct			s_pointt
@@ -426,4 +426,8 @@ void					pid_infos(t_job_ctrl *ptr);
 void					details_infos(t_job_ctrl *ptr);
 int    					fg_blt(char **cmd);
 int     				bg_blt(char **cmd);
+int						check_brackets(char *str);
+char 					*get_the_line(const char *buf);
+void    				sub_shell_exec(char *line, t_lexer **tokenz, t_env **env_list);
+
 #endif

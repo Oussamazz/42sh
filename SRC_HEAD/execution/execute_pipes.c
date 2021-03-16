@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/10 20:46:51 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/16 15:04:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,10 +67,7 @@ void checkchild2(int sig) {
 			}
 			if (WIFEXITED(status))
 			{
-				//  ft_putnbr_wspace(ptr->job_id);
-                // ft_putendl_fd("Done", 1);
 				delete_node(&g_jobs_lst, ptr->grp_pid);
-				// ptr->mode = IS_TERMINATED;
 			} else if (WIFSIGNALED(status)) {
 				ptr->status = status;
 				ptr->mode = IS_TERMINATED;
@@ -113,11 +110,13 @@ static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
 	return ;
 }
 
+
 int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 {
 	char 				**cmd;
 	t_mypipe			pipes;
 	int					is_bg;
+
 
 	is_bg = 0;
 	if (tree)
@@ -141,12 +140,14 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		else if (WIFSIGNALED(pipes.status))
 		{
 			dprintf(2, "Terminated: %d\n", WTERMSIG(pipes.status));
-			break ;
+			// break ;
 		}
+		else if (WIFEXITED(pipes.status))
+			dprintf(2, "Terminated: %d\n", WEXITSTATUS(pipes.status));
 	}
 	if (is_bg > 0)
 	{
-		append_job(cmd, pipes, IS_BACKGROUD);
+		append_job(cmd, pipes, IS_BACKGROUD | IS_RUNNING);
 		print_job_node(pipes.g_pid);
 	}
 	close(pipes.temp);

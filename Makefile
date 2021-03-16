@@ -8,6 +8,9 @@ OBJ_DIR_HEAD:= ./objs/
 
 FLAGS =# -Wall -Wextra -Werror
 
+
+SRC_CMDSUB = sub_shell.o
+
 SRC_TOOLS = get_pipes_members.o
 
 SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o
@@ -16,7 +19,7 @@ SRC_BUILTINS = blt_echo.o  exit_blt.o type_blt.o cd_blt.o fg_blt.o bg_blt.o
 
 SRC_EXPANSION = expand.o expansion.o tild_expansion.o get_value_exp.o
 
-SRC_PARSING = ast.o check_grammar.o lexer.o lexerCore.o split.o fill.o tools.o
+SRC_PARSING = ast.o check_grammar.o lexer.o lexerCore.o split.o fill.o tools.o get_the_line.o
 
 SRC_PIPE_REDIRECTION =	agg_redir.o here_doc.o redirections.o \
 						split_redir.o agg_in_out.o split_tools.o
@@ -29,7 +32,9 @@ SRC_READLINE =	ft_readline.o history.o keys_alt.o move_cursor.o selection.o tool
 				prepare_readline.o signal_readline.o helper_readline.o
 SRC_JOB_CTRL = nodes_jobs.o get_job_members.o jobs_blt.o show_info.o
 
+
 OBJ_MAIN = $(addprefix objs/src/, $(SRC_MAIN))
+OBJ_CMDSUB = $(addprefix objs/command_sub/, $(SRC_CMDSUB))
 OBJ_READLINE = $(addprefix objs/readline/, $(SRC_READLINE))
 OBJ_EXPANSION = $(addprefix objs/expansion/, $(SRC_EXPANSION))
 OBJ_PARSING = $(addprefix objs/parsing/, $(SRC_PARSING))
@@ -39,7 +44,7 @@ OBJ_PIPE_REDIRECTION = $(addprefix objs/pipe_redirection/, $(SRC_PIPE_REDIRECTIO
 OBJ_JOB_CTRL = $(addprefix objs/control_jobs/, $(SRC_JOB_CTRL))
 OBJ_TOOLS = $(addprefix objs/tools/, $(SRC_TOOLS))
 
-OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION) $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL)
+OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION) $(OBJ_CMDSUB) $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL)
 CURRENT_OBJ_DIR = objs
 
 all: $(NAME)
@@ -48,7 +53,6 @@ $(NAME): $(OBJECT) $(INC)
 	@make -sC $(LIBFT_PATH)
 	@gcc $(FLAGS) $(OBJECT) $(INCLUDE) -L $(LIBFT_PATH) -lft -ltermcap -o $(NAME)
 	@echo "\033[1m\033[35m|⩺▾ 42sh Successfully Created ☯ ⩹|\033[0m"
-
 
 $(OBJ_DIR_HEAD)%.o : $(SRC_DIR_PARSE)%.c
 	$(eval CURRENT_OBJ_DIR=$(shell sh -c "echo $^ |  cut -d / -f 2"))

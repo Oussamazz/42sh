@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:19:31 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/01 17:44:21 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:13:07 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ void	print_arr(char **cmd)
 
 	i = 0;
 	while (cmd[i])
+	{
 		ft_putstr_fd(cmd[i++], 1);
+		write(1, " ", 1);
+	}
 	write(1, "\n", 1);
 	return ;
 }

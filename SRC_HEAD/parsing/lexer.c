@@ -6,21 +6,34 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/19 14:27:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/13 19:14:24 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
+// echo $(ls $(echo /) | cat -e)
+
+
 int			expansion_function(char *buf, t_lexer **token_node,
 	t_pointt *coord, t_env **env_list)
 {
 	int		i;
+	char	*tmp;
 
 	i = 0;
-	if (buf[i] == '$' && (buf[i + 1] == '(' || buf[i + 1] == ')'))
+	tmp = NULL;
+	if (buf[i] == '$' && (buf[i + 1] == '('))
 	{
-		ft_putendl_fd("21sh: Unexpected token `( or )'", 2);
+		if (check_brackets(buf))
+		{
+			ft_putendl_fd("dkhlt", 2);
+			sub_shell_exec((tmp = get_the_line(buf + 1)), token_node, env_list);
+			if (tmp)
+				ft_strdel(&tmp);
+		}
+		else
+			ft_putendl_fd("21sh: Unexpected token `( or )'", 2);
 		return (-1);
 	}
 	return (expansion_parse(token_node, buf + i, env_list, coord));
