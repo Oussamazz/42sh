@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/31 06:11:13 by oelazzou           #+#    #+#             */
-/*   Updated: 2021/01/20 16:24:40 by oelazzou         ###   ########.fr       */
+/*   Created: 2021/03/31 06:11:13 by oelazzou           #+#    #+#             */
+/*   Updated: 2021/03/17 16:18:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void		ft_hash_error(char *str)
 {
@@ -39,8 +39,19 @@ void		l_flag_error(char *str)
 
 void		l_flag_print(char *value, char *key)
 {
-	ft_putstr("builtin hash -p ");
-	ft_putstr(value);
-	ft_putchar(' ');
-	ft_putendl(key);
+	ft_putstr_fd("builtin hash -p ", 1);
+	ft_putstr_fd(value, 1);
+	ft_putchar_fd(' ', 1);
+	ft_putendl_fd(key, 1);
+}
+
+char		*absolute_path(char *path, char *command)
+{
+	char	*str1;
+	char	*str2;
+
+	str1 = ft_strjoin(path, "/");
+	str2 = ft_strjoin(str1, command);
+	ft_strdel(&str1);
+	return (str2);
 }

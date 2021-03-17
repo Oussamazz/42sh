@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash_tools2.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 05:58:20 by oelazzou           #+#    #+#             */
-/*   Updated: 2020/12/16 02:10:04 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:21:00 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void		del_list_mini(t_ht **list, int len)
 {
@@ -55,7 +55,9 @@ void		search_hash_mini(t_hash **h_table, char **args)
 		{
 			if (ft_strcmp(args[i], current->key) == 0)
 			{
-				printf("%s     %s\n", args[i], current->value);
+				ft_putstr_fd(args[i], 1);
+				ft_putstr_fd("     ", 1);
+				ft_putendl_fd(current->value, 1);
 				break ;
 			}
 			current = current->next;
@@ -94,7 +96,7 @@ void		del_hash(t_hash **h_table, char **args)
 		current = hashtable->list[slot];
 		if (delete_list(current, &(hashtable->list[slot]), args[i]) == 0)
 		{
-			ft_putstr_fd("12sh: hash: ", 2);
+			ft_putstr_fd("42sh: hash: ", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putendl_fd(": not found", 2);
 		}

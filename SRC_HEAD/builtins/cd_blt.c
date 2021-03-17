@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:59:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/01/18 15:05:57 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void		cd_simple(char *path, t_env **env_list)
 		stat(path, &st);
 		if (!S_ISDIR(st.st_mode) && ft_strrchr(path, '/'))
 		{
-			return (ft_putendl_fd_error("21sh: cd: not a directory: ",
+			return (ft_putendl_fd_error("42sh: cd: not a directory: ",
 				ft_strrchr(path, '/') + 1, NULL, NULL));
 		}
 		if (access(path, X_OK) == 0)
@@ -67,7 +67,7 @@ static void		cd_back(t_env **env_list)
 int				check_args(char **cmd, t_env **env_list)
 {
 	if (check_args_no(cmd) > 2)
-		ft_putendl_fd_int("21sh: cd: Too many arguments.", 2, 1);
+		ft_putendl_fd_int("42sh: cd: Too many arguments.", 2, 1);
 	if (check_args_no(cmd) == 1)
 	{
 		cd_home(env_list);

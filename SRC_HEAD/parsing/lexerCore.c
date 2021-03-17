@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/24 16:46:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,7 +173,7 @@ t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 	{
 		buf = ignore_blanks(buf);
 		if ((*buf == ';' && buf[1] == ';') || (*buf == ';' && !v.tokenz))
-			return ((t_lexer *)err_ret("21sh: parse error near `;'\n", NULL));
+			return ((t_lexer *)err_ret("42sh: parse error near `;'\n", NULL));
 		if ((buf = get_splitter(buf, &v)) == NULL)
 			return (NULL);
 		if ((buf = get_tild_dolar(buf, &v)) == NULL)

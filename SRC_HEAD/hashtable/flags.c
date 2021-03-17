@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   flags.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/26 02:15:49 by oelazzou           #+#    #+#             */
-/*   Updated: 2020/12/16 01:54:31 by macos            ###   ########.fr       */
+/*   Created: 2021/03/26 02:15:49 by oelazzou           #+#    #+#             */
+/*   Updated: 2021/03/17 16:19:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void		l_flag(t_hash **h_table, char **args)
 {
@@ -78,7 +78,7 @@ void		search_hash(t_hash **h_table, char **args, int len)
 		{
 			if (ft_strcmp(args[2], current->key) == 0)
 			{
-				ft_putendl(current->value);
+				ft_putendl_fd(current->value, 1);
 				break ;
 			}
 			current = current->next;

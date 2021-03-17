@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   auto_comlition.c                                   :+:      :+:    :+:   */
+/*   auto_completion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 12:17:19 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/02/06 12:17:20 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sh.h"
+#include "sh.h"
 
 void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
 {

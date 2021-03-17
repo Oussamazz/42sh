@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/05 00:35:56 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int				ft_redirect_in_out(t_redir *redirections, t_redir *prev, int fd)
 		fd = open(right_fd, O_RDONLY);
 		if (fd < 0)
 		{
-			ft_putendl_fd_error("21sh: No such file or directory: ", right_fd,
+			ft_putendl_fd_error("42sh: No such file or directory: ", right_fd,
 				"\n", NULL);
 			exit(0);
 			return (fd);
@@ -88,7 +88,7 @@ int				append_redir(t_redir *redirection, t_redir *prev)
 		if (ft_str_is_digit(left_fd))
 			left = ft_atoi(left_fd);
 		else
-			return (ft_putendl_fd_int("21sh: Error: Left redirection.", 2, -1));
+			return (ft_putendl_fd_int("42sh: Error: Left redirection.", 2, -1));
 		dup2(fd, left);
 	}
 	else

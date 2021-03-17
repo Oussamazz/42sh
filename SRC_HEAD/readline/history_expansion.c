@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   history_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/11/29 20:16:15 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sh.h"
+#include "sh.h"
 
 char *get_node(char *str)
 {

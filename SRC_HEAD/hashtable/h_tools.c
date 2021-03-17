@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   h_tools.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/01 02:23:39 by oelazzou           #+#    #+#             */
-/*   Updated: 2020/12/16 01:54:31 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/17 16:19:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void		l_flag_mini(char *str, t_ht *current)
 {

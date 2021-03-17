@@ -6,11 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/29 14:23:55 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sh.h"
+#include "sh.h"
 
 int			count_len(t_line *line)
 {

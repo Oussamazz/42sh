@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/05 00:34:37 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/17 18:28:01 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ void			source_sh(t_env **head)
 	signal(SIGTSTP, SIG_IGN);
 	ft_bzero(&v, sizeof(t_mystruct));
 	v.status[0] = 1;
+	g_hashtable = ht_create();
 	while (v.status[0])
 	{
 		init_coord(&v.coord);

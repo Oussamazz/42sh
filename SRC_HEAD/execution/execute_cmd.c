@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/09 16:52:50 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:30:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				check_builtins(char *cmd_name)
 	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "fg") ||
 		ft_strequ(cmd_name, "unsetenv") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||
-			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc"))
+			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "hash"))
 		return (1);
 	return (0);
 }
@@ -27,10 +27,10 @@ void			my_execve(const char *file_name, char **cmd, char **tabs)
 	if (access(file_name, X_OK) == 0)
 	{
 		if (execve(file_name, cmd, tabs) == -1)
-			ft_putendl_fd("21sh: Error: Execution Failed.", 2);
+			ft_putendl_fd("42sh: Error: Execution Failed.", 2);
 	}
 	else
-		ft_putendl_fd_error("21sh: permission denied: ",
+		ft_putendl_fd_error("42sh: permission denied: ",
 			cmd[0], "\n", NULL);
 	return ;
 }
@@ -47,7 +47,7 @@ void			execute_direct(char **cmd, char **tabs)
 	if (access(file_name, F_OK) == 0)
 		my_execve(file_name, cmd, tabs);
 	else
-		ft_putendl_fd_error("21sh: no such file or directory: ",
+		ft_putendl_fd_error("42sh: no such file or directory: ",
 			cmd[0], "\n", NULL);
 }
 
@@ -55,20 +55,22 @@ void			execute_undirect(char **cmd, char **tabs, t_env **env)
 {
 	char		*bin_file;
 	pid_t		pid;
+	char *print = NULL;
 
-	if (!(bin_file = get_bin_file(cmd, env)))
+	if (!(bin_file = ft_hashtable(cmd, tabs, &g_hashtable, &print)))
 	{
-		ft_putendl_fd_error("21sh: command not found: ", cmd[0], "\n", NULL);
-		exit(0);
+		ft_putendl_fd_error("42sh: command not found: ", cmd[0], "\n", NULL);
 		return ;
 	}
 	if (access(bin_file, F_OK) == 0)
 		my_execve(bin_file, cmd, tabs);
 	else
-		ft_putendl_fd_error("21sh: no such file or directory: ",
+		ft_putendl_fd_error("42sh: no such file or directory: ",
 			cmd[0], "\n", NULL);
 	if (bin_file)
 		ft_strdel(&bin_file);
+	if (print)
+		ft_strdel(&print);
 }
 
 char			*get_bin_file(char **cmd, t_env **env)

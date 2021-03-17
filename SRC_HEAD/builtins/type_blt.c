@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:52:44 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			type_builtin(char **cmd, t_env **env_list)
 			ft_strdel(&bin_path);
 		}
 		else
-			ft_putendl_fd_error("21sh: type: ", cmd[i], ": not found.\n", NULL);
+			ft_putendl_fd_error("42sh: type: ", cmd[i], ": not found.\n", NULL);
 		i++;
 	}
 	return ;

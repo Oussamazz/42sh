@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:42:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/11 16:09:04 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 17:29:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void			flag_g(char **av, t_env **env_list, time_t *now)
 
 	user = NULL;
 	if (!(user = get_value_expansion("USER", env_list)))
-		error_message("21sh: Error: USER NOT FOUND.\n", 1);
+		error_message("42sh: Error: USER NOT FOUND.\n", 1);
 	starting_message(av, &user, now);
 	return ;
 }
@@ -37,7 +37,7 @@ void			flag_g(char **av, t_env **env_list, time_t *now)
 int				check_builtins_nfrk(char *cmd_name)
 {
 	if (ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs")  || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
-		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "unsetenv"))
+		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "unsetenv") || ft_strequ(cmd_name, "hash"))
 		return (1);
 	return (0);
 }

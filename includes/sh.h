@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 19:09:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:28:43 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@
 
 # define CURRENT_JOB 1
 # define PREV_JOB 2
+# define TABLE_SIZE 1000
 
 pid_t	g_parproc;
 pid_t	proc_child;
@@ -60,7 +61,8 @@ enum {
 	F_TMP,
 	F_AST,
 	F_STR,
-	F_G_HIS
+	F_G_HIS,
+	F_JOBS
 };
 
 
@@ -74,16 +76,31 @@ typedef enum	e_split{
 
 size_t			g_agg_len;
 char			*g_tty_name;
+int				g_the_status;
 
 typedef struct			s_mypipe
 {
 	int					pipe[2];
 	pid_t				pid;
-	pid_t				g_pid; //
+	pid_t				g_pid;
 	int					temp;
 	int					cmd_no;
-	int					status; //
-}						t_mypipe;
+	int					status;
+}					t_mypipe;
+
+typedef	struct				s_ht
+{
+	char					*value;
+	char					*key;
+	int						hits;
+	struct	s_ht			*next;
+}							t_ht;
+
+typedef	struct				s_hash
+{
+	t_ht					**list;
+}							t_hash;
+
 
 typedef struct			s_pointt
 {
@@ -429,5 +446,45 @@ int     				bg_blt(char **cmd);
 int						check_brackets(char *str);
 char 					*get_the_line(const char *buf);
 void    				sub_shell_exec(char *line, t_lexer **tokenz, t_env **env_list);
+
+// hash
+t_hash					*ht_create(void);
+char					*ft_hashtable(char **args, char **tabs,
+						t_hash **h_table, char **print);
+void					ft_hash(char **args, t_hash **h_table);
+void					reset_hits(char **args, t_hash **h_table);
+void					delete_hashtable(t_hash **h_table, int len);
+void					aff_hashtable(t_hash **h_table);
+t_ht					*del_list(t_ht **list, int len);
+int						hash_function(char *str);
+t_ht					*ht_insert(char *str, char **tabs, char **print);
+void					l_flag(t_hash **h_table, char **args);
+void					del_hash(t_hash **h_table, char **args);
+int						delete_list(t_ht *list, t_ht **main_head, char *arg);
+void					d_flag(t_hash **h_table, char **args);
+void					t_flag(t_hash **h_table, char **args);
+void					p_flag(t_hash **h_table, char **args);
+void					search_hash(t_hash **h_table, char **args,
+int len);
+t_ht					*hash_p_insert(char *arg, char *path);
+void					ft_hash_error(char *str);
+void					l_flag_error(char *str);
+void					l_flag_print(char *value, char *key);
+void					l_flag_mini(char *str, t_ht *current);
+void					l_flag_valid(t_hash *hashtable, int slot);
+void					p_flag_mini(char **args, t_hash **h_table);
+void					p_flag_free(t_ht **h_list, char *str, char *path);
+int						free_node(t_ht **list);
+void					del_list_mini(t_ht **list, int len);
+void					search_hash_mini(t_hash **h_table, char **args);
+char					*valid_path(char *cmd_name, char **tabs, char **print);
+t_ht					*alloc_list(t_ht *list);
+t_hash					*alloc_hash(t_hash **h_table);
+char					*ft_hash_complete_s(t_hash *hashtable,
+						char **args, char **tabs, char **print);
+int						ft_hash_complete(char **print, char **args);
+char					*absolute_path(char *path, char *command);
+int						ft_argslen(char **arr);
+t_hash *g_hashtable;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:15:08 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/25 15:54:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				print_error_sym(t_type type)
 {
-	err_ret("21sh: syntax error near unexpected token `", NULL);
+	err_ret("42sh: syntax error near unexpected token `", NULL);
 	if (type == PIPE_SYM)
 		ft_putendl_fd("|'", 2);
 	else if (type == SEP)

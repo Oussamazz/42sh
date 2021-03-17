@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/16 13:53:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int			ft_agg_digit(t_redir *redirection, int fd, int lfd)
 	{
 		if (dup2(fd, lfd) < 0)
 		{
-			ft_putstr_fd("21sh: ", 2);
+			ft_putstr_fd("42sh: ", 2);
 			ft_putnbr_fd(fd, 2);
 			ft_putendl_fd(": Bad file descriptor\n", 2);
 			return (-1);
@@ -45,7 +45,7 @@ int			ft_agg_close(t_redir *redirection, int fd, int lfd)
 	{
 		if (dup2(fd, lfd) < 0)
 		{
-			ft_putstr_fd("21sh: ", 2);
+			ft_putstr_fd("42sh: ", 2);
 			ft_putnbr_fd(fd, 2);
 			ft_putendl_fd(": Bad file descriptor\n", 2);
 			return (-1);

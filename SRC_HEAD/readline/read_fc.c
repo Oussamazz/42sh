@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/28 18:20:56 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sh.h"
+#include "sh.h"
 
 void opt_error(char c)
 {

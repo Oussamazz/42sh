@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fc_e.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/10/19 17:35:42 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/sh.h"
+#include "sh.h"
 
 void		ft_affiche_tab_e(char **result, int size, t_opt *opt, int sin)
 {

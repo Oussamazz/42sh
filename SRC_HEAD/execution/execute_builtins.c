@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/11 16:11:42 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 18:28:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ void			blt_unsetenv(char **cmd, t_env **env_list)
 	int			i;
 
 	if (check_args_no(cmd) < 2)
-		return (ft_putendl_fd("21sh: Error: [unsetenv [var_name] ...].", 2));
+		return (ft_putendl_fd("42sh: Error: [unsetenv [var_name] ...].", 2));
 	i = 1;
 	while (cmd[i])
 	{
@@ -97,6 +97,8 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			blt_setenv(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "unsetenv"))
 			blt_unsetenv(tree->cmd, env_list);
+		else if (ft_strequ(tree->cmd[0], "hash"))
+			ft_hash(tree->cmd, &g_hashtable);
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
 			print_in_history(PATH_HISTORY_FILE);

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   hash_tools.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/10/25 18:36:01 by oelazzou           #+#    #+#             */
-/*   Updated: 2020/12/16 01:54:31 by macos            ###   ########.fr       */
+/*   Created: 2021/03/25 18:36:01 by oelazzou           #+#    #+#             */
+/*   Updated: 2021/03/17 18:31:57 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "21sh.h"
+#include "sh.h"
 
 void		reset_hits(char **args, t_hash **h_table)
 {
@@ -68,8 +68,11 @@ void		aff_hashtable(t_hash **h_table)
 		while (current)
 		{
 			if (!c)
-				ft_putendl("hits    command");
-			printf("   %d    %s\n", current->hits, current->value);
+				ft_putendl_fd("hits    command", 1);
+			ft_putstr_fd("   ", 1);
+			ft_putnbr_fd(current->hits, 1);
+			ft_putstr_fd("    ", 1);
+			ft_putendl_fd(current->value, 1);
 			c++;
 			current = current->next;
 		}

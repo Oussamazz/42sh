@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 16:17:05 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int			here_document(t_redir *redirection, char *tty_name)
 	if (redirection->next && redirection->next->rfd)
 		ft_putstr_fd(redirection->next->rfd, pip[1]);
 	else if (redirection->next == NULL)
-		return (ft_putendl_fd_int("21sh: parse error near `\\n'", 2, -3));
+		return (ft_putendl_fd_int("42sh: parse error near `\\n'", 2, -3));
 	close(pip[1]);
 	dup2(pip[0], STDIN_FILENO);
 	close(pip[0]);

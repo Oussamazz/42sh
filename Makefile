@@ -10,7 +10,7 @@ FLAGS =# -Wall -Wextra -Werror
 
 SRC_CMDSUB = sub_shell.o
 
-SRC_TOOLS = get_pipes_members.o
+SRC_TOOLS = get_pipes_members.o argslen.o
 
 SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o
 
@@ -25,13 +25,19 @@ SRC_PIPE_REDIRECTION =	agg_redir.o here_doc.o redirections.o \
 
 SRC_MAIN =	envirement.o error_handler.o free1.o\
 			ft_free.o his.o main.o node.o printing.o utils.o utils2.o quote_handling.o signals.o here_doc_fd.o \
-			utils3.o utils4.o utils5.o 
+			utils3.o utils4.o utils5.o
+
+SRC_HASH = alloc_hash.o errors_print.o flags.o h_tools.o hash_tools.o hash_tools2.o hashtable.o
+
+#SRC_TEST = ft_test.o test_file.o test_file_tools1.o test_file_tools2.o test_s_and_n_tools.o test_string_and_numeric.o
 
 SRC_READLINE = ft_readline.o history.o keys_alt.o move_cursor.o selection.o tools_readline.o builtins_readline.o prepare_readline.o signal_readline.o helper_readline.o mode_r.o auto_completion.o read_fc.o fc_l.o fc_e.o
 SRC_JOB_CTRL = nodes_jobs.o get_job_members.o jobs_blt.o show_info.o
 
 
 OBJ_MAIN = $(addprefix objs/src/, $(SRC_MAIN))
+#OBJ_TEST = $(addprefix objs/builtin_test/, $(SRC_TEST))
+OBJ_HASH = $(addprefix objs/hashtable/, $(SRC_HASH))
 OBJ_CMDSUB = $(addprefix objs/command_sub/, $(SRC_CMDSUB))
 OBJ_READLINE = $(addprefix objs/readline/, $(SRC_READLINE))
 OBJ_EXPANSION = $(addprefix objs/expansion/, $(SRC_EXPANSION))
@@ -42,7 +48,7 @@ OBJ_PIPE_REDIRECTION = $(addprefix objs/pipe_redirection/, $(SRC_PIPE_REDIRECTIO
 OBJ_JOB_CTRL = $(addprefix objs/control_jobs/, $(SRC_JOB_CTRL))
 OBJ_TOOLS = $(addprefix objs/tools/, $(SRC_TOOLS))
 
-OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION) $(OBJ_CMDSUB) $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL)
+OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION) $(OBJ_CMDSUB) $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL) $(OBJ_HASH) 
 CURRENT_OBJ_DIR = objs
 
 all: $(NAME)

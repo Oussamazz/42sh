@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   nodes_jobs.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/19 14:51:37 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/05 00:09:33 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/17 12:33:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ int  delete_node(t_job_ctrl  **head_ref, int g_pid)
     temp = *head_ref;
     if (temp != NULL && temp->grp_pid == g_pid) {
         *head_ref = temp->next;
+        ft_free_arr(temp->cmd);
         free(temp);
         return (1);
     }
@@ -106,6 +107,7 @@ int  delete_node(t_job_ctrl  **head_ref, int g_pid)
     prev->next = temp->next;
     prev->c = '+';
     //g_copy = dup_job(temp);
+    ft_free_arr(temp->cmd);
     free(temp);
     _assing();
     return (1);

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:31:50 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char		*redirection_varname(char ***arr, char *str, size_t *i)
 			str[*i + c_len] && !ft_is_there(AGG_REDI, str[*i + c_len]))
 		c_len++;
 	if (str[*i + c_len] == '&')
-		error_message("21sh: Error[1]: control jobs not handled yet...\n", 1);
+		error_message("42sh: Error[1]: control jobs not handled yet...\n", 1);
 	tmp = ft_strsub(str, *i, c_len);
 	*i = *i + c_len;
 	return (tmp);
@@ -68,7 +68,7 @@ int			split_herdoc(t_split_redir *v, char *str)
 		(str[v->i + 2] == ';' || str[v->i + 2] == '|')))
 	{
 		ft_free_arr(v->agg);
-		err_ret("21sh: syntax error near unexpected token `> or <'\n", NULL);
+		err_ret("42sh: syntax error near unexpected token `> or <'\n", NULL);
 		return (ReturnNull);
 	}
 	v->agg[v->j][0] = str[v->i];

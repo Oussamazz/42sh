@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 01:33:51 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/24 17:14:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int			split_agg(t_split_redir *v, char *str)
 		str[v->i + 1] == '>') || str[v->i + 1] == ';' || !str[v->i + 1])
 	{
 		ft_free_arr(v->agg);
-		err_ret("21sh: syntax error near unexpected token `> or <'\n", NULL);
+		err_ret("42sh: syntax error near unexpected token `> or <'\n", NULL);
 		return (ReturnNull);
 	}
 	v->agg[v->j][0] = str[v->i];
@@ -68,7 +68,7 @@ static int			split_redir_fd(t_split_redir *v, char *str)
 		str[v->i + 1] != '>' && str[v->i + 1] != '-')
 	{
 		ft_free_arr(v->agg);
-		err_ret("21sh: syntax error near unexpected token `&'\n", NULL);
+		err_ret("42sh: syntax error near unexpected token `&'\n", NULL);
 		return (ReturnNull);
 	}
 	v->agg[v->j][0] = str[v->i];

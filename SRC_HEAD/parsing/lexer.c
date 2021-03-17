@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 19:14:24 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int			expansion_function(char *buf, t_lexer **token_node,
 				ft_strdel(&tmp);
 		}
 		else
-			ft_putendl_fd("21sh: Unexpected token `( or )'", 2);
+			ft_putendl_fd("42sh: Unexpected token `( or )'", 2);
 		return (-1);
 	}
 	return (expansion_parse(token_node, buf + i, env_list, coord));
@@ -61,7 +61,7 @@ int			aggr_function(char *buf, t_pointt *coord, t_lexer **token_node)
 	i = 0;
 	if (!*(buf + 1))
 	{
-		ft_putendl_fd("21sh: syntax error near unexpected token `newline'", 2);
+		ft_putendl_fd("42sh: syntax error near unexpected token `newline'", 2);
 		return (-1);
 	}
 	if (!(agg = split_redir(buf)))
