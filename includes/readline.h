@@ -257,4 +257,5 @@ t_node *ft_get_tail(t_node *history);
 int				ft_calc(char **hold);
 void load_hsitory(char const *str);
 void print_in_history(const char *file);
+void execute_open_file(char *editeur);
 #endif

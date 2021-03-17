@@ -196,7 +196,7 @@ void execute_commande_fc(const char *file)
 	char *line = NULL;
 	int fd;
 
-	if ((fd = open(file, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
+	if ((fd = open(file, O_RDWR | O_CREAT, 00600)) == -1)
 		return ;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -229,6 +229,27 @@ int				ft_calc(char **hold)
 		i--;
 	return (i);
 }
+void execute_open_file(char *editeur)
+{
+	char *file_name = ft_strjoin("/usr/bin/",editeur);
+	char **cmd;
+
+	cmd = malloc(sizeof(char *) * 3);
+	cmd[0] = file_name;
+	cmd[1] = PATH_FC_FILE;
+	cmd[2] = 0;
+	if (!fork())
+	{
+		if (!access(file_name,F_OK))
+		{
+			if (execve(file_name, cmd, NULL) == -1)
+				ft_putendl_fd("21sh: Error: Execution Failed.", open("/dev/ttys002",O_RDWR));
+		}
+		exit(1);
+	}
+	else
+		wait(0);
+}
 
 void ft_fc_l3adiya(t_opt *opt, char **hold)
 {
@@ -243,7 +264,8 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 	if (!opt->count)
 	{
 		tail = ft_get_tail(history);
-		ft_putendl(tail->content);
+		ft_putendl_fd(tail->content,fd);
+		close(fd);
 	}
 	if (ft_get_debut_fin(opt, hold))
 	{
@@ -253,6 +275,7 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 			opt->debut = (opt->debut < 0) ? (opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
 			get_index_in_list(&history, opt->debut);
 			ft_putendl_fd(history->content, fd);
+			close(fd);
 		}
 		else if (opt->count >= 2)
 		{
@@ -261,7 +284,7 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 			ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
 		}
 	}
-	close(fd);
+	execute_open_file(opt->editeur);
 	execute_commande_fc(PATH_FC_FILE);
 }
 

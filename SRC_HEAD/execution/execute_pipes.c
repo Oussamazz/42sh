@@ -137,13 +137,13 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			print_job_node(pipes.g_pid);
 			break ;
 		}
-		else if (WIFSIGNALED(pipes.status))
-		{
-			dprintf(2, "Terminated: %d\n", WTERMSIG(pipes.status));
-			// break ;
-		}
-		else if (WIFEXITED(pipes.status))
-			dprintf(2, "Terminated: %d\n", WEXITSTATUS(pipes.status));
+		// else if (WIFSIGNALED(pipes.status))
+		// {
+		// 	// dprintf(2, "Terminated: %d\n", WTERMSIG(pipes.status));
+		// 	// break ;
+		// }
+		// else if (WIFEXITED(pipes.status))
+		// 	dprintf(2, "Terminated: %d\n", WEXITSTATUS(pipes.status));
 	}
 	if (is_bg > 0)
 	{

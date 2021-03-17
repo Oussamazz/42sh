@@ -49,12 +49,13 @@ int			fc_e(t_opt *opt, char **hold, t_node *history)
 		return (0);
 	if (check_debut_fin_e(opt, hold))
 	{
-	 	if ( opt->count == 1 || opt->count == 2)
+	 	if (opt->count == 1 || opt->count == 2)
 		{
 			opt->debut = ((ft_abs(opt->debut) > opt->sizeoflist) || (opt->debut == 0)) ? (-1) : opt->debut;
 			opt->debut = (opt->debut < 0) ? (opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
 			get_index_in_list(&history, opt->debut);
-			ft_putendl(history->content);
+			ft_putendl_fd(history->content,fd);
+			close(fd);
 		}
 		else if (opt->count == 3)
 		{
@@ -62,6 +63,7 @@ int			fc_e(t_opt *opt, char **hold, t_node *history)
 			ft_calc_range_of_debut_fin(opt, &size, &result);
 			ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
 		}
+		execute_open_file(opt->editeur);
 		execute_commande_fc(PATH_FC_FILE);
 		return (1);
 	}

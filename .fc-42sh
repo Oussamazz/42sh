@@ -1,0 +1,8 @@
+fc -l 55 pwd
+fc -l pwd 55
+fc -l pwd 5
+exit
+emac
+grehg
+gergiohiore
+gerogher
