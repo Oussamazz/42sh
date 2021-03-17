@@ -1,0 +1,7 @@
+
+set
+a=b
+exit
+a=b
+set
+exit

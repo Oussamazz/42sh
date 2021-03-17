@@ -32,16 +32,16 @@ void		ft_free_arr(char **arr)
 
 void		free_env_list(t_env **head)
 {
-	t_env	*cur;
 	t_env	*tmp;
 
-	cur = *head;
-	while (cur)
+	tmp = NULL;
+	while (*head)
 	{
-		tmp = cur->next;
-		ft_strdel(&cur->env_var_name);
-		ft_strdel(&cur->env_var_value);
-		free(cur);
-		cur = tmp;
+		tmp = (*head)->next;
+		ft_strdel(&(*head)->env_var_name);
+		ft_strdel(&(*head)->env_var_value);
+		free(*head);
+		*head = tmp;
 	}
+	*head = NULL;
 }

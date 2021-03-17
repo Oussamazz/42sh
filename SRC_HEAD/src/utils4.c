@@ -34,10 +34,10 @@ void			flag_g(char **av, t_env **env_list, time_t *now)
 	return ;
 }
 
-int				check_builtins_nfrk(char *cmd_name)
+int				check_builtins_nfrk(char *cmd_name) // here
 {
 	if (ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs")  || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
-		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "unsetenv"))
+		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "export") || ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "set"))
 		return (1);
 	return (0);
 }

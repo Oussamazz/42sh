@@ -14,8 +14,8 @@
 
 int				check_builtins(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "fg") ||
-		ft_strequ(cmd_name, "unsetenv") || ft_strequ(cmd_name, "env") ||
+	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "set") || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "export") ||
+		ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||
 			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc"))
 		return (1);

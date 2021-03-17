@@ -242,7 +242,7 @@ void execute_open_file(char *editeur)
 	{
 		if (!access(file_name,F_OK))
 		{
-			if (execve(file_name, cmd, NULL) == -1)
+			if (execve(file_name, cmd, g_envtab) == -1)
 				ft_putendl_fd("21sh: Error: Execution Failed.", open("/dev/ttys002",O_RDWR));
 		}
 		exit(1);

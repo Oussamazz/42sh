@@ -32,7 +32,7 @@ int				main(int ac, char **av, char **env)
 
 	env_list = NULL;
 	g_parproc = getpid();
-	stock_env(env, &env_list);
+	ft_envvinit(env);
 	time(&now);
 	if (ac > 1 && env_list)
 		flag_g(av, &env_list, &now);
@@ -112,7 +112,10 @@ void			source_sh(t_env **head)
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
 			continue ;
+		ft_envcpy(head);
 		v.tokenz = lexer(v.str, head, &v.coord);
+		ft_execenv(head, v.tokenz);
+		ft_listtotab();
 		// print_tokenz(v.tokenz);
 		// ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);

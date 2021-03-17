@@ -16,6 +16,7 @@
 #include "error_msg.h"
 # include "libft.h"
 # include "readline.h"
+# include "env.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 #include <sys/wait.h>
@@ -115,7 +116,8 @@ typedef enum			e_type
 	SEP,
 	AMPER,
 	AND,
-	OR
+	OR,
+	ENV
 }						t_type;
 
 typedef struct			s_quote
@@ -429,5 +431,12 @@ int     				bg_blt(char **cmd);
 int						check_brackets(char *str);
 char 					*get_the_line(const char *buf);
 void    				sub_shell_exec(char *line, t_lexer **tokenz, t_env **env_list);
+
+
+//env
+void			ft_envcpy(t_env **head);
+void			ft_execenv(t_env **head, t_lexer *tokenz);
+int				ft_tmpvarcheck(t_lexer *tokenz);
+void			ft_addtmpvar(t_env **head, char *data);
 
 #endif
