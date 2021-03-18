@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:49:48 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/18 19:08:47 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,12 +47,12 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 	while (buf[j] && !ft_is_there(METACHARACTER, buf[j]) &&
 		!ft_is_aggr(buf[j]) && buf[j] != '|' && buf[j] != '$' && buf[j] != '&')
 	{
-		if(buf[j] == '\\' && !buf[j + 1])
-		{
-			v = ft_readline(1);
-			buf = ft_strjoin(buf , v);         ////////biggy
-			free(v);
-		} 
+		// if(buf[j] == '\\' && !buf[j + 1])
+		// {
+		// 	v = ft_readline(1);
+		// 	buf = ft_strjoin(buf , v);         ////////biggy
+		// 	free(v);
+		// } 
 		if(buf[j] == '\\' && buf[j + 1])
 		{
 			tmp[i] = buf[j+1];
