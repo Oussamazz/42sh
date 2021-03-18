@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_grammar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:15:08 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:59:40 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ int				print_error_sym(t_type type)
 		ft_putendl_fd(";'", 2);
 	else if (type == AGGR_SYM)
 		ft_putendl_fd(">' or| `<'", 2);
+	else if (type == AND)
+		ft_putendl_fd("&&'", 2);
+	else if (type == OR)
+		ft_putendl_fd("||'", 2);
 	return (-1);
 }
 
@@ -65,6 +69,10 @@ int				check_grammar_tokenz(t_lexer *tokenz)
 				 ft_putendl_fd("parse error", 2);
 				 return (0);
 			 }
+			if((tokenz->type == AND ) && (tokenz->next == NULL || tokenz->next->type  != WORD )) //biggy
+				return (print_error_sym(AND));
+			if((tokenz->type == OR ) && (tokenz->next == NULL || tokenz->next->type  != WORD ))
+				return (print_error_sym(OR));
 			if (tokenz->type == AGGR_SYM && tokenz->coor.node_index == 1)
 				return (print_error_sym(AGGR_SYM));
 			if (tokenz->type == AGGR_SYM && !tokenz->next &&
