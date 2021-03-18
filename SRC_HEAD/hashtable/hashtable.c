@@ -51,10 +51,7 @@ char	*ft_hashtable(char **args, char **tabs, t_hash **h_table, char **print)
 		}
 		hashtable->list[slot] = ht_insert(args[0], tabs, print);
 		if (hashtable->list[slot])
-		{
-			aff_hashtable(&g_hashtable);
 			return (ft_strdup(hashtable->list[slot]->value));
-		}
 		return (NULL);
 	}
 	if ((ret = ft_hash_complete_s(hashtable, args, tabs, print)))

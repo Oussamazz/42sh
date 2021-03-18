@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 18:20:35 by mrxy              #+#    #+#             */
-/*   Updated: 2021/03/17 18:33:20 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:19:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,8 +99,10 @@ t_hash			*ht_create(void)
 	t_hash		*hashtable;
 	int			i;
 
-	hashtable = (t_hash*)ft_memalloc(sizeof(t_hash));
-	hashtable->list = (t_ht**)ft_memalloc(sizeof(t_ht*) * TABLE_SIZE);
+	if (!(hashtable = (t_hash*)ft_memalloc(sizeof(t_hash))))
+		return (NULL);
+	if (!(hashtable->list = (t_ht**)ft_memalloc(sizeof(t_ht*) * TABLE_SIZE)))
+		return (NULL);
 	i = -1;
 	while (++i < TABLE_SIZE)
 		hashtable->list[i] = NULL;

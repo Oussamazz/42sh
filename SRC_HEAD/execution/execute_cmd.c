@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 18:30:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:49:25 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 int				check_builtins(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "setenv") || ft_strequ(cmd_name, "fg") ||
+	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "setenv")
+	 || ft_strequ(cmd_name, "fg") ||
 		ft_strequ(cmd_name, "unsetenv") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||
 			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "hash"))
@@ -38,7 +39,6 @@ void			my_execve(const char *file_name, char **cmd, char **tabs)
 void			execute_direct(char **cmd, char **tabs)
 {
 	const char	*file_name;
-	pid_t		pid;
 
 	if (cmd[0][0] == '.' && cmd[0][1] == '/')
 		file_name = ft_strrchr(cmd[0], '/') + 1;
@@ -53,15 +53,15 @@ void			execute_direct(char **cmd, char **tabs)
 
 void			execute_undirect(char **cmd, char **tabs, t_env **env)
 {
-	char		*bin_file;
-	pid_t		pid;
-	char *print = NULL;
+	char		*bin_file = NULL;
+	char		*print = NULL;
 
-	if (!(bin_file = ft_hashtable(cmd, tabs, &g_hashtable, &print)))
-	{
-		ft_putendl_fd_error("42sh: command not found: ", cmd[0], "\n", NULL);
-		return ;
-	}
+	bin_file = g_binfile;
+	// if (!(bin_file = ft_hashtable(cmd, tabs, &g_hashtable, &print)))
+	// {
+	// 	ft_putendl_fd_error("42sh: command not found: ", cmd[0], "\n", NULL);
+	// 	return ;
+	// }
 	if (access(bin_file, F_OK) == 0)
 		my_execve(bin_file, cmd, tabs);
 	else

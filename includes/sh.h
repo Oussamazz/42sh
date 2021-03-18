@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 18:28:43 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 11:52:35 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct			s_mypipe
 	int					cmd_no;
 	int					status;
 }					t_mypipe;
+// Hash_table:
 
 typedef	struct				s_ht
 {
@@ -100,7 +101,8 @@ typedef	struct				s_hash
 {
 	t_ht					**list;
 }							t_hash;
-
+t_hash	*g_hashtable;
+char 	*g_binfile;
 
 typedef struct			s_pointt
 {
@@ -485,6 +487,5 @@ char					*ft_hash_complete_s(t_hash *hashtable,
 int						ft_hash_complete(char **print, char **args);
 char					*absolute_path(char *path, char *command);
 int						ft_argslen(char **arr);
-t_hash *g_hashtable;
 
 #endif
