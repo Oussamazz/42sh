@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 11:49:25 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:06:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int				check_builtins(char *cmd_name)
 	 || ft_strequ(cmd_name, "fg") ||
 		ft_strequ(cmd_name, "unsetenv") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||
-			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "hash"))
+			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "hash") || ft_strequ(cmd_name, "test"))
 		return (1);
 	return (0);
 }

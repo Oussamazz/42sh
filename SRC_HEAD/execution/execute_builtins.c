@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 18:28:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:11:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,8 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			blt_unsetenv(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "hash"))
 			ft_hash(tree->cmd, &g_hashtable);
+		else if (ft_strequ(tree->cmd[0], "test"))
+			 ft_putnbr_fd(ft_test(tree->cmd), 1);
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
 			print_in_history(PATH_HISTORY_FILE);

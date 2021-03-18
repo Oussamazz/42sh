@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 11:52:35 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 12:03:51 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -487,5 +487,36 @@ char					*ft_hash_complete_s(t_hash *hashtable,
 int						ft_hash_complete(char **print, char **args);
 char					*absolute_path(char *path, char *command);
 int						ft_argslen(char **arr);
+
+// Builtin_test
+
+int						ft_test(char **args);
+int						test_file(char **args);
+int						block_special(char *pathname);
+int						character_special(char *pathname);
+int						is_dir(char *pathname);
+int						file_exist(char *pathname);
+int						ft_setgid(char *pathname);
+int						is_symlink(char *pathname);
+int						is_fifo(char *pathname);
+int						is_file(char *pathname);
+int						readable_by_owner(char *pathname);
+int						is_socket(char *pathname);
+int						file_not_empty(char *pathname);
+int						ft_setuid(char *pathname);
+int						writeable_by_owner(char *pathname);
+int						executable_by_owner(char *pathname);
+int						test_string(char **args);
+int						ft_equal(char *str1, char *str2);
+int						ft_not_equal(char *str1, char *str2);
+int						ft_integer_equal(char *s1, char *s2);
+int						ft_integer_not_equal(char *s1, char *s2);
+int						ft_integer_ge(char *s1, char *s2);
+int						ft_integer_lt(char *s1, char *s2);
+int						ft_integer_le(char *s1, char *s2);
+int						ft_argslen(char **args);
+int						ft_is_numeric(char *str);
+void					error_test(char *str);
+int						test_file_complete(char **args);
 
 #endif
