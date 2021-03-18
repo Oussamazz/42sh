@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 19:11:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:31:04 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 static int		word_count(char *s)
 {
 	int			i;
+	int flag = 0;
 	int			res;
 
 	i = 0;
@@ -23,7 +24,15 @@ static int		word_count(char *s)
 	{
 		if (!is_blank(s[i]) && is_blank(s[i + 1]))
 			res++;
-		if (i && s[i] == '$')
+		if(s[i] == '\\' && flag)
+		{
+			flag = 0;
+		}
+		else if(s[i] == '\\' )
+		{
+			flag = 1;
+		}
+		if (i && (s[i] == '$' ||s[i] == '\\')  && !flag)
 			res++;
 		else if (is_blank(s[i]))
 		{
@@ -47,17 +56,26 @@ static int		get_type(char c)
 	return (2);
 }
 
+
 static int		word_len(char *s)
 {
 	int			len;
 	int			type;
+	int index = 0;
 
 	len = 0;
 	type = get_type(*s);
+	
 	while (*s != '\0')
 	{
-		if (len && *s == '$')
+		if(*s == '\\' && len && *(s - 1) != '\\' )
+			index = 0;
+		else if(*s == '\\')
+			index = 1;
+		if (len && (*s == '$' || *s == '\\' )&& !index)   ///////bigggy
 			break ;
+		if (len && ft_isalnum(*s) && index)   ///////bigggy
+			index = 0;
 		if (get_type(*s) == type)
 			len++;
 		else if (len && (!ft_isalnum(*s)))
@@ -69,11 +87,12 @@ static int		word_len(char *s)
 	return (len);
 }
 
-char			**strsplit(char const *s)
+char			**strsplit(char const *s, int flag)
 {
 	int			word_countx;
 	char		**str;
 	int			i;
+	
 
 	if (!s)
 		return (NULL);

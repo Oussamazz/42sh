@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 11:42:42 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:34:58 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,11 @@ char			*get_full_cmd(void)
 			// 	ft_putendl("skip");
 			// 	v.i++;
 			// }
+			if(v.tmp[v.i] == '\\' && (v.tmp[v.i + 1] && (v.tmp[v.i + 1] == '\'' || v.tmp[v.i + 1] == '\"')))      ////////biggy
+			{
+				v.i += 2;
+				continue;
+			}
 			if (is_quote(v.tmp[v.i]) && (v.c == v.tmp[v.i] || v.c == 0))
 				assign_v(&v);
 			v.i++;

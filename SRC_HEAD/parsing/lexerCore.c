@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerCore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:47:17 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,20 +76,64 @@ void	env_update(t_lexer **tokenz, t_env **env_list)
 	return ;
 }
 
-static char		*get_tild_dolar(char *buf, t_mystruct *v)
-{
-	int			position;
-	char		*dollars;
+// static char		*get_tild_dolar(char *buf, t_mystruct *v)
+// {
+// 	int			position;
+// 	char		*dollars;
 
+// 	env_update(&v->tokenz, v->env_list);
+// 	if (*buf == '$' && *(buf + 1) == '$')
+// 	{
+// 		append_list(&v->tokenz, (dollars = get_dollars(buf)), WORD, &v->coord);
+// 		ft_strdel(&dollars);
+// 		return (buf + 2);
+// 	}
+// 	if ((*buf == '$' || *buf == '~') && !(*buf == '$'
+// 		&& buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
+// 	{
+// 		if (*buf == '$' && (!*(buf + 1) || is_blank(*(buf + 1))))
+// 		{
+// 			append_list(&v->tokenz, "$", WORD, &v->coord);
+// 			return (buf + 1);
+// 		}
+// 		else if ((position = expansion_function(buf, &v->tokenz,
+// 			&v->coord, v->env_list)) > 0)
+// 			return (buf + position);
+// 		ft_free_tokenz(&v->tokenz);
+// 		return (NULL);
+// 	}
+// 	return (buf);
+// }
+
+static char *get_tild_dolar(char *buf, t_mystruct *v)
+{
+	int position;
+	char *dollars;
+	char *data = NULL;     //////biggy
+
+	
 	env_update(&v->tokenz, v->env_list);
+	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/' )
+	{
+		position = 1;
+		while (buf[position] && !is_blank(buf[position]) && buf[position] != '$' )
+			position++;
+		data = ft_strsub(buf, 0, position);
+		append_list(&v->tokenz, data, WORD, &v->coord);
+		free(data);
+		buf++; 
+		while(*buf && !is_blank(*buf) && *buf != '$') 
+		{
+			buf++;
+		}
+	}
 	if (*buf == '$' && *(buf + 1) == '$')
 	{
 		append_list(&v->tokenz, (dollars = get_dollars(buf)), WORD, &v->coord);
 		ft_strdel(&dollars);
 		return (buf + 2);
 	}
-	if ((*buf == '$' || *buf == '~') && !(*buf == '$'
-		&& buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
+	if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
 	{
 		if (*buf == '$' && (!*(buf + 1) || is_blank(*(buf + 1))))
 		{
@@ -97,7 +141,7 @@ static char		*get_tild_dolar(char *buf, t_mystruct *v)
 			return (buf + 1);
 		}
 		else if ((position = expansion_function(buf, &v->tokenz,
-			&v->coord, v->env_list)) > 0)
+												&v->coord, v->env_list)) > 0)
 			return (buf + position);
 		ft_free_tokenz(&v->tokenz);
 		return (NULL);
@@ -156,6 +200,10 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 
 static char		*ignore_blanks(char *str)
 {
+	if (*str == '\\')
+	{
+		str += 1;
+	}
 	while (is_blank(*str))
 		str++;
 	return (str);

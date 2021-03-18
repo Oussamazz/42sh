@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 12:03:51 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:35:51 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -332,7 +332,7 @@ char					*ft_strchr_blank(const char *str, int c);
 int						check_command_redir(t_lexer **head, char *buf,
 	t_pointt *cor);
 t_type					last_node_type(t_lexer *tokenz);
-char					**strsplit(char const *s);
+char					**strsplit(char const *s, int flag);
 int						ft_is_aggr(char c);
 t_quote					*quote_completion(t_quote **data, char quote);
 size_t					get_list_size(t_lexer *tokenz);

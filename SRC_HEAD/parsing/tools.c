@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/09 11:59:48 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:49:48 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,17 +37,36 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 {
 	char	tmp[MIN_INDEX];
 	int		j;
+	char 	*v;
+	char    *ptr;
+	int 	i;
 
 	j = 0;
+	i = 0;
+	v = NULL;
 	while (buf[j] && !ft_is_there(METACHARACTER, buf[j]) &&
 		!ft_is_aggr(buf[j]) && buf[j] != '|' && buf[j] != '$' && buf[j] != '&')
 	{
-		tmp[j] = buf[j];
+		if(buf[j] == '\\' && !buf[j + 1])
+		{
+			v = ft_readline(1);
+			buf = ft_strjoin(buf , v);         ////////biggy
+			free(v);
+		} 
+		if(buf[j] == '\\' && buf[j + 1])
+		{
+			tmp[i] = buf[j+1];
+			j += 2;                ////////biggy
+			i++;
+			continue;
+		}
+		tmp[i] = buf[j];
 		j++;
+		i++;
 	}
 	if (buf[j] == '$')
 		coord->no_space = 1;
-	tmp[j] = '\0';
+	tmp[i] = '\0';
 	append_list(token_node, tmp, WORD, coord);
 	ft_strclr(tmp);
 	return (j);
@@ -81,6 +100,16 @@ char			*get_splitter(char *buf, t_mystruct *v)
 			return (buf + position);
 		ft_free_tokenz(&v->tokenz);
 		return (NULL);
+	}
+	else if(*buf == '&' && *(buf + 1) == '&') ////////biggy
+	{
+		append_list(&v->tokenz, "&&", AND, &v->coord); 
+		buf = (buf + 2);
+	}
+	else if(*buf == '|' && *(buf + 1) == '|') ////////biggy
+	{
+		append_list(&v->tokenz, "||", OR, &v->coord);
+		buf =  (buf + 2);
 	}
 	else if (*buf == '&' && *(buf + 1) != '&' && (!ft_is_there(AGG_REDI, *(buf + 1)) || !*(buf + 1)))
 	{
