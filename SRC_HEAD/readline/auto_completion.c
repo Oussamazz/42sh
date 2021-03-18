@@ -12,6 +12,7 @@
 
 #include "../includes/sh.h"
 
+
 void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
 {
 	DIR *dir;
@@ -35,6 +36,7 @@ void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl
 		closedir(dir);
 	}
 }
+
 void ft_get_all_bin_dirs(t_line *line, char **str)
 {
 	int i = 0;
@@ -44,7 +46,7 @@ void ft_get_all_bin_dirs(t_line *line, char **str)
 	t_affcmpl *affcmpltmp = affcmpl;
 	int flag = 0;
 	line->compl.count = 0;
-	// if (!(v.env_path_value = get_value_expansion("PATH", env)))
+	// if (!(dirs = get_value_expansion("PATH", env)))
 	// 	return (NULL);
 	if (!(dirs = ft_strsplit("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", ':')))
 		return;
@@ -176,6 +178,8 @@ void affiche_files(t_affichfile *afffile,t_affcmpl *head)
 	while (head->next)
 	{
 		tputs(tgoto(tgetstr("cm", 0), afffile->pos_col, afffile->pos_row), 0, ft_output);
+		// if (ila kan parameter)
+		// ft_putchar('$');
 		ft_putstr(head->content);
 		head = head->next;
 		afffile->i++;
@@ -206,7 +210,7 @@ void completion_files(t_affcmpl *head, t_line *line)
 	if (afffile.col_count == 0)
 		afffile.col_count++;
 	ft_putchar('\n');
-	affiche_files(&afffile,head);
+	affiche_files(&afffile, head);
 	ft_putchar('\n');
 	line->c_o.y = afffile.pos_row + 1;
 	ft_reaffiche_prompte(line);
@@ -228,11 +232,14 @@ void completion_str(t_affcmpl *head, t_line *line, char **str)
 	ft_clear(line, *str);
 }
 
-void stock_path_file(char *str, int flag, t_line *line, t_affcmpl **affcmpl)
+void stock_path_file(char *str,t_line *line, t_affcmpl **affcmpl)
 {
 	DIR *dir;
 	struct dirent *dent;
+	int flag;
 
+	line->compl.len = ft_strlen(line->compl.search);
+	flag = (!line->compl.len) ? 0 : 1;
 	line->compl.count = 0;
 	if ((dir = opendir(str)))
 	{
@@ -275,29 +282,60 @@ void make_path_file(t_line *line, int command)
 	}
 }
 
+void stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
+{
+	t_envv *list = g_set;
+	int flag;
+
+	line->compl.count = 0;
+	line->compl.len = ft_strlen(line->compl.search);
+	flag = (!line->compl.len) ? 0 : 1;
+	while (list)
+	{
+		if ((flag && !ft_strncmp(line->compl.search, list->name, line->compl.len)) || !flag)
+		{
+			(*affcmpl)->content = ft_strdup(list->name);
+			(*affcmpl)->next = ft_memalloc(sizeof(t_affcmpl));
+			(*affcmpl) = (*affcmpl)->next;
+			line->compl.count++;
+		}
+		list = list->next;
+	}
+}
+
+
+void	make_path_parameters(t_line *line)
+{
+	if (ft_strchr(line->compl.str, '$'))
+	{
+		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
+		line->compl.path = ft_strsub(line->compl.str, 0, ft_strlen(line->compl.str) - ft_strlen(line->compl.search));
+	}
+}
+
 void make_path_completion(t_line *line, char **str)
 {
+	t_affcmpl *affcmpl = ft_memalloc(sizeof(t_affcmpl));
+	t_affcmpl *affcmpltmp = affcmpl;
+	int flag;
+
 	if (!line->compl.type)
 	{
 		make_path_file(line, 1);
 		ft_get_all_bin_dirs(line, str);
 	}
-	// else if (line->compl.type == 1)
-	// {
-	// 	if (line->compl.len == 1)
-	// 		ft_putendl_fd(line->compl.str,open("/dev/ttys001",O_RDWR));//NULL parameter
-	// 	else
-	// 		ft_putendl_fd(line->compl.str,open("/dev/ttys001",O_RDWR));
-	// }
-	if (line->compl.type == 2)
+	else if (line->compl.type >= 1)
 	{
-		t_affcmpl *affcmpl = ft_memalloc(sizeof(t_affcmpl));
-		t_affcmpl *affcmpltmp = affcmpl;
-		int flag;
-		make_path_file(line, 0);
-		line->compl.len = ft_strlen(line->compl.search);
-		flag = (!line->compl.len) ? 0 : 1;
-		stock_path_file(line->compl.path, flag, line, &affcmpltmp);
+		if (line->compl.type == 1)
+		{
+			make_path_parameters(line);
+			stock_path_paramters(line, &affcmpltmp);
+		}
+		else if (line->compl.type == 2)
+		{
+			make_path_file(line, 0);
+			stock_path_file(line->compl.path, line, &affcmpltmp);
+		}
 		if (line->compl.count > 1)
 			completion_files(affcmpl, line);
 		else if (line->compl.count == 1)

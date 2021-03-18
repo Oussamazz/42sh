@@ -66,7 +66,7 @@ void ft_set_terminal(void)
 	config.c_lflag &= ~(ECHO | ICANON);
 	if (tcsetattr(0, 0, &config) < 0)
 		ft_putendl_fd("error", 2);
-	if (!tgetent(buf, "xterm-256color"))
+	if (!tgetent(buf, getenv("TERM")))
 		exit(1);
 }
 

@@ -1,6 +1,23 @@
+fc -e vim 5 9
+fc -e vim 5 9
 exit
-set
+fc -e vim  5 9
+exit
+fc -l 55 pwd
+fc -l pwd 55
+fc -l pwd 5
+exit
+emac
+pwd
+ls -al 
+ls -al
 env
-set
-a=b
 exit
+exit
+exit
+eexit
+make
+fc -e nano 5 9
+exit
+make
+fc -e emacs 5 9
