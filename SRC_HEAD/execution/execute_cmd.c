@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 12:06:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:03:48 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,8 +67,6 @@ void			execute_undirect(char **cmd, char **tabs, t_env **env)
 	else
 		ft_putendl_fd_error("42sh: no such file or directory: ",
 			cmd[0], "\n", NULL);
-	if (bin_file)
-		ft_strdel(&bin_file);
 	if (print)
 		ft_strdel(&print);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fg_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:35:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 19:38:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:07:53 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ int     fg_blt(char **cmd)
     {
         if (((ptr->c == '+' && !job_id) || (ptr->job_id == job_id && job_id))) // && ((ptr->mode & IS_BACKGROUD) || (ptr->mode & IS_RUNNING))
         {
-            ft_putendl_fd("fg idkhlt", 2);
             if (tcsetpgrp(fd, ptr->grp_pid) == -1)
             {
                 close(fd);

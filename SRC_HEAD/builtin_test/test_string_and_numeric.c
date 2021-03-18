@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   test_string_and_numeric.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 13:46:34 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 12:16:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:20:46 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,10 @@ int		test_string(char **args)
 			return (ft_integer_le(args[1], args[3]));
 	}
 	else if (args_len < 4)
+	{
+		ft_putendl_fd("error",2);
 		error_test(args[1]);
+	}
 	else
 		ft_putendl_fd("42sh: test: too many arguments", 2);
 	return (2);

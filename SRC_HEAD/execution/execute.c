@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 11:56:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 17:59:29 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ int				execute(t_miniast *tree, t_env **env_list)
 		return (0);
 	while (tree != NULL && tree->cmd[0])
 	{
-		if (!check_builtins(tree->cmd[0]))
-			g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
+		// if (!check_builtins(tree->cmd[0]))
+		// 	g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
 		if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
 			execute_blt_with_fork(tree, tabs, env_list);
 		else

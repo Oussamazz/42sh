@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 11:42:37 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/18 18:12:59 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,6 +116,7 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 	char 				**cmd;
 	t_mypipe			pipes;
 	int					is_bg;
+	char				*print = NULL;
 
 
 	is_bg = 0;
@@ -126,6 +127,8 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		return (-1);
 	while (tree != NULL && tree->cmd[0])
 	{
+		if (!check_builtins(tree->cmd[0]))
+			g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
 		execute_pipes1(tree, &pipes, tabs, env_list);
 		if (tree->sep)
 			break ;
@@ -143,7 +146,11 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))
-			dprintf(2, "Terminated (exited): %d\n", WEXITSTATUS(pipes.status));
+		{
+			g_the_status = WEXITSTATUS(pipes.status);
+			dprintf(2, "Terminated (exited): %d\n", g_the_status);
+		}
+		
 	}
 	if (is_bg > 0)
 	{
