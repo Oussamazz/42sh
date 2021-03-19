@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 18:11:53 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 23:45:09 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -446,7 +446,7 @@ void					pid_infos(t_job_ctrl *ptr);
 void					details_infos(t_job_ctrl *ptr);
 int    					fg_blt(char **cmd);
 int     				bg_blt(char **cmd);
-int						check_brackets(char *str);
+int						brackets(char *str);
 char 					*get_the_line(const char *buf);
 void    				sub_shell_exec(char *line, t_lexer **tokenz, t_env **env_list);
 

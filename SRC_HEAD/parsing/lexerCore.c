@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerCore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 19:04:33 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 23:58:43 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,9 +123,17 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		free(data);
 		buf++; 
 		while(*buf && !is_blank(*buf) && *buf != '$') 
-		{
 			buf++;
-		}
+	}
+	if (*buf == '$' && *(buf+1) == '{' && brackets(buf))
+	{
+		data = get_the_line(buf + 1);
+		dollars = get_value_expansion(data, v->env_list);
+		if (dollars)
+			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
+		buf = buf + ft_strlen(data) + 3;
+		ft_strdel(&data);
+		ft_strdel(&dollars);
 	}
 	if (*buf == '$' && *(buf + 1) == '$')
 	{
@@ -162,11 +170,6 @@ static char		*get_pipe_agr(char *buf, t_mystruct *v)
 	}
 	else if (*buf && ft_is_there(AGG_REDI, *buf))
 	{
-		// if (!v->tokenz)
-		// {
-		// 	print_error_sym(AGGR_SYM);
-		// 	return (NULL);
-		// }
 		if ((position = aggr_function(buf, &v->coord, &v->tokenz)) == -1)
 			return (NULL);
 		return (buf + position + 1);

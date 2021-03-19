@@ -10,7 +10,7 @@ FLAGS =# -Wall -Wextra -Werror
 
 SRC_CMDSUB = sub_shell.o
 
-SRC_TOOLS = get_pipes_members.o argslen.o
+SRC_TOOLS = get_pipes_members.o argslen.o brackets.o
 
 SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o
 

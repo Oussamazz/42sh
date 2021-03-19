@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_the_line.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 15:51:29 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 17:47:48 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 23:47:57 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,20 @@ static size_t len_new_buff(const char *buf)
 
     len = 0;
     i = 0;
-    if (buf && buf[i] == '(')
+    if (buf && buf[i] == '{')
     {
         i++;
         loop = 1;
-        while (buf[i] && loop)
+        while (buf[i] && loop) // {abc}
         {
-            if (buf[i] == '(')
+            if (buf[i] == '{')
                 loop++;
-            else if (buf[i] == ')')
+            else if (buf[i] == '}')
                 loop--;
             i++;
             len++;
         }
-        return (len - 1);
+        return (len);
     }
     return (-1);
 }
@@ -51,10 +51,10 @@ char *get_the_line(const char *buf)
     size = len_new_buff(buf);
     if (!(str = ft_strnew(size)))
         return (NULL);
-    if (buf[i] == '(')
+    if (buf[i] == '{')
         i++;
     j = 0;
-    while (buf[i] && size--)
+    while (buf[i] && --size)
         str[j++] = buf[i++];
     return (str);
 }
