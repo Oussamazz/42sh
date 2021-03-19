@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 15:46:11 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 17:15:45 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ char			*get_full_cmd(void)
 			v.i++;
 		}
 		v.cmd = ft_freejoin(v.cmd, v.tmp, 2);
-		printf("*****\n%s\n*****\n", v.cmd);
 		if (!v.quote_opened)
 			break ;
 		if (g_clt_d || g_clt_c)

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 15:39:22 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 17:28:50 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,14 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 	while (j < size &&  buf[j] && !ft_is_there(METACHARACTER, buf[j]) &&
 		!ft_is_aggr(buf[j]) && buf[j] != '|' && buf[j] != '$' && buf[j] != '&')
 	{
-		// if(buf[j] == '\\' && !buf[j + 1])
-		// {
-		// 	v = ft_readline(1);
-		// 	buf = ft_strjoin(buf , v);         ////////biggy
-		// 	free(v);
-		// } 
+		if(buf[j] == '\\' && !buf[j + 1])
+		{
+			v = ft_readline(1);
+			buf = ft_strjoin(buf , v);      ////////biggy
+			size += ft_strlen(v);
+			free(v);
+			j++;
+		} 
 		if(buf[j] == '\\' && buf[j + 1])
 		{
 			tmp[i] = buf[j+1];
@@ -69,7 +71,6 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 	if (buf[j] == '$')
 		coord->no_space = 1;
 	tmp[i] = '\0';
-	printf("*****\ntmp === > : %s\n*****\n", tmp);
 	append_list(token_node, tmp, WORD, coord);
 	ft_strclr(tmp);
 	return (j);
