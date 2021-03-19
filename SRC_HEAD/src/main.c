@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 18:41:41 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 19:00:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ int				main(int ac, char **av, char **env)
 static void		assign_v(t_getfullcmd *v)
 {
 	v->quote_opened ^= 1;
+	v->flag = v->quote_opened;
 	v->c = v->tmp[v->i] * v->quote_opened;
 }
 
@@ -58,7 +59,6 @@ char			*get_full_cmd(void)
 	char *tmp = 0;
 	ft_bzero(&v, sizeof(t_getfullcmd));
 	v.cmd = ft_strdup("");
-
 	while (v.cmd && (v.tmp = ft_readline(v.flag)))
 	{
 		v.i = 0;
@@ -123,7 +123,7 @@ void			source_sh(t_env **head)
 	t_mystruct	v;
 
 	g_his = NULL;
-	signal(SIGINT, ft_ctrlc);
+	// signal(SIGINT, ft_ctrlc);
 	signal(SIGCHLD, checkchild2);
 	signal(SIGTSTP, SIG_IGN);
 	ft_bzero(&v, sizeof(t_mystruct));

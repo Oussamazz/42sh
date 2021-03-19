@@ -1,0 +1,16 @@
+total 9216
+drwxr-xr-x   15 oelazzou  candidate      510 Mar 19 19:05 .
+drwxr--r--   19 oelazzou  candidate      646 Mar 19 18:45 ..
+-rw-r--r--    1 oelazzou  candidate     5272 Mar 19 19:04 .42sh_history
+-rw-------    1 oelazzou  candidate        0 Mar 19 18:51 .fc-42sh
+drwxr-xr-x   14 oelazzou  candidate      476 Mar 19 19:04 .git
+-rwxr-xr-x    1 oelazzou  candidate   120428 Mar 19 19:04 42sh
+-rw-r--r--    1 oelazzou  candidate  3389258 Mar 19 18:45 Intra Projects 42sh Edit.pdf
+-rw-r--r--    1 oelazzou  candidate     3072 Mar 19 18:45 Makefile
+drwxr-xr-x   14 oelazzou  candidate      476 Mar 19 18:45 SRC_HEAD
+-rw-r--r--    1 oelazzou  candidate   811976 Mar 19 18:45 bash.pdf
+drwxr-xr-x    5 oelazzou  candidate      170 Mar 19 18:45 includes
+-rw-r--r--    1 oelazzou  candidate   374233 Mar 19 18:45 lab4.pdf
+drwxr-xr-x  172 oelazzou  candidate     5848 Mar 19 18:52 libft
+drwxr-xr-x   14 oelazzou  candidate      476 Mar 19 18:45 objs
+-rw-r--r--    1 oelazzou  candidate        0 Mar 19 19:07 test

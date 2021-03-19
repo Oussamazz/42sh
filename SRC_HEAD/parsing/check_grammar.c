@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_grammar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:15:08 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:59:40 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 19:04:12 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ int				check_grammar_tokenz(t_lexer *tokenz)
 				return (print_error_sym(AND));
 			if((tokenz->type == OR ) && (tokenz->next == NULL || tokenz->next->type  != WORD ))
 				return (print_error_sym(OR));
-			if (tokenz->type == AGGR_SYM && tokenz->coor.node_index == 1)
-				return (print_error_sym(AGGR_SYM));
+			// if (tokenz->type == AGGR_SYM && tokenz->coor.node_index == 1)
+			// 	return (print_error_sym(AGGR_SYM));
 			if (tokenz->type == AGGR_SYM && !tokenz->next &&
 				!(ft_strlen(tokenz->data) > 2))
 				return (print_error_sym(AGGR_SYM));

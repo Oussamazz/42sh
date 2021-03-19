@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerCore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 17:57:51 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 19:04:33 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,11 +162,11 @@ static char		*get_pipe_agr(char *buf, t_mystruct *v)
 	}
 	else if (*buf && ft_is_there(AGG_REDI, *buf))
 	{
-		if (!v->tokenz)
-		{
-			print_error_sym(AGGR_SYM);
-			return (NULL);
-		}
+		// if (!v->tokenz)
+		// {
+		// 	print_error_sym(AGGR_SYM);
+		// 	return (NULL);
+		// }
 		if ((position = aggr_function(buf, &v->coord, &v->tokenz)) == -1)
 			return (NULL);
 		return (buf + position + 1);
