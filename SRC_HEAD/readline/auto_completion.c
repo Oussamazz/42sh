@@ -172,15 +172,22 @@ void ft_putnchar(char c, int n)
 		n--;
 	}
 }
+void ft_affiche_brackets(char *content,t_line *line)
+{
+	if (line->compl.bracket)
+		ft_putchar('{');
+	ft_putchar('$');
+	ft_putstr(content);
+	if (line->compl.bracket)
+		ft_putchar('}');
+}
 
-void affiche_files(t_affichfile *afffile,t_affcmpl *head)
+void affiche_files(t_affichfile *afffile,t_affcmpl *head,t_line *line)
 {
 	while (head->next)
 	{
 		tputs(tgoto(tgetstr("cm", 0), afffile->pos_col, afffile->pos_row), 0, ft_output);
-		// if (ila kan parameter)
-		// ft_putchar('$');
-		ft_putstr(head->content);
+		ft_affiche_brackets(head->content,line);
 		head = head->next;
 		afffile->i++;
 		if (afffile->i % afffile->col_count == 0)
@@ -210,7 +217,7 @@ void completion_files(t_affcmpl *head, t_line *line)
 	if (afffile.col_count == 0)
 		afffile.col_count++;
 	ft_putchar('\n');
-	affiche_files(&afffile, head);
+	affiche_files(&afffile, head, line);
 	ft_putchar('\n');
 	line->c_o.y = afffile.pos_row + 1;
 	ft_reaffiche_prompte(line);
@@ -306,18 +313,19 @@ void stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 
 void	make_path_parameters(t_line *line)
 {
-	if (ft_strchr(line->compl.str, '$'))
+	if (ft_strchr(line->compl.str, '{'))
 	{
-		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
-		line->compl.path = ft_strsub(line->compl.str, 0, ft_strlen(line->compl.str) - ft_strlen(line->compl.search));
+		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '{') + 1);
+		line->compl.bracket = 1;
 	}
+	else if (ft_strchr(line->compl.str, '$'))
+		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
 }
 
 void make_path_completion(t_line *line, char **str)
 {
 	t_affcmpl *affcmpl = ft_memalloc(sizeof(t_affcmpl));
 	t_affcmpl *affcmpltmp = affcmpl;
-	int flag;
 
 	if (!line->compl.type)
 	{

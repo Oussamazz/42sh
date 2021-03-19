@@ -98,6 +98,7 @@ typedef struct		s_cmplt
 {
 	int				prefix_pos;
 	int				len;
+	int				bracket;
 	int				type;
 	char			*path;
 	char			*str;
@@ -105,14 +106,14 @@ typedef struct		s_cmplt
 	int				count;
 }					t_cmplt;
 
-typedef struct s_affichfile
+typedef struct		s_affichfile
 {
-	int pos_row;
-	int blen;
-	int col_count;
-	int pos_col;
-	int i;
-}				t_affichfile;
+	int				pos_row;
+	int				blen;
+	int				col_count;
+	int				pos_col;
+	int				i;
+}					t_affichfile;
 
 
 typedef struct		s_mode_r
