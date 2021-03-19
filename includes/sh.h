@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:35:51 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 18:11:53 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,6 +219,7 @@ typedef	struct			s_getfullcmd
 	int					i;
 	char				c;
 	int					flag;
+	int					read;
 }						t_getfullcmd;
 
 typedef struct			s_here_doc

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   signal_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 14:41:42 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 18:25:53 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	ft_ctl_d(int flag)
 {
-	if (!flag)
+	if (flag == 0)
 	{
 		ft_free_history();
 		exit(0);

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 17:38:24 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 18:03:53 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,14 +124,14 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		while (buf[v.i] && buf[v.i] != '$' && buf[v.i] != '\\')
+		while (buf[v.i] && !is_blank(buf[v.i]) && buf[v.i] != '$' && buf[v.i] != '\\')
 			v.i++;
-		ft_putnbr(v.i + 1);
-		ft_putchar('\n');
+		// ft_putnbr(v.i + 1);
+		// ft_putchar('\n');
 		return (v.i + 1);
 	}
-	ft_putnbr(v.i + 1);
-	ft_putchar('\n');
+	// ft_putnbr(v.i + 1);
+	// ft_putchar('\n');
 
 	return (v.i + 1);
 }

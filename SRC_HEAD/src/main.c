@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 17:15:45 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 18:41:41 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char			*get_full_cmd(void)
 {
 	t_getfullcmd v;
 	int len = 0;
-
+	char *tmp = 0;
 	ft_bzero(&v, sizeof(t_getfullcmd));
 	v.cmd = ft_strdup("");
 
@@ -75,6 +75,19 @@ char			*get_full_cmd(void)
 				v.i += 2;
 				if(v.i >= len)
 					break;
+				continue;
+			}
+			if ((v.tmp[v.i] == '\\' && !v.tmp[v.i + 1]))
+			{
+				tmp = ft_readline(1);
+				v.tmp = ft_strjoin(v.tmp , tmp);      ////////biggy
+				len += ft_strlen(tmp);
+				if(!ft_strlen(tmp))
+				{
+					free(tmp);
+					break;
+				}
+				free(tmp);
 				continue;
 			}
 			if (is_quote(v.tmp[v.i]) && (v.c == v.tmp[v.i] || v.c == 0))
