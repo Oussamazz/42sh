@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 18:47:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 19:17:05 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,8 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 	if (buf[j] == '$')
 		coord->no_space = 1;
 	tmp[i] = '\0';
-
 	append_list(token_node, tmp, WORD, coord);
 	ft_strclr(tmp);
-	ft_putnbr(j);
 	return (j);
 }
 
