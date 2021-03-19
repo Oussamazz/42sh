@@ -229,6 +229,7 @@ int				ft_calc(char **hold)
 		i--;
 	return (i);
 }
+
 void execute_open_file(char *editeur)
 {
 	char *file_name = ft_strjoin("/usr/bin/",editeur);
@@ -253,7 +254,6 @@ void execute_open_file(char *editeur)
 
 void ft_fc_l3adiya(t_opt *opt, char **hold)
 {
-	t_node *tail;
 	t_node *history;
 	int fd;
 	char **result;
@@ -263,8 +263,8 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 	history = add_to_history(NULL);
 	if (!opt->count)
 	{
-		tail = ft_get_tail(history);
-		ft_putendl_fd(tail->content,fd);
+		if (history->next)
+			ft_putendl_fd(history->next->content,fd);
 		close(fd);
 	}
 	if (ft_get_debut_fin(opt, hold))
@@ -297,9 +297,8 @@ void ft_handel_fc(t_opt *opt, char **hold)
 	{
 		if (!opt->count)
 		{
-			t_node *tail;
-			tail = ft_get_tail(history);
-			ft_putendl(tail->content);
+			if (history->next)
+				ft_putendl(history->next->content);
 		}
 		else if (opt->count >= 1)
 		{

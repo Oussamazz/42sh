@@ -12,7 +12,6 @@
 
 #include "../includes/sh.h"
 
-
 void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
 {
 	DIR *dir;
@@ -50,9 +49,9 @@ void ft_get_all_bin_dirs(t_line *line, char **str)
 	// 	return (NULL);
 	if (!(dirs = ft_strsplit("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/munki", ':')))
 		return;
-	ft_putendl_fd("line->compl.search",open("/dev/ttys005",O_RDWR));
+	ft_putendl_fd("line->compl.search", open("/dev/ttys005", O_RDWR));
 	line->compl.len = ft_strlen(line->compl.search);
-	ft_putendl_fd("line->compl.search",open("/dev/ttys005",O_RDWR));
+	ft_putendl_fd("line->compl.search", open("/dev/ttys005", O_RDWR));
 	flag = (!line->compl.len) ? 0 : 1;
 	if (line->compl.path && *line->compl.path)
 		ft_get_all_bin_files(line->compl.path, line, flag, &affcmpltmp);
@@ -173,7 +172,7 @@ void ft_putnchar(char c, int n)
 		n--;
 	}
 }
-void ft_affiche_brackets(char *content,t_line *line)
+void ft_affiche_brackets(char *content, t_line *line)
 {
 	if (line->compl.type == 1)
 		ft_putchar('$');
@@ -184,12 +183,12 @@ void ft_affiche_brackets(char *content,t_line *line)
 		ft_putchar('}');
 }
 
-void affiche_files(t_affichfile *afffile,t_affcmpl *head,t_line *line)
+void affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
 {
 	while (head->next)
 	{
 		tputs(tgoto(tgetstr("cm", 0), afffile->pos_col, afffile->pos_row), 0, ft_output);
-		ft_affiche_brackets(head->content,line);
+		ft_affiche_brackets(head->content, line);
 		head = head->next;
 		afffile->i++;
 		if (afffile->i % afffile->col_count == 0)
@@ -242,7 +241,7 @@ void completion_str(t_affcmpl *head, t_line *line, char **str)
 	ft_clear(line, *str);
 }
 
-void stock_path_file(char *str,t_line *line, t_affcmpl **affcmpl)
+void stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
 {
 	DIR *dir;
 	struct dirent *dent;
@@ -313,10 +312,9 @@ void stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 	}
 }
 
-
-void	make_path_parameters(t_line *line)
+void make_path_parameters(t_line *line)
 {
-	if (ft_strchr(line->compl.str, '{'))
+	if (line->compl.str[0] == '$' && line->compl.str[1] == '{' && line->compl.str[2] != '{')
 	{
 		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '{') + 1);
 		line->compl.bracket = 1;

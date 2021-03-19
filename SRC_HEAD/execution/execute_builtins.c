@@ -70,7 +70,6 @@ void			blt_setenv(char **cmd, t_env **env_list)
 		addtolist(env_list, ft_strdup(cmd[1]), ft_strdup(cmd[2]));
 	else
 		modify_env(env_list, cmd[1], cmd[2]);
-	//dprintf(2, "added\n");
 	return ;
 }
 
