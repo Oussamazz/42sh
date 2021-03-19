@@ -146,6 +146,7 @@ void ft_parce_completion(t_line *line, char **str)
 		else
 			line->compl.type = 2;
 	}
+	line->compl.bracket = 0;
 }
 
 int get_blen(t_affcmpl *head)
@@ -174,9 +175,10 @@ void ft_putnchar(char c, int n)
 }
 void ft_affiche_brackets(char *content,t_line *line)
 {
+	if (line->compl.type == 1)
+		ft_putchar('$');
 	if (line->compl.bracket)
 		ft_putchar('{');
-	ft_putchar('$');
 	ft_putstr(content);
 	if (line->compl.bracket)
 		ft_putchar('}');
@@ -213,6 +215,7 @@ void completion_files(t_affcmpl *head, t_line *line)
 	ioctl(0, TIOCGWINSZ, &w);
 	afffile.pos_row = line->c_o.y + count_row(line);
 	afffile.blen = get_blen(head);
+	afffile.blen += (line->compl.type == 1) ? 3 : 0;
 	afffile.col_count = w.ws_col / (afffile.blen + 1);
 	if (afffile.col_count == 0)
 		afffile.col_count++;
