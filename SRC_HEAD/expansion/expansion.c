@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/01/09 01:41:55 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/19 16:21:32 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ int				get_size_expansion(char *exp)
 	}
 	if (is_blank(exp[i]) || (!exp[i] && !ft_isalnum(exp[i - 1])))
 		len++;
+	ft_putnbr(len);
+	ft_putchar('\n');
 	return (len);
 }
 
@@ -122,7 +124,9 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		return (v.data_size);
+		while (buf[v.i] && !ft_isalnum(buf[v.i]) && buf[v.i] != '$' && buf[v.i] != '\\')
+			v.i++;
+		return (v.i + 1);
 	}
-	return (v.data_size + 1);
+	return (v.i + 1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:26:02 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,17 @@ int			expansion_function(char *buf, t_lexer **token_node,
 
 	i = 0;
 	tmp = NULL;
-	if (buf[i] == '$' && (buf[i + 1] == '('))
+	if (buf[i] == '$' && (buf[i + 1] == '(') )
 	{
-		if (check_brackets(buf))
-		{
-			ft_putendl_fd("dkhlt", 2);
-			sub_shell_exec((tmp = get_the_line(buf + 1)), token_node, env_list);
-			if (tmp)
-				ft_strdel(&tmp);
-		}
-		else
-			ft_putendl_fd("42sh: Unexpected token `( or )'", 2);
+		// if (check_brackets(buf))
+		// {
+		// 	ft_putendl_fd("dkhlt", 2);
+		// 	sub_shell_exec((tmp = get_the_line(buf + 1)), token_node, env_list);
+		// 	if (tmp)
+		// 		ft_strdel(&tmp);
+		// }
+		// else
+		// 	ft_putendl_fd("42sh: Unexpected token `( or )'", 2);
 		return (-1);
 	}
 	return (expansion_parse(token_node, buf + i, env_list, coord));

@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:47:17 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 15:53:27 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,8 +180,9 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 	char		*quote;
 
 	quote = NULL;
-	if (is_quote(*buf) ||
-		(*buf && (quote = ft_strchr_no_blanks(buf + 1, '\'', '\"'))))
+	
+	if (*buf != '\\' && (is_quote(*buf) ||
+		(*buf && (quote = ft_strchr_no_blanks(buf + 1, '\'', '\"')))))
 	{
 		position = quote_function(buf, &v->tokenz, &v->coord, quote);
 		if (position < 0)
@@ -212,14 +213,17 @@ static char		*ignore_blanks(char *str)
 t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 {
 	t_mystruct	v;
-
+	int size = 0;
 	ft_bzero(&v, sizeof(t_mystruct));
 	v.env_list = env_list;
 	v.coord = *coord;
 	v.size = ft_strlen(buf);
-	while (*buf)
+	size = ft_strlen(buf);
+	while (*buf && size <= v.size)
 	{
 		buf = ignore_blanks(buf);
+		if (!buf || !*buf)
+			break ;
 		if ((*buf == ';' && buf[1] == ';') || (*buf == ';' && !v.tokenz))
 			return ((t_lexer *)err_ret("42sh: parse error near `;'\n", NULL));
 		if ((buf = get_splitter(buf, &v)) == NULL)
@@ -230,6 +234,7 @@ t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 			return (NULL);
 		if ((buf = get_qoute_word(buf, &v)) == NULL)
 			return (NULL);
+		size--;
 	}
 	return (v.tokenz);
 }

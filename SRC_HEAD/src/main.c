@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 19:14:54 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/19 15:46:11 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,16 @@ static void		assign_v(t_getfullcmd *v)
 char			*get_full_cmd(void)
 {
 	t_getfullcmd v;
-	int incr = 0;
+	int len = 0;
 
 	ft_bzero(&v, sizeof(t_getfullcmd));
 	v.cmd = ft_strdup("");
+
 	while (v.cmd && (v.tmp = ft_readline(v.flag)))
 	{
 		v.i = 0;
-		while (v.tmp[v.i])
+		len = ft_strlen(v.tmp);
+		while (v.i < len && v.tmp[v.i])
 		{
 			// if (is_quote(v.tmp[v.i]) && v.quote_opened == 0 && v.tmp[v.i + 1] == v.tmp[v.i])
 			// {
@@ -71,6 +73,8 @@ char			*get_full_cmd(void)
 			if(v.tmp[v.i] == '\\' && (v.tmp[v.i + 1] && (v.tmp[v.i + 1] == '\'' || v.tmp[v.i + 1] == '\"' || v.tmp[v.i + 1] == '\\')))      ////////biggy
 			{
 				v.i += 2;
+				if(v.i >= len)
+					break;
 				continue;
 			}
 			if (is_quote(v.tmp[v.i]) && (v.c == v.tmp[v.i] || v.c == 0))
@@ -78,6 +82,7 @@ char			*get_full_cmd(void)
 			v.i++;
 		}
 		v.cmd = ft_freejoin(v.cmd, v.tmp, 2);
+		printf("*****\n%s\n*****\n", v.cmd);
 		if (!v.quote_opened)
 			break ;
 		if (g_clt_d || g_clt_c)

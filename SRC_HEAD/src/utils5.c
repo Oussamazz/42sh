@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:44:10 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 15:43:37 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/19 15:21:30 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,30 +63,4 @@ void			print_env_list(t_env **head)
 		ft_putendl_fd(tmp->env_var_value, 1);
 		tmp = tmp->next;
 	}
-}
-
-static int	match_brackets(char a, char b)
-{
-	return ((a == '[' && b == ']') || (a == '{' && b == '}') \
-				|| (a == '(' && b == ')'));
-}
-
-int	check_brackets(char *str)
-{
-	int		i;
-	int		top;
-	int		stack[BUFF_SIZE];
-
-	i = 0;
-	top = 0;
-	while (str[i])
-	{
-		if (str[i] == '(' || str[i] == '{' || str[i] == '[')
-			stack[++top] = str[i];
-		if (str[i] == ')' || str[i] == '}' || str[i] == ']')
-			if (!match_brackets(stack[top--], str[i]))
-				return (0);
-		i += 1;
-	}
-	return (!top);
 }
