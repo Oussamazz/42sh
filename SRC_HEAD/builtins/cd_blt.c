@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:59:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 16:43:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:05:19 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,11 @@ static void		cd_back(t_env **env_list)
 int				check_args(char **cmd, t_env **env_list)
 {
 	if (check_args_no(cmd) > 2)
-		ft_putendl_fd_int("42sh: cd: Too many arguments.", 2, 1);
+	{
+		g_the_status = 1;
+		ft_putendl_fd("42sh: cd: Too many arguments.", 2);
+		return (1);
+	}
 	if (check_args_no(cmd) == 1)
 	{
 		cd_home(env_list);

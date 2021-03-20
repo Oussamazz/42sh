@@ -6,7 +6,7 @@
 /*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:12:59 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 00:01:41 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,8 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		}
 		else if (WIFSIGNALED(pipes.status))
 		{
-			// dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
+			g_the_status = WTERMSIG(pipes.status) + 128;
+			//dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))

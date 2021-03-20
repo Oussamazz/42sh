@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:02:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/11 16:35:39 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:02:49 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ int     bg_blt(char **cmd)
     if (!ptr)
     {
         ft_putendl_fd("bg: no current job", 2);
+        g_the_status = 1;
         return (1);
     }
     job_id = get_job_id(cmd);

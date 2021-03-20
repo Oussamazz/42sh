@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 19:00:54 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:18:08 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,12 +132,16 @@ void			source_sh(t_env **head)
 	g_hashtable = ht_create();
 	while (v.status[0])
 	{
+		ft_putstr("status: ");
+		ft_putnbr(g_the_status);
+		ft_putchar('\n');
 		init_coord(&v.coord);
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
 			continue ;
 		ft_envcpy(head); 
-		v.tokenz = lexer(v.str, head, &v.coord);
+		if (!(v.tokenz = lexer(v.str, head, &v.coord)))
+			g_the_status = 258;
 		// print_tokenz(v.tokenz);
 		ft_execenv(head, v.tokenz);
 		// ft_putendl_fd("_______________________", 1);

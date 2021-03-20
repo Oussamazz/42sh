@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:19:31 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/13 19:13:07 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/21 00:03:42 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void		ft_putendl_fd_error(char *s1, char *s2, char *s3, char *s4)
 		ft_putstr_fd(s3, STDERR_FILENO);
 	if (s4)
 		ft_putstr_fd(s4, STDERR_FILENO);
+	g_the_status = 1;
 	return ;
 }
 
