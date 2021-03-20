@@ -96,6 +96,10 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
+		while(tokenz && tokenz->type == ENV)
+			tokenz = tokenz->next;
+		if (tokenz == NULL)
+			return 1;
 		redirections = NULL;
 		if ((*head) == NULL && env && tokenz && tokenz->data)
 		{

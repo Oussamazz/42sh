@@ -23,6 +23,7 @@ char		*get_value_expansion(char *env_name, t_env **head)
 		curr = g_set;
 	if (env_name && curr)
 	{
+		// puts("dkhlt l expansion");
 		while (curr)
 		{
 			if (ft_strequ(curr->name, env_name))
