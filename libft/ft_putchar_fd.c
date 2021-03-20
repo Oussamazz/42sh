@@ -11,9 +11,6 @@
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <fcntl.h>
-#include <sys/types.h>
-#include <sys/stat.h>
 
 void	ft_putchar_fd(char c, int fd)
 {

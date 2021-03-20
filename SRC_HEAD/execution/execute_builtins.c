@@ -48,6 +48,7 @@ void			blt_unsetenv(char **cmd, t_env **env_list)
 	while (cmd[i])
 	{
 		deletenode(env_list, cmd[i]);
+		ft_varchr(cmd[i], DELL);
 		i++;
 	}
 	return ;
@@ -93,10 +94,15 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			blt_cd(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "fc"))
 			parce_param_fc(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "setenv"))
-			blt_setenv(tree->cmd, env_list);
-		else if (ft_strequ(tree->cmd[0], "unsetenv"))
+		else if (ft_strequ(tree->cmd[0], "export")) // from here
+			ft_export(tree->cmd);
+		else if (ft_strequ(tree->cmd[0], "unset")) 
 			blt_unsetenv(tree->cmd, env_list);
+		else if (ft_strequ(tree->cmd[0], "set"))
+		{
+			ft_listtotab();
+			ft_putdblstr(g_settab);
+		}	
 		else if (ft_strequ(tree->cmd[0], "hash"))
 			ft_hash(tree->cmd, &g_hashtable);
 		else if (ft_strequ(tree->cmd[0], "test"))

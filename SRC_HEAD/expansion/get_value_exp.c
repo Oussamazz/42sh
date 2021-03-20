@@ -15,18 +15,18 @@
 char		*get_value_expansion(char *env_name, t_env **head)
 {
 	char	*env_value;
-	t_env	*curr;
+	t_envv	*curr;
 
 	curr = NULL;
 	env_value = NULL;
-	if (head)
-		curr = *head;
+	if (g_set)
+		curr = g_set;
 	if (env_name && curr)
 	{
 		while (curr)
 		{
-			if (ft_strequ(curr->env_var_name, env_name))
-				return ((env_value = ft_strdup(curr->env_var_value)));
+			if (ft_strequ(curr->name, env_name))
+				return ((env_value = ft_strdup(curr->content)));
 			curr = curr->next;
 		}
 	}

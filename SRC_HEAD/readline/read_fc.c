@@ -207,16 +207,16 @@ void execute_commande_fc(const char *file)
 	close(fd);
 }
 
-t_node *ft_get_tail(t_node *history)
-{
-	while (history)
-	{
-		if (history->next == NULL)
-			return (history);
-		history = history->next;
-	}
-	return (history);
-}
+// t_node *ft_get_tail(t_node *history)
+// {
+// 	while (history)
+// 	{
+// 		if (history->next == NULL)
+// 			return (history);
+// 		history = history->next;
+// 	}
+// 	return (history);
+// }
 
 int				ft_calc(char **hold)
 {
@@ -239,12 +239,13 @@ void execute_open_file(char *editeur)
 	cmd[0] = file_name;
 	cmd[1] = PATH_FC_FILE;
 	cmd[2] = 0;
+	// ft_listtotab();
 	if (!fork())
 	{
 		if (!access(file_name,F_OK))
 		{
 			if (execve(file_name, cmd, g_envtab) == -1)
-				ft_putendl_fd("21sh: Error: Execution Failed.", open("/dev/ttys002",O_RDWR));
+				ft_putendl("21sh: Error: Execution Failed.");
 		}
 		exit(1);
 	}

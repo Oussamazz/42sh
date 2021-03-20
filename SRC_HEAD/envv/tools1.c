@@ -131,6 +131,7 @@ void	ft_execenv(t_env **head, t_lexer *tokenz)
 			ft_newvar(tokenz->data, NOT_IN_ENV);
 		tokenz = tokenz->next;
 	}
+	ft_listtotab();
 }
 
 // int		main(int argc, char **argv, char **env)

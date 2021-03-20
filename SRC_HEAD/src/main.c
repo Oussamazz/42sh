@@ -31,6 +31,7 @@ int				main(int ac, char **av, char **env)
 	time_t		now;
 
 	env_list = NULL;
+	ft_envvinit(env);
 	g_parproc = getpid();
 	stock_env(env, &env_list);
 	time(&now);
@@ -135,14 +136,14 @@ void			source_sh(t_env **head)
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
 			continue ;
+		ft_envcpy(head); 
 		v.tokenz = lexer(v.str, head, &v.coord);
-		print_tokenz(v.tokenz);
-		ft_putendl_fd("_______________________", 1);
+		// print_tokenz(v.tokenz);
+		ft_execenv(head, v.tokenz);
+		// ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
-		// if (v.status[1])
-		// 	print_btree(v.ast);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))
 			add_to_history(v.str);
 		if (v.status[1] > 0 && v.ast && head && v.ast->cmd)

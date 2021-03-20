@@ -142,13 +142,13 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		}
 		else if (WIFSIGNALED(pipes.status))
 		{
-			dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
+			// dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))
 		{
 			g_the_status = WEXITSTATUS(pipes.status);
-			dprintf(2, "Terminated (exited): %d\n", g_the_status);
+			// dprintf(2, "Terminated (exited): %d\n", g_the_status);
 		}
 		
 	}

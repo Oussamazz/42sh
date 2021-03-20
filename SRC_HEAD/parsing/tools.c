@@ -33,6 +33,18 @@ size_t			get_arr_size_tokenz(t_lexer *token)
 	return (size);
 }
 
+int		is_env(t_lexer **token)
+{
+	 t_lexer *tokenz= *token;
+	 while (tokenz)
+	 {
+		 if (tokenz->type != ENV)
+			 return (0);
+		 tokenz = tokenz->next;
+	 }
+	 return (1);
+}
+
 int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 {
 	char	tmp[MIN_INDEX];
@@ -63,7 +75,16 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 	if (buf[j] == '$')
 		coord->no_space = 1;
 	tmp[i] = '\0';
-	append_list(token_node, tmp, WORD, coord);
+	if (ft_strchr(tmp, '=') && is_env(token_node)) // here
+	{
+		if (!ft_isalpha(tmp[0]))
+			append_list(token_node, tmp, WORD, coord);
+		else
+			append_list(token_node, tmp, ENV, coord);
+		// ft_newvar(tmp, NOT_IN_ENV);
+	}
+	else
+		append_list(token_node, tmp, WORD, coord);
 	ft_strclr(tmp);
 	return (j);
 }

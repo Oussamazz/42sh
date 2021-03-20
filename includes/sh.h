@@ -135,7 +135,8 @@ typedef enum			e_type
 	SEP,
 	AMPER,
 	AND,
-	OR
+	OR,
+	ENV
 }						t_type;
 
 typedef struct			s_quote
@@ -521,5 +522,11 @@ int						ft_is_numeric(char *str);
 void					error_test(char *str);
 int						test_file_complete(char **args);
 char					*get_value_expansion_path(char *env_name);
+
+//env
+void			ft_envcpy(t_env **head);
+void			ft_execenv(t_env **head, t_lexer *tokenz);
+int				ft_tmpvarcheck(t_lexer *tokenz);
+void			ft_addtmpvar(t_env **head, char *data);
 
 #endif
