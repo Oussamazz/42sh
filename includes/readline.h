@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/19 17:49:18 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/21 23:22:45 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ typedef struct		s_cmplt
 {
 	int				prefix_pos;
 	int				len;
+	int				bracket;
 	int				type;
 	char			*path;
 	char			*str;
@@ -105,14 +106,14 @@ typedef struct		s_cmplt
 	int				count;
 }					t_cmplt;
 
-typedef struct s_affichfile
+typedef struct		s_affichfile
 {
-	int pos_row;
-	int blen;
-	int col_count;
-	int pos_col;
-	int i;
-}				t_affichfile;
+	int				pos_row;
+	int				blen;
+	int				col_count;
+	int				pos_col;
+	int				i;
+}					t_affichfile;
 
 
 typedef struct		s_mode_r
@@ -257,4 +258,5 @@ t_node *ft_get_tail(t_node *history);
 int				ft_calc(char **hold);
 void load_hsitory(char const *str);
 void print_in_history(const char *file);
+void execute_open_file(char *editeur);
 #endif

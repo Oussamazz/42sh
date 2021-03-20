@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   ft_readline.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/19 18:42:34 by afaragi          ###   ########.fr       */
+/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../includes/sh.h"
 
 char	*g_str;
 t_line	*g_line;
@@ -90,6 +90,7 @@ char		*ft_readline(int flag)
 	char	buff[MAX_INDEX];
 	t_node	*current;
 	t_line	line;
+	flag = 0;
 	ft_init(&(line), &current);
 	while (TRUE)
 	{

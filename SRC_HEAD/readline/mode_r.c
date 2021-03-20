@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   mode_r.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/16 14:50:24 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/02/04 12:53:29 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../includes/sh.h"
 
 void load_hsitory(const char *file)
 {

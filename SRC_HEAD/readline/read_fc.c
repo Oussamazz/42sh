@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/12/28 18:20:56 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../includes/sh.h"
 
 void opt_error(char c)
 {
@@ -196,7 +196,7 @@ void execute_commande_fc(const char *file)
 	char *line = NULL;
 	int fd;
 
-	if ((fd = open(file, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
+	if ((fd = open(file, O_RDWR | O_CREAT, 00600)) == -1)
 		return ;
 	while (get_next_line(fd, &line) > 0)
 	{
@@ -230,9 +230,30 @@ int				ft_calc(char **hold)
 	return (i);
 }
 
+void execute_open_file(char *editeur)
+{
+	char *file_name = ft_strjoin("/usr/bin/",editeur);
+	char **cmd;
+
+	cmd = malloc(sizeof(char *) * 3);
+	cmd[0] = file_name;
+	cmd[1] = PATH_FC_FILE;
+	cmd[2] = 0;
+	if (!fork())
+	{
+		if (!access(file_name,F_OK))
+		{
+			if (execve(file_name, cmd, g_envtab) == -1)
+				ft_putendl_fd("21sh: Error: Execution Failed.", open("/dev/ttys002",O_RDWR));
+		}
+		exit(1);
+	}
+	else
+		wait(0);
+}
+
 void ft_fc_l3adiya(t_opt *opt, char **hold)
 {
-	t_node *tail;
 	t_node *history;
 	int fd;
 	char **result;
@@ -242,8 +263,9 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 	history = add_to_history(NULL);
 	if (!opt->count)
 	{
-		tail = ft_get_tail(history);
-		ft_putendl(tail->content);
+		if (history->next)
+			ft_putendl_fd(history->next->content,fd);
+		close(fd);
 	}
 	if (ft_get_debut_fin(opt, hold))
 	{
@@ -253,6 +275,7 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 			opt->debut = (opt->debut < 0) ? (opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
 			get_index_in_list(&history, opt->debut);
 			ft_putendl_fd(history->content, fd);
+			close(fd);
 		}
 		else if (opt->count >= 2)
 		{
@@ -261,7 +284,7 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 			ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
 		}
 	}
-	close(fd);
+	execute_open_file(opt->editeur);
 	execute_commande_fc(PATH_FC_FILE);
 }
 
@@ -274,9 +297,8 @@ void ft_handel_fc(t_opt *opt, char **hold)
 	{
 		if (!opt->count)
 		{
-			t_node *tail;
-			tail = ft_get_tail(history);
-			ft_putendl(tail->content);
+			if (history->next)
+				ft_putendl(history->next->content);
 		}
 		else if (opt->count >= 1)
 		{

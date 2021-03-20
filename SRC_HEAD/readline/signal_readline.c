@@ -6,15 +6,15 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 14:41:42 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/19 19:02:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../includes/sh.h"
 
 void	ft_ctl_d(int flag)
 {
-	if (flag == 0)
+	if (!flag)
 	{
 		ft_free_history();
 		exit(0);

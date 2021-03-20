@@ -32,3 +32,24 @@ char		*get_value_expansion(char *env_name, t_env **head)
 	}
 	return (env_value);
 }
+
+char		*get_value_expansion_path(char *env_name)
+{
+	char	*env_value;
+	t_envv	*curr;
+
+	curr = NULL;
+	env_value = NULL;
+	if (g_set)
+		curr = g_set;
+	if (env_name && curr)
+	{
+		while (curr)
+		{
+			if (ft_strequ(curr->name, env_name))
+				return ((env_value = ft_strdup(curr->content)));
+			curr = curr->next;
+		}
+	}
+	return (env_value);
+}

@@ -16,6 +16,7 @@
 #include "error_msg.h"
 # include "libft.h"
 # include "readline.h"
+# include "env.h"
 # include <sys/types.h>
 # include <sys/stat.h>
 #include <sys/wait.h>
@@ -519,5 +520,6 @@ int						ft_argslen(char **args);
 int						ft_is_numeric(char *str);
 void					error_test(char *str);
 int						test_file_complete(char **args);
+char					*get_value_expansion_path(char *env_name);
 
 #endif

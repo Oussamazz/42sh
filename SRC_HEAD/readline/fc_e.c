@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fc_e.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/17 14:53:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2020/10/19 17:35:42 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "sh.h"
+#include "../includes/sh.h"
 
 void		ft_affiche_tab_e(char **result, int size, t_opt *opt, int sin)
 {
@@ -49,12 +49,13 @@ int			fc_e(t_opt *opt, char **hold, t_node *history)
 		return (0);
 	if (check_debut_fin_e(opt, hold))
 	{
-	 	if ( opt->count == 1 || opt->count == 2)
+	 	if (opt->count == 1 || opt->count == 2)
 		{
 			opt->debut = ((ft_abs(opt->debut) > opt->sizeoflist) || (opt->debut == 0)) ? (-1) : opt->debut;
 			opt->debut = (opt->debut < 0) ? (opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
 			get_index_in_list(&history, opt->debut);
-			ft_putendl(history->content);
+			ft_putendl_fd(history->content,fd);
+			close(fd);
 		}
 		else if (opt->count == 3)
 		{
@@ -62,6 +63,7 @@ int			fc_e(t_opt *opt, char **hold, t_node *history)
 			ft_calc_range_of_debut_fin(opt, &size, &result);
 			ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
 		}
+		execute_open_file(opt->editeur);
 		execute_commande_fc(PATH_FC_FILE);
 		return (1);
 	}
