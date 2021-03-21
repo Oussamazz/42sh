@@ -6,3 +6,6 @@ ha=poposdf
 ha2=poposdf
 ha22=poposdf/Users/afaragi
 ha222=poposdf$HOME
+haha=ls
+kk=ls -la; cd ~; echo /Users/oelazzou
+kkk=ls -la; cd ~; echo /Users/oelazzou

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 18:56:36 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 19:31:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,15 @@ void			source_sh(t_env **head)
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
-		alias_check(v.tokenz);//////biggy
-		// print_tokenz(v.tokenz);
+		print_tokenz(v.tokenz);
 		ft_execenv(head, v.tokenz);
-		// ft_putendl_fd("_______________________", 1);
+		ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
+		ft_putendl("tree:");
+		print_btree(v.ast);
+		ft_putendl_fd("_______________________", 1);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))
 			add_to_history(v.str);
 		if (v.status[1] > 0 && v.ast && head && v.ast->cmd)
@@ -150,3 +152,7 @@ void			source_sh(t_env **head)
 		free_vars(&v, (int[]){F_TMP, F_TOKENZ, F_AST, F_STR, F_G_HIS}, 5);
 	}
 }
+
+// l='ls -la' {ls , -la, -s}
+
+// //  l // 
