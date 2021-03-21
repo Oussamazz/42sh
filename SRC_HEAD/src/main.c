@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 18:37:46 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 18:47:36 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,6 @@ char			*get_full_cmd(void)
 		len = ft_strlen(v.tmp);
 		while (v.i < len && v.tmp[v.i])
 		{
-			// if (is_quote(v.tmp[v.i]) && v.quote_opened == 0 && v.tmp[v.i + 1] == v.tmp[v.i])
-			// {
-			// 	ft_putendl("skip");
-			// 	v.i++;
-			// }
 			if(v.tmp[v.i] == '\\' && (v.tmp[v.i + 1] && (v.tmp[v.i + 1] == '\'' || v.tmp[v.i + 1] == '\"' || v.tmp[v.i + 1] == '\\')))      ////////biggy
 			{
 				v.i += 2;
@@ -124,7 +119,6 @@ void			source_sh(t_env **head)
 	t_mystruct	v;
 
 	g_his = NULL;
-	// signal(SIGINT, ft_ctrlc);
 	signal(SIGCHLD, checkchild2);
 	signal(SIGTSTP, SIG_IGN);
 	ft_bzero(&v, sizeof(t_mystruct));
@@ -140,7 +134,7 @@ void			source_sh(t_env **head)
 		if (!(v.str = get_full_cmd()))
 			continue ;
 		ft_envcpy(head); 
-		if (!(v.tokenz = lexer(v.str, head, &v.coord)))
+		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
 		print_tokenz(v.tokenz);
 		ft_execenv(head, v.tokenz);

@@ -6,7 +6,7 @@
 #    By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/03/30 03:33:28 by oelazzou          #+#    #+#              #
-#    Updated: 2021/02/27 16:40:06 by oelazzou         ###   ########.fr        #
+#    Updated: 2021/03/21 16:39:02 by oelazzou         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -93,7 +93,7 @@ FILE = ft_atoi.c \
 	   ft_strdel_2.c \
 	   ft_putendl_fd_int.c \
 	   ft_freejoin.c 
-FLAGS = -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 OBJ = $(FILE:.c=.o)
 
 $(NAME): $(OBJ) libft.h

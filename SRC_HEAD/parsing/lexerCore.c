@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerCore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 01:05:26 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 16:27:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	char *data = NULL;     //////biggy
 
 	
-	env_update(&v->tokenz, v->env_list);
+	//env_update(&v->tokenz, v->env_list);
 	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/' )
 	{
 		position = 1;
@@ -137,13 +137,13 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		ft_strdel(&data);
 		ft_strdel(&dollars);
 	}
-	if (*buf == '$' && *(buf + 1) == '$')
+	else if (*buf == '$' && *(buf + 1) == '$')
 	{
 		append_list(&v->tokenz, (dollars = get_dollars(buf)), WORD, &v->coord);
 		ft_strdel(&dollars);
 		return (buf + 2);
 	}
-	if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
+	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
 	{
 		if (*buf == '$' && (!*(buf + 1) || is_blank(*(buf + 1))))
 		{
