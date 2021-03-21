@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/03 15:13:18 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/21 16:52:47 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,8 @@ int		is_background(t_lexer *tokenz)
 	}
 	return (flag);
 }
+
+// ls -la || echo oussama
 
 int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 {
