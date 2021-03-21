@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 18:36:02 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 18:56:11 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -524,12 +524,13 @@ int						test_file_complete(char **args);
 char					*get_value_expansion_path(char *env_name);
 
 //env
-void			ft_envcpy(t_env **head);
-void			ft_execenv(t_env **head, t_lexer *tokenz);
-int				ft_tmpvarcheck(t_lexer *tokenz);
-void			ft_addtmpvar(t_env **head, char *data);
+void					ft_envcpy(t_env **head);
+void					ft_execenv(t_env **head, t_lexer *tokenz);
+int						ft_tmpvarcheck(t_lexer *tokenz);
+void					ft_addtmpvar(t_env **head, char *data);
 
 //alias
 
-void			alias_bultin(char **line);
+void					alias_bultin(char **line);
+void					alias_check(t_lexer *tokenz);
 #endif

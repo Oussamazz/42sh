@@ -6,11 +6,18 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 17:11:21 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/21 18:46:20 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 18:55:47 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+
+void alias_check(t_lexer *tokenz)
+{
+    
+}
+
 
 void free2Dm(char ***str)
 {
@@ -22,76 +29,6 @@ void free2Dm(char ***str)
         i++;
     }
     free((*str));
-}
-
-static int word_count(char *s, char c)
-{
-    int i;
-    int q;
-    int res;
-
-    i = 0;
-    res = 0;
-    q = 0;
-    while (s[i] != '\0')
-    {
-        if (s[i] == '\'')
-            q ^= 1;
-        if (s[i] != c && s[i + 1] == c && !q)
-            res++;
-        i++;
-    }
-    if (s[i] == '\0' && s[i - 1] != c)
-        res++;
-    return (res);
-}
-
-static int word_len(char *s, char c)
-{
-    int len;
-    int q;
-
-    len = 0;
-    q = 0;
-    while (*s != '\0')
-    {
-        if (*s == c && !q)
-            break;
-        if (*s == '\'')
-            q ^= 1;
-        len++;
-        s++;
-    }
-    return (len);
-}
-
-char **splite_quote_v(char const *s, char c)
-{
-    int word_countx;
-    char **str;
-    int i;
-
-    if (!s || !*s)
-        return (NULL);
-    word_countx = word_count((char *)s, c);
-    if (!(str = (char **)ft_memalloc(sizeof(char *) * word_countx + 1)))
-        return (NULL);
-    i = 0;
-    if (!str)
-        return (str);
-    while (word_countx-- && *s)
-    {
-        while (*s == c && *s != '\0')
-            s++;
-        if (!(str[i] = ft_strsub((char *)s, 0, word_len((char *)s, c))))
-            return (str);
-        if (!str[i])
-            return (str);
-        s = s + word_len((char *)s, c);
-        i++;
-    }
-    str[i] = NULL;
-    return (str);
 }
 
 int check_alias_repeate(char *line)
