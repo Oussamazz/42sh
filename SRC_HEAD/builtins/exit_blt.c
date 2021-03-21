@@ -24,5 +24,7 @@ void	exit_blt(t_miniast **root, t_lexer **lex,
 		free_env_list(env_list);
 	if (buff)
 		ft_strdel(buff);
+	ft_tabfree();
+	ft_listfree();
 	ft_free_his(&g_his);
 }
