@@ -6,7 +6,7 @@
 /*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:01:41 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 00:38:41 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		execute_pipes2(t_miniast *tree, t_mypipe *pipes)
 	return ;
 }
 
-void		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
+int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 	char **tabs, t_env **env_list)
 {
 	signal(SIGTSTP, SIG_DFL);
@@ -45,7 +45,7 @@ void		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 		execute_direct(tree->cmd, tabs);
 	else if (tree->cmd[0] && env_list)
 		execute_undirect(tree->cmd, tabs, env_list);
-	exit(0);
+	return (g_the_status);
 }
 
 void checkchild2(int sig) {
@@ -59,16 +59,14 @@ void checkchild2(int sig) {
 		int g_pid = ptr->grp_pid;
 		if ((pid = waitpid(g_pid * -1, &status, WUNTRACED | WCONTINUED | WNOHANG)) > 0)
 		{
-			if (WIFCONTINUED(status)) {
+			if (WIFCONTINUED(status))
 				ptr->mode = IS_RUNNING;
-			}
-			if (WIFSTOPPED(status)) {
+			if (WIFSTOPPED(status))
 				ptr->mode = IS_SUSPENDED;
-			}
 			if (WIFEXITED(status))
-			{
 				delete_node(&g_jobs_lst, ptr->grp_pid);
-			} else if (WIFSIGNALED(status)) {
+			else if (WIFSIGNALED(status)) 
+			{
 				ptr->status = status;
 				ptr->mode = IS_TERMINATED;
 			}
@@ -90,7 +88,7 @@ static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
 	if (pipes->g_pid == 0 && pipes->pid > 0)
 		pipes->g_pid = pipes->pid;
 	if (pipes->pid == 0)// child process:
-		execute_pip_child(tree, pipes, tabs, env_list);
+		exit(execute_pip_child(tree, pipes, tabs, env_list));
 	else
 	{
 		if (setpgid(pipes->pid, pipes->g_pid) == -1)

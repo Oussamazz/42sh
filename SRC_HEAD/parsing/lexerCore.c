@@ -6,7 +6,7 @@
 /*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:15:04 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 01:05:26 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	{
 		data = get_the_line(buf + 1);
 		dollars = get_value_expansion(data, v->env_list);
+		if (!is_blank(*(buf + ft_strlen(data) + 3)))
+			v->coord.no_space = 1;
 		if (dollars)
 			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
 		buf = buf + ft_strlen(data) + 3;

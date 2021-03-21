@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 18:03:53 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 13:17:39 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,11 +75,12 @@ static void		after_exp(t_expansion *v, t_pointt *cor, t_lexer **token_node,
 			!is_blank(v->buf[v->i]) && v->buf[v->i] != ';' &&
 				!is_quote(v->buf[v->i]))
 	{
+		cor->no_space = 1;
 		v->data = v->env_value;
 		v->env_value = ft_strjoin_until_char(v->env_value, v->buf + v->i, ' ');
 		v->data_size += ft_strlen_delim(v->buf + v->i, " ;$|><\n\t");
-		if (v->buf[v->data_size - 1] == '$')
-			cor->no_space = 1;
+		// if (v->buf[v->data_size - 1] == '$')
+		// 	cor->no_space = 1;
 		ft_strdel(&v->data);
 	}
 	if (v->env_value)
@@ -130,8 +131,5 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 		// ft_putchar('\n');
 		return (v.i + 1);
 	}
-	// ft_putnbr(v.i + 1);
-	// ft_putchar('\n');
-
 	return (v.i + 1);
 }
