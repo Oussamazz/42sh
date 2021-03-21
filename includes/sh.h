@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 18:56:11 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/21 21:13:55 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -521,7 +521,10 @@ int						ft_argslen(char **args);
 int						ft_is_numeric(char *str);
 void					error_test(char *str);
 int						test_file_complete(char **args);
+
+// env expansions
 char					*get_value_expansion_path(char *env_name);
+char					*get_value_expansion_cd(char *env_name, t_env **head);
 
 //env
 void					ft_envcpy(t_env **head);
