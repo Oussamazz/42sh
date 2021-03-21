@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:03:48 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 18:37:10 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int				check_builtins(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "set")
+	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "alias") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "set")
 	 || ft_strequ(cmd_name, "fg") ||
 		ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||

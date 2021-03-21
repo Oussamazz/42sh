@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:18:08 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 18:37:46 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,7 @@ void			source_sh(t_env **head)
 		ft_envcpy(head); 
 		if (!(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
-		// print_tokenz(v.tokenz);
+		print_tokenz(v.tokenz);
 		ft_execenv(head, v.tokenz);
 		// ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);

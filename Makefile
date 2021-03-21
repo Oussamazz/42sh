@@ -11,7 +11,7 @@ FLAGS =# -Wall -Wextra -Werror
 SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o
 SRC_CMDSUB = sub_shell.o
 
-SRC_TOOLS = get_pipes_members.o argslen.o brackets.o
+SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o
 
 SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o
 

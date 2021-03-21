@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 23:45:09 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 18:36:02 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -529,4 +529,7 @@ void			ft_execenv(t_env **head, t_lexer *tokenz);
 int				ft_tmpvarcheck(t_lexer *tokenz);
 void			ft_addtmpvar(t_env **head, char *data);
 
+//alias
+
+void			alias_bultin(char **line);
 #endif
