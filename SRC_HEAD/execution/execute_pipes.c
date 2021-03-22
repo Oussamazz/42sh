@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:38:41 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:45:52 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,11 +118,10 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 
 
 	is_bg = 0;
+	g_tree = tree;
 	if (tree)
 		is_bg = tree->mode & IS_BACKGROUD;
 	ft_bzero(&pipes, sizeof(t_mypipe));
-	if (!(cmd = get_job_members(tree)))
-		return (-1);
 	while (tree != NULL && tree->cmd[0])
 	{
 		if (!check_builtins(tree->cmd[0]))
@@ -134,6 +133,8 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 	}
 	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) {
 		if (WIFSTOPPED(pipes.status)) {
+			if (!(cmd = get_job_members(g_tree)))
+				return (-1);
 			append_job(cmd, pipes, IS_SUSPENDED);
 			print_job_node(pipes.g_pid);
 			break ;
@@ -153,6 +154,8 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 	}
 	if (is_bg > 0)
 	{
+		if (!(cmd = get_job_members(g_tree)))
+				return (-1);
 		append_job(cmd, pipes, IS_BACKGROUD | IS_RUNNING);
 		print_job_node(pipes.g_pid);
 	}

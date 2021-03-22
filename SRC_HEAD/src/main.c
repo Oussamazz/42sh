@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 14:20:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/22 18:08:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char			*get_full_cmd(void)
 		if (g_clt_d || g_clt_c)
 			return (handel_signal(&v));
 		prompt_completion(v.c);
+		// ft_putnbr(v.flag);
 		v.cmd = ft_freejoin(v.cmd, "\n", 0);
 	}
 	return (v.tmp ? v.cmd : NULL);
@@ -140,6 +141,10 @@ void			source_sh(t_env **head)
 		ft_execenv(head, v.tokenz);
 		ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
+		// while (v.tokenz && v.tokenz->type == ENV)
+		// 	v.tokenz = v.tokenz->next;
+		// if (v.tokenz && v.tokenz->type == SEP)
+		// 	v.tokenz = v.tokenz->next;
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
 		ft_putendl("tree:");
@@ -152,7 +157,3 @@ void			source_sh(t_env **head)
 		free_vars(&v, (int[]){F_TMP, F_TOKENZ, F_AST, F_STR, F_G_HIS}, 5);
 	}
 }
-
-// l='ls -la' {ls , -la, -s}
-
-// //  l // 

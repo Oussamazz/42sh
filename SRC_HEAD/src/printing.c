@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   printing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:19:31 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:03:42 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:26:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void					print_btree(t_miniast *ast)
 		return ;
 	if (ast->cmd)
 	{
-		if (ast->mode & IS_BACKGROUD)
-			printf("!! background !!\n");
+		// if (ast->mode & IS_BACKGROUD)
+		// 	printf("!! background !!\n");
 		print_arr(ast->cmd);
 		//ft_putnbr(ast->node_index);
 		//ft_putchar('\n');

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/22 14:58:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,6 @@ char		*ft_readline(int flag)
 	char	buff[MAX_INDEX];
 	t_node	*current;
 	t_line	line;
-	flag = 0;
 	ft_init(&(line), &current);
 	while (TRUE)
 	{

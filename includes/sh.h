@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 21:13:55 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:44:06 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -179,6 +179,7 @@ typedef struct			s_miniast
 	struct s_miniast	*pipe;
 	struct s_miniast	*sep;
 }						t_miniast;
+t_miniast *g_tree;
 
 typedef struct			s_mystruct
 {

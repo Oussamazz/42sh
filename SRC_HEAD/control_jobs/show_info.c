@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   show_info.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/04 15:51:35 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/09 21:17:31 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 14:40:03 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ void	details_infos(t_job_ctrl *ptr)
             print_arr(ptr->cmd);
    }
 }
+
 void	pid_infos(t_job_ctrl *ptr)
 {
 	if (ptr)

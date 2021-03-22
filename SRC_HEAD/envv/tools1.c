@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/21 21:07:36 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 17:44:45 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,9 +89,9 @@ int		ft_tmpvarcheck(t_lexer *tokenz)
 	old_type = 0;
 	while (node)
 	{
-		if (node->type != ENV && old_type == ENV)
+		if (node->type != ENV && node->type != SEP && old_type == ENV)
 			return (1);
-		old_type = tokenz->type;
+		old_type = node->type;
 		node = node->next;
 	}
 	return (0);
@@ -120,10 +120,10 @@ void	ft_execenv(t_env **head, t_lexer *tokenz)
 	int		tmp_check;
 	t_lexer	*head_lexer;
 
-	ft_putendl("dkhlt l execenv");
 	tmp = *head;
 	head_lexer = tokenz;
 	tmp_check = ft_tmpvarcheck(tokenz);
+	printf("%d\n", tmp_check);
 	while (tokenz && tokenz->type == ENV)
 	{
 		if (tmp_check)

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 16:46:39 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:59:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ size_t			get_arr_size_tokenz(t_lexer *token)
 		while (token != NULL)
 		{
 			if (token->type != PIPE_SYM &&
-				token->type != METACHAR && token->type != SEP)
+				token->type != METACHAR && token->type != SEP && token->type != ENV)
 				size++;
 			else
 				break ;

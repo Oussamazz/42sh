@@ -1,1 +1,1 @@
-ls -la | cat -e
+pwd | cat -e

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 16:27:19 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/22 17:18:36 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,7 @@ void	env_update(t_lexer **tokenz, t_env **env_list)
 
 static char *get_tild_dolar(char *buf, t_mystruct *v)
 {
+	char c;
 	int position;
 	char *dollars;
 	char *data = NULL;     //////biggy
@@ -129,13 +130,15 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	{
 		data = get_the_line(buf + 1);
 		dollars = get_value_expansion(data, v->env_list);
-		if (!is_blank(*(buf + ft_strlen(data) + 3)))
+		c = *(buf + ft_strlen(data) + 3);
+		if (!is_blank(c) && c != '|')
 			v->coord.no_space = 1;
 		if (dollars)
-			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
+			append_list(&v->tokenz, dollars, WORD, &v->coord);
 		buf = buf + ft_strlen(data) + 3;
 		ft_strdel(&data);
 		ft_strdel(&dollars);
+		ft_putendl(buf);
 	}
 	else if (*buf == '$' && *(buf + 1) == '$')
 	{
@@ -185,7 +188,6 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 	char		*quote;
 
 	quote = NULL;
-	
 	if (*buf != '\\' && (is_quote(*buf) ||
 		(*buf && (quote = ft_strchr_no_blanks(buf + 1, '\'', '\"')))))
 	{

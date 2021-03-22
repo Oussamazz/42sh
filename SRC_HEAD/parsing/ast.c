@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 21:03:33 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/22 18:59:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,8 +105,10 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		ft_putendl(tokenz->data);
 		// while(tokenz && tokenz->type == ENV)
 		// {
-		// 	ft_putendl("skip to the next");
+		// 	// ft_putendl("skip to the next");
 		// 	tokenz = tokenz->next;
+		// 	if (tokenz && tokenz->type == SEP)
+		// 		tokenz = tokenz->next;
 		// }
 		// if (tokenz == NULL)
 		// 	return 1;
