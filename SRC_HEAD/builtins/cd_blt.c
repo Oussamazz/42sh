@@ -6,7 +6,7 @@
 /*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:59:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:05:19 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/21 21:14:16 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void		cd_home(t_env **env_list)
 	char		*home;
 
 	home = NULL;
-	if (!(home = get_value_expansion("HOME", env_list)))
+	if (!(home = get_value_expansion_cd("HOME", env_list)))
 		return ;
 	cd_simple(home, env_list);
 	ft_strdel(&home);
@@ -58,7 +58,7 @@ static void		cd_back(t_env **env_list)
 	char		*back_path;
 
 	back_path = NULL;
-	if (!(back_path = get_value_expansion("OLDPWD", env_list)))
+	if (!(back_path = get_value_expansion_cd("OLDPWD", env_list)))
 		return ;
 	cd_simple(back_path, env_list);
 	ft_strdel(&back_path);
