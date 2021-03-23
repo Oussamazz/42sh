@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 15:59:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 18:29:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,10 +47,10 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 		i = 0;
 		while (token != NULL && token->coor.node_index <= alltoken_size)
 		{
-			while (token && token->type == ENV)
-				token = token->next;
-			if (!token)
-				break ;
+			// while (token && token->type == ENV)
+			// 	token = token->next;
+			// if (!token)
+			// 	break ;
 			if (token->type == WORD || token->type == DQUOT ||
 				token->type == SQUOT || token->type == EXPANSION)
 				fill_cmd(ret, token, &i, env);

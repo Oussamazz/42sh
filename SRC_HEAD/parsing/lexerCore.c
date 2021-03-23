@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 16:22:23 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 18:12:09 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,9 +218,7 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 static char		*ignore_blanks(char *str)
 {
 	if (*str == '\\')
-	{
 		str += 1;
-	}
 	while (is_blank(*str))
 		str++;
 	return (str);
