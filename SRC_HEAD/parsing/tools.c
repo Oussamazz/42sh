@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 17:59:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:10:29 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,8 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 		else
 			append_list(token_node, tmp, ENV, coord);
 		// ft_newvar(tmp, NOT_IN_ENV);
+		// ft_execenv(head, *token_node);
+
 	}
 	else
 		append_list(token_node, tmp, WORD, coord);

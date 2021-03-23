@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 13:36:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 15:39:06 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
 	return ;
 }
 
-
 int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 {
 	char 				**cmd;
@@ -128,7 +127,10 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
 		execute_pipes1(tree, &pipes, tabs, env_list);
 		if (tree->sep)
+		{
+			ft_strdel(&g_binfile);
 			break ;
+		}
 		ft_strdel(&g_binfile);
 		tree = tree->pipe;
 	}

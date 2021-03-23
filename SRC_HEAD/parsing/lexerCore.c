@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 13:44:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:22:23 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,7 +129,10 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	if (*buf == '$' && *(buf+1) == '{' && brackets(buf))
 	{
 		data = get_the_line(buf + 1);
-		dollars = get_value_expansion(data, v->env_list);
+		if (ft_strequ(data, "?"))
+			dollars = ft_itoa(g_the_status);
+		else 
+			dollars = get_value_expansion(data, v->env_list);
 		c = *(buf + ft_strlen(data) + 3);
 		if (!is_blank(c) && c != '|')
 			v->coord.no_space = 1;
@@ -151,6 +154,13 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		{
 			append_list(&v->tokenz, "$", WORD, &v->coord);
 			return (buf + 1);
+		}
+		else if (*buf == '$' && *(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
+		{
+			data = ft_itoa(g_the_status);
+			append_list(&v->tokenz, data, WORD, &v->coord);
+			ft_strdel(&data);
+			return (buf + 2);
 		}
 		else if ((position = expansion_function(buf, &v->tokenz,
 												&v->coord, v->env_list)) > 0)

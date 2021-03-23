@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/23 13:47:28 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 16:00:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,7 +110,7 @@ void	ft_addtmpvar(t_env **head, char *data)
 	if (env_exist(head, name) == 0)
 		addtolist(head, ft_strdup(name), ft_strdup(ft_strchr(data, '=') + 1));
 	else
-		modify_env(head, ft_strdup(name), ft_strdup(ft_strchr(data, '=')));
+		modify_env(head, ft_strdup(name), ft_strdup(ft_strchr(data, '=') + 1));
 	ft_strdel(&name);
 }
 
