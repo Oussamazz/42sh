@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:19:31 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 14:26:02 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:09:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,11 @@ void					print_btree(t_miniast *ast)
 		return ;
 	if (ast->cmd)
 	{
-		// if (ast->mode & IS_BACKGROUD)
-		// 	printf("!! background !!\n");
+		if (ast->logic_op)
+		{
+			ft_putnbr(ast->logic_op);
+			ft_putchar('\n');
+		}
 		print_arr(ast->cmd);
 		//ft_putnbr(ast->node_index);
 		//ft_putchar('\n');

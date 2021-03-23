@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:14 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/16 14:20:13 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:16:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ void	blt_echo(char **cmd)
 	}
 	if (!flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
+	g_the_status = 0;
 	// sleep(1000);
 	return ;
 }

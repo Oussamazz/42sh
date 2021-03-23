@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/22 17:44:45 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:47:28 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ void	ft_execenv(t_env **head, t_lexer *tokenz)
 	tmp = *head;
 	head_lexer = tokenz;
 	tmp_check = ft_tmpvarcheck(tokenz);
-	printf("%d\n", tmp_check);
+	// printf("%d\n", tmp_check);
 	while (tokenz && tokenz->type == ENV)
 	{
 		if (tmp_check)

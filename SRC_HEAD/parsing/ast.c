@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 18:59:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:32:01 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ static t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize)
 	cur = tokenz;
 	while (cur != NULL && (cur->coor.node_index <= alltokenzsize))
 	{
-		if (cur->type != SEP && cur->type != PIPE_SYM && cur->type != AMPER)
+		if (cur->type != SEP && cur->type != PIPE_SYM && cur->type != AMPER && cur->type != OR && cur->type != AND)
 			cur = cur->next;
 		else
 			break ;
 	}
-	if (cur && (cur->type == SEP || cur->type == PIPE_SYM || cur->type == AMPER))
+	if (cur && (cur->type == SEP || cur->type == PIPE_SYM || cur->type == AMPER || cur->type == OR || cur->type == AND))
 		return (cur);
 	return (NULL);
 }
@@ -69,7 +69,7 @@ static void		parse_commands_sep_pipe(t_miniast **head,
 {
 	if (tokenz->type == PIPE_SYM && tokenz->next)
 		parse_commands(&(*head)->pipe, tokenz->next, env);
-	else if ((tokenz->type == SEP || tokenz->type == AMPER) && tokenz->next)
+	else if ((tokenz->type == SEP || tokenz->type == AMPER || tokenz->type == OR || tokenz->type == AND) && tokenz->next)
 		parse_commands(&(*head)->sep, tokenz->next, env);
 }
 
@@ -89,6 +89,19 @@ int		is_background(t_lexer *tokenz)
 	return (flag);
 }
 
+
+int		is_logic_op(t_lexer *tokenz)
+{
+	while (tokenz)
+	{
+		if (tokenz->type == SEP)
+			break ;
+		if (tokenz->type == OR || tokenz->type == AND)
+			return (tokenz->type);
+		tokenz = tokenz->next;
+	}
+	return (0);
+}
 // ls -la || echo oussama
 
 int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
@@ -96,22 +109,14 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 	char		**cmd;
 	t_miniast	*data;
 	t_redir		*redirections;
+	int 		type = 0;
 
 	cmd = NULL;
 	if (!g_alltokenzsize)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
-		ft_putendl(tokenz->data);
-		// while(tokenz && tokenz->type == ENV)
-		// {
-		// 	// ft_putendl("skip to the next");
-		// 	tokenz = tokenz->next;
-		// 	if (tokenz && tokenz->type == SEP)
-		// 		tokenz = tokenz->next;
-		// }
-		// if (tokenz == NULL)
-		// 	return 1;
+		//ft_putendl(tokenz->data);
 		redirections = NULL;
 		if ((*head) == NULL && env && tokenz && tokenz->data)
 		{
@@ -122,6 +127,8 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 				return (-2);
 			if (is_background(tokenz))
 				data->mode |= IS_BACKGROUD;
+			if ((type = is_logic_op(tokenz)))
+				data->logic_op = type;
 			*head = data;
 		}
 		else

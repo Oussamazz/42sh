@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:19:17 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:54:58 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/23 13:52:05 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int				fill_cmd_redir(t_lexer *token, int *i, t_redir **redirections)
 		fill_redirections(redirections, token);
 		*i -= 1;
 	}
-	else if (token->type == SEP || token->type == PIPE_SYM || token->type == AMPER)
+	else if (token->type == SEP || token->type == PIPE_SYM || token->type == AMPER || token->type == OR || token->type == AND)
 		return (1);
 	return (0);
 }

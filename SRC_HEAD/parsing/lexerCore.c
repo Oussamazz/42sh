@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 17:18:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:44:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,7 +138,6 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		buf = buf + ft_strlen(data) + 3;
 		ft_strdel(&data);
 		ft_strdel(&dollars);
-		ft_putendl(buf);
 	}
 	else if (*buf == '$' && *(buf + 1) == '$')
 	{

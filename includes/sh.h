@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 14:44:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:48:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -174,6 +174,7 @@ typedef struct			s_miniast
 {
 	char				**cmd;
 	int					mode;
+	int					logic_op;
 	int					no_space;
 	t_redir				*redirection;
 	struct s_miniast	*pipe;

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 14:45:52 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 13:36:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,7 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		execute_pipes1(tree, &pipes, tabs, env_list);
 		if (tree->sep)
 			break ;
+		ft_strdel(&g_binfile);
 		tree = tree->pipe;
 	}
 	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) {

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/22 18:08:48 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/23 14:29:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -141,13 +141,9 @@ void			source_sh(t_env **head)
 		ft_execenv(head, v.tokenz);
 		ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
-		// while (v.tokenz && v.tokenz->type == ENV)
-		// 	v.tokenz = v.tokenz->next;
-		// if (v.tokenz && v.tokenz->type == SEP)
-		// 	v.tokenz = v.tokenz->next;
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
-		ft_putendl("tree:");
+		// ft_putendl("tree:");
 		print_btree(v.ast);
 		ft_putendl_fd("_______________________", 1);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))

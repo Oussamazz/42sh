@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 17:59:29 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/23 14:44:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,11 @@ t_miniast *advance_tree(t_miniast *tree)
 	while (tree)
 	{
 		if (tree->sep)
+		{
+			if ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+				tree = tree->sep;
 			return (tree->sep);
+		}
 		tree = tree->pipe;
 	}
 	return (tree);
@@ -147,8 +151,6 @@ int				execute(t_miniast *tree, t_env **env_list)
 		return (0);
 	while (tree != NULL && tree->cmd[0])
 	{
-		// if (!check_builtins(tree->cmd[0]))
-		// 	g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
 		if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
 			execute_blt_with_fork(tree, tabs, env_list);
 		else
@@ -156,7 +158,11 @@ int				execute(t_miniast *tree, t_env **env_list)
 		if (!tree->sep)
 			tree = advance_tree(tree);
 		else
+		{
+			if ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+				tree = tree->sep;
 			tree = tree->sep;
+		}
 	}
 	ft_free_arr(tabs);
 	return (1);
