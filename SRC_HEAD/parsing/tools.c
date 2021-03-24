@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 16:10:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:45:37 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int		is_env(t_lexer **token)
 	 return (1);
 }
 
-int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
+int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord, t_env **head)
 {
 	char	tmp[MIN_INDEX];
 	int		j;
@@ -68,22 +68,19 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord)
 			i++;
 			continue;
 		}
-		tmp[i] = buf[j];
-		j++;
-		i++;
+		tmp[i++] = buf[j++];
 	}
 	if (buf[j] == '$')
 		coord->no_space = 1;
 	tmp[i] = '\0';
-	if (ft_strchr(tmp, '=') && is_env(token_node)) // here
+	if (ft_isalpha(tmp[0]) && ft_strchr(tmp, '=') && is_env(token_node)) // here
 	{
-		if (!ft_isalpha(tmp[0]))
-			append_list(token_node, tmp, WORD, coord);
-		else
-			append_list(token_node, tmp, ENV, coord);
-		// ft_newvar(tmp, NOT_IN_ENV);
-		// ft_execenv(head, *token_node);
-
+		//ft_putendl("ENV");
+		append_list(token_node, tmp, ENV, coord);
+		//ft_newvar(tmp, NOT_IN_ENV);
+		//  ft_execenv(head, *token_node);
+		//deletenode_env(token_node, tmp);
+		// ft_listtotab();
 	}
 	else
 		append_list(token_node, tmp, WORD, coord);

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 18:12:09 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:51:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,9 +112,11 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	char *dollars;
 	char *data = NULL;     //////biggy
 
-	
 	//env_update(&v->tokenz, v->env_list);
-	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/' )
+	
+	if (*buf == '$')
+		ft_execenv(v->env_list, v->tokenz, EXP);
+	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/')
 	{
 		position = 1;
 		while (buf[position] && !is_blank(buf[position]) && buf[position] != '$' )
@@ -126,7 +128,7 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		while(*buf && !is_blank(*buf) && *buf != '$') 
 			buf++;
 	}
-	if (*buf == '$' && *(buf+1) == '{' && brackets(buf))
+	if (*buf == '$' && *(buf + 1) == '{' && brackets(buf))
 	{
 		data = get_the_line(buf + 1);
 		if (ft_strequ(data, "?"))
@@ -137,7 +139,7 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		if (!is_blank(c) && c != '|')
 			v->coord.no_space = 1;
 		if (dollars)
-			append_list(&v->tokenz, dollars, WORD, &v->coord);
+			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
 		buf = buf + ft_strlen(data) + 3;
 		ft_strdel(&data);
 		ft_strdel(&dollars);
@@ -210,7 +212,7 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 		!ft_is_there(AGG_REDI, *buf) && *buf != '|')
 	{
 		if (buf && *(buf))
-			buf += simple_word_function(buf, &v->tokenz, &v->coord);
+			buf += simple_word_function(buf, &v->tokenz, &v->coord, v->env_list);
 	}
 	return (buf);
 }
@@ -244,7 +246,7 @@ t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 			return (NULL);
 		if ((buf = get_pipe_agr(buf, &v)) == NULL)
 			return (NULL);
-		if ((buf = get_qoute_word(buf, &v)) == NULL)
+		if ((buf = get_qoute_word(buf, &v)) == NULL) // a=b echo $a	
 			return (NULL);
 	}
 	return (v.tokenz);

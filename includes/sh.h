@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 13:48:30 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 16:42:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@
 # define DEFAULT_FD_OUT "1"
 # define DEFAULT_FD_IN "0"
 # define MAX_INDEX 4096
+# define EXP	1
+# define NOT_EXP 0
 # define MIN_INDEX 1024
 
 # define IS_RUNNING 1
@@ -310,7 +312,7 @@ int						quote_function(char *buf, t_lexer **tokenz,
 int						quote_handling_function(t_lexer **token_node,
 	t_quote *quot, char quote, t_pointt *coord);
 int						simple_word_function(char *buf,
-	t_lexer **token_node, t_pointt *coord);
+	t_lexer **token_node, t_pointt *coord, t_env **head);
 int						execute(t_miniast *tree, t_env **env_list);
 int						execute_pipes(t_miniast *tree,
 	char **tabs, t_env **env_list);
@@ -360,7 +362,7 @@ char					*get_content_quote(char *buffer,
 	char c, t_pointt *coord, int flag_c);
 int						check_builtins_nfrk(char *cmd_name);
 int						get_the_word(char *buf,
-	t_lexer **token_node, t_pointt *coord);
+	t_lexer **token_node, t_pointt *coord, t_env **head);
 size_t					get_arr_size_tokenz(t_lexer *token);
 int						ft_agg_digit(t_redir *redirection, int fd, int lfd);
 int						ft_agg_close(t_redir *redirection,
@@ -527,15 +529,17 @@ int						test_file_complete(char **args);
 // env expansions
 char					*get_value_expansion_path(char *env_name);
 char					*get_value_expansion_cd(char *env_name, t_env **head);
+void					ft_fixenv(t_lexer **token);
 
 //env
 void					ft_envcpy(t_env **head);
-void					ft_execenv(t_env **head, t_lexer *tokenz);
+void					ft_execenv(t_env **head, t_lexer *tokenz, int flag);
 int						ft_tmpvarcheck(t_lexer *tokenz);
 void					ft_addtmpvar(t_env **head, char *data);
 
 //alias
 
 void					alias_bultin(char **line);
+ void print_tokenz(t_lexer *tokenz);
 void					alias_check(t_lexer *tokenz);
 #endif

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 16:16:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:33:59 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,13 @@ static void		after_exp(t_expansion *v, t_pointt *cor, t_lexer **token_node,
 		v->data = v->env_value;
 		v->env_value = ft_strjoin_until_char(v->env_value, v->buf + v->i, ' ');
 		v->data_size += ft_strlen_delim(v->buf + v->i, " ;$|><\n\t");
-		// if (v->buf[v->data_size - 1] == '$')
-		// 	cor->no_space = 1;
+		ft_putnbr(v->data_size);
+		ft_putchar(' ');
+		if (v->buf[v->data_size - 1] == '$')
+			cor->no_space = 1;
 		ft_strdel(&v->data);
 	}
+	ft_putendl("$$$$$$$");
 	if (v->env_value)
 		append_list(token_node, v->env_value, EXPANSION, cor);
 	ft_strdel(&v->env_value);
@@ -125,10 +128,8 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		while (buf[v.i] && !is_blank(buf[v.i]) && buf[v.i] != '$' && buf[v.i] != '\\')
-			v.i++;
-		// ft_putnbr(v.i + 1);
-		// ft_putchar('\n');
+		// while (buf[v.i] && !is_blank(buf[v.i]) && buf[v.i] != '$' && buf[v.i] != '\\')
+		// 	v.i++;
 		return (v.i + 1);
 	}
 	return (v.i + 1);

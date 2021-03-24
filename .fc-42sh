@@ -1,1 +1,2 @@
-pwd | cat -e
+ls -la;echo $HOME
+ls -la

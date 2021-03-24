@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 15:26:02 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/24 13:26:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int			quote_function(char *buf, t_lexer **token_node,
 }
 
 int			simple_word_function(char *buf,
-	t_lexer **token_node, t_pointt *coord)
+	t_lexer **token_node, t_pointt *coord, t_env **head)
 {
 	int		i;
 	char	*temp;
@@ -117,6 +117,6 @@ int			simple_word_function(char *buf,
 		ft_strdel(&temp);
 	}
 	else if (*buf)
-		i = get_the_word(buf, token_node, coord);
+		i = get_the_word(buf, token_node, coord, head);
 	return (i);
 }

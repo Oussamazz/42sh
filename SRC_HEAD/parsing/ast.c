@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 18:29:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:15:32 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	int			i;
 	char		**ret;
 	size_t		ret_size;
-
+	int type = 0;
 	ret = NULL;
 	if (token && env && redirections)
 	{
@@ -50,7 +50,13 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 			// while (token && token->type == ENV)
 			// 	token = token->next;
 			// if (!token)
-			// 	break ;
+			// 	break 
+			// if ((token->type == ENV) || (type == ENV && token->type == SEP))
+			// {
+			// type = token->type;
+			// token =token->next;	//ft_putendl(tokenz->data);
+			// continue ;
+			// }
 			if (token->type == WORD || token->type == DQUOT ||
 				token->type == SQUOT || token->type == EXPANSION)
 				fill_cmd(ret, token, &i, env);
@@ -116,7 +122,13 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
-		//ft_putendl(tokenz->data);
+		ft_putendl(tokenz->data);
+		if ((tokenz->type == ENV) || (type == ENV && tokenz->type == SEP))
+		{
+			type = tokenz->type;
+			tokenz =tokenz->next;	//ft_putendl(tokenz->data);
+			continue ;
+		}
 		redirections = NULL;
 		if ((*head) == NULL && env && tokenz && tokenz->data)
 		{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/28 18:20:56 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:07:49 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,7 +200,8 @@ void execute_commande_fc(const char *file)
 		return ;
 	while (get_next_line(fd, &line) > 0)
 	{
-		ft_putendl(line);
+		// ft_putstr("-->");
+		// ft_putendl(line);
 		ft_strdel(&line);
 	}
 	ft_strdel(&line);

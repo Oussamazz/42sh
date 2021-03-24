@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/21 23:22:45 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/24 19:03:41 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,18 @@ typedef struct		s_node
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
-
 typedef struct		s_point
 {
 	int				x;
 	int				y;
 }					t_point;
+typedef struct		s_expansion_h
+{
+	int				i;
+	int				j;
+	char			*hold;
+	char			*tmp;
+}					t_expansion_h;
 
 
 typedef struct		s_affcmpl
@@ -259,4 +265,6 @@ int				ft_calc(char **hold);
 void load_hsitory(char const *str);
 void print_in_history(const char *file);
 void execute_open_file(char *editeur);
+
+void		history_expansion(char *str);
 #endif

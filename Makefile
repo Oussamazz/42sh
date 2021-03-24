@@ -32,7 +32,7 @@ SRC_HASH = alloc_hash.o errors_print.o flags.o h_tools.o hash_tools.o hash_tools
 
 SRC_TEST = ft_test.o test_file.o test_file_tools1.o test_file_tools2.o test_s_and_n_tools.o test_string_and_numeric.o
 
-SRC_READLINE = ft_readline.o history.o keys_alt.o move_cursor.o selection.o tools_readline.o builtins_readline.o prepare_readline.o signal_readline.o helper_readline.o mode_r.o auto_completion.o read_fc.o fc_l.o fc_e.o
+SRC_READLINE = ft_readline.o history.o keys_alt.o move_cursor.o selection.o tools_readline.o builtins_readline.o prepare_readline.o signal_readline.o helper_readline.o mode_r.o auto_completion.o read_fc.o fc_l.o fc_e.o history_expansion.o
 SRC_JOB_CTRL = nodes_jobs.o get_job_members.o jobs_blt.o show_info.o
 
 

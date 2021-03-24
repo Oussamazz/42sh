@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/23 18:27:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 17:24:18 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,6 +91,8 @@ int		ft_tmpvarcheck(t_lexer *tokenz)
 	{
 		if (node->type != ENV && node->type != SEP && old_type == ENV)
 			return (1);
+		if (node->type == SEP)
+			return (0);
 		old_type = node->type;
 		node = node->next;
 	}
@@ -107,14 +109,14 @@ void	ft_addtmpvar(t_env **head, char *data)
 	while (data[++i] && data[i] != '=')
 		;
 	name = ft_strsub(data, 0, i);
-	if (env_exist(head, name) == 0)
+	if (!env_exist(head, name))
 		addtolist(head, ft_strdup(name), ft_strdup(ft_strchr(data, '=') + 1));
 	else
 		modify_env(head, ft_strdup(name), ft_strdup(ft_strchr(data, '=') + 1));
 	ft_strdel(&name);
 }
 
-void	ft_execenv(t_env **head, t_lexer *tokenz)
+void	ft_execenv(t_env **head, t_lexer *tokenz, int flag)
 {
 	t_env	*tmp;
 	int		tmp_check;
@@ -122,15 +124,20 @@ void	ft_execenv(t_env **head, t_lexer *tokenz)
 
 	tmp = *head;
 	head_lexer = tokenz;
-	tmp_check = ft_tmpvarcheck(tokenz);
-	// printf("%d\n", tmp_check);
 	while (tokenz && tokenz->type == ENV)
 	{
+		tmp_check = ft_tmpvarcheck(tokenz);
 		if (tmp_check)
 			ft_addtmpvar(head, tokenz->data);
 		else
 			ft_newvar(tokenz->data, NOT_IN_ENV);
 		tokenz = tokenz->next;
+		while (tokenz && tokenz->type != ENV)
+		{
+			tokenz = tokenz->next;
+			if (tokenz && tokenz->type == ENV)
+				break ;
+		}
 	}
 	ft_listtotab();
 }
