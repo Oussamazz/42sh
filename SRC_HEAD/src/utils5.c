@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils5.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:44:10 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/19 15:21:30 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/24 22:34:42 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,11 +22,12 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 	cwd_ = NULL;
 	if (cwd == NULL)
 	{
-		if (!(cwd_ = get_value_expansion("PWD", env_list)))
+		if (!(cwd_ = get_value_expansion_cd("PWD", env_list)))
 			return ;
 		cwd = cwd_;
 		flag = true;
 	}
+	// ft_newvar(cwd, NOT_IN_ENV);
 	cmd[0] = "setenv";
 	cmd[1] = "OLDPWD";
 	cmd[2] = cwd;
@@ -43,6 +44,7 @@ void			gen_pwd(char *new_path, t_env **env_list)
 
 	if (new_path == NULL)
 		return ;
+	// ft_newvar(new_path, NOT_IN_ENV);
 	cmd[0] = "setenv";
 	cmd[1] = "PWD";
 	cmd[2] = new_path;

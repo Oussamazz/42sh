@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 19:25:18 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:35:02 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ void			ft_fixenv(t_lexer **token)
     		        tokenz = tokenz->next;
     		    }
     	}
-   		 if (tokenz)
+   		if (tokenz)
         	tokenz = tokenz->next;
 	}
 }

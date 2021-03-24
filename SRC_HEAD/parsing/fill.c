@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:19:17 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 19:23:24 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:22:29 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@ void			fill_cmd(char **ret, t_lexer *token, int *i, t_env **env)
 	if (token->data && !*(token->data))
 		ret[*i] = ft_strdup("");
 	else if (token->type != DQUOT)
+	{
 		ret[*i] = ft_strdup(token->data);
+	}
 	else
 	{
 		ret[*i] = expanded(env, token->data);
@@ -56,7 +58,9 @@ void			fill_cmd(char **ret, t_lexer *token, int *i, t_env **env)
 	}
 	if (token->coor.no_space)
 	{
-		if (token->next && token->next->data) // (token->next->type == DQUOT || token->next->type == SQUOT || token->next->type == EXPANSION)
+		if (token->next && token->next->data &&
+			(token->next->type == DQUOT || token->next->type == SQUOT ||
+				token->next->type == EXPANSION ))
 		{
 			tmp = token->next->data;
 			token->next->data = ft_strjoin(ret[*i], tmp);

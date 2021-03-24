@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexerCore.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 17:51:30 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:39:54 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,6 +114,7 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 
 	//env_update(&v->tokenz, v->env_list);
 	
+	v->coord.no_space = 0;
 	if (*buf == '$')
 		ft_execenv(v->env_list, v->tokenz, EXP);
 	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/')
@@ -152,12 +153,12 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	}
 	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
 	{
-		if (*buf == '$' && (!*(buf + 1) || is_blank(*(buf + 1))))
+		if ((!*(buf + 1) || is_blank(*(buf + 1))))
 		{
 			append_list(&v->tokenz, "$", WORD, &v->coord);
 			return (buf + 1);
 		}
-		else if (*buf == '$' && *(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
+		else if (*(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
 		{
 			data = ft_itoa(g_the_status);
 			append_list(&v->tokenz, data, WORD, &v->coord);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 19:33:59 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:28:52 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ static char		*ft_strjoin_until_char(char const *s1, char const *s2, char c)
 static void		after_exp(t_expansion *v, t_pointt *cor, t_lexer **token_node,
 	t_env **env_list)
 {
-	if (v->buf[v->i] == '$')
+	//ft_putendl(&v->buf[v->i]);
+	if (v->buf[v->i] == '$' && v->buf[v->i + 1] != '{')
 		cor->no_space = 1;
 	v->env_value = get_value_expansion(v->data, env_list);
 	ft_strdel(&v->data);
@@ -128,8 +129,8 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		// while (buf[v.i] && !is_blank(buf[v.i]) && buf[v.i] != '$' && buf[v.i] != '\\')
-		// 	v.i++;
+		while (buf[v.i] && !ft_is_there(" ;$|><\n\t", buf[v.i]) && buf[v.i] != '\\')
+			v.i++;
 		return (v.i + 1);
 	}
 	return (v.i + 1);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 19:15:32 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 21:30:58 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,26 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 		i = 0;
 		while (token != NULL && token->coor.node_index <= alltoken_size)
 		{
+			// ft_putstr(token->data);
+			// ft_putendl("|");
 			// while (token && token->type == ENV)
 			// 	token = token->next;
 			// if (!token)
 			// 	break 
 			// if ((token->type == ENV) || (type == ENV && token->type == SEP))
 			// {
-			// type = token->type;
-			// token =token->next;	//ft_putendl(tokenz->data);
-			// continue ;
+			// 	type = token->type;
+			// 	token =token->next;	//ft_putendl(tokenz->data);
+			// 	continue ;
 			// }
 			if (token->type == WORD || token->type == DQUOT ||
 				token->type == SQUOT || token->type == EXPANSION)
 				fill_cmd(ret, token, &i, env);
 			else if (fill_cmd_redir(token, &i, redirections) == 1)
+			{
+				ft_putendl("break");
 				break ;
+			}
 			token = token->next;
 			i++;
 		}
@@ -122,7 +127,6 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
-		ft_putendl(tokenz->data);
 		if ((tokenz->type == ENV) || (type == ENV && tokenz->type == SEP))
 		{
 			type = tokenz->type;
