@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:14 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 14:16:58 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/25 15:24:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ void	blt_echo(char **cmd)
 	}
 	while (cmd[++i] != NULL)
 	{
-		ft_putstr_fd(cmd[i], STDOUT_FILENO);
+		if (ft_strequ(cmd[i], "?"))
+			ft_putnbr(g_the_status);
+		else
+			ft_putstr_fd(cmd[i], STDOUT_FILENO);
 		if (cmd[i + 1])
 			ft_putchar_fd(' ', STDOUT_FILENO);
 	}
