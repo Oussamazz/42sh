@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 16:42:54 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/25 18:34:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@
 pid_t	g_parproc;
 pid_t	proc_child;
 int		g_id;
+char  *g_commandline;
 
 enum {
 	F_TOKENZ,
@@ -289,10 +290,13 @@ typedef	struct			s_job_ctrl
 t_job_ctrl *g_jobs_lst;
 t_job_ctrl *g_copy;
 
+t_env		*g_head;
+
 void					source_sh(t_env **head);
 char					*here_doc(char *delim);
 void					append_list(t_lexer **root, char *data, t_type type,
 	t_pointt *cor);
+void		init_coord(t_pointt *cor);
 void					append_list_redi(t_lexer **root, char *data,
 	t_type type, t_pointt *cor);
 void					append_list_pipe(t_lexer **root, char *data,
@@ -428,8 +432,7 @@ void					ft_free_his(t_his **g_his);
 char					*err_ret(char *s, char *addrr);
 void					error_message(char *err_message, int flag);
 int						print_error_sym(t_type type);
-void					exit_blt(t_miniast **root, t_lexer **lex,
-	t_env **env_list, char **buff);
+void					exit_blt(char **cmd);
 void					free_env_list(t_env **head);
 void					free_vars(t_mystruct *v, int *to_free, int size);
 
@@ -542,4 +545,10 @@ void					ft_addtmpvar(t_env **head, char *data);
 void					alias_bultin(char **line);
  void print_tokenz(t_lexer *tokenz);
 void					alias_check(t_lexer *tokenz);
+
+
+// fc execute
+void    execute_fc(char *line);
+void print_tokenz(t_lexer *tokenz);
+t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize);
 #endif

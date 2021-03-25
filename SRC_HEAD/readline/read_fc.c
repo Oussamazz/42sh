@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/24 19:07:49 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/25 17:44:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -195,29 +195,20 @@ void execute_commande_fc(const char *file)
 {
 	char *line = NULL;
 	int fd;
+	char *rest = ft_strdup("");
 
 	if ((fd = open(file, O_RDWR | O_CREAT, 00600)) == -1)
 		return ;
 	while (get_next_line(fd, &line) > 0)
 	{
-		// ft_putstr("-->");
-		// ft_putendl(line);
-		ft_strdel(&line);
+		line = ft_freejoin(line, ";", 0);
+		rest = ft_freejoin(rest, line, 2);
 	}
-	ft_strdel(&line);
 	close(fd);
+	if (rest && *rest)
+		execute_fc(rest);
+	ft_strdel(&rest);
 }
-
-// t_node *ft_get_tail(t_node *history)
-// {
-// 	while (history)
-// 	{
-// 		if (history->next == NULL)
-// 			return (history);
-// 		history = history->next;
-// 	}
-// 	return (history);
-// }
 
 int				ft_calc(char **hold)
 {

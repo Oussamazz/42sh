@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 21:35:02 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:13:04 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static void		init_coord(t_pointt *cor)
+void		init_coord(t_pointt *cor)
 {
 	if (cor)
 	{
@@ -34,6 +34,7 @@ int				main(int ac, char **av, char **env)
 	ft_envvinit(env);
 	g_parproc = getpid();
 	stock_env(env, &env_list);
+	g_head = env_list;
 	time(&now);
 	if (ac > 1 && env_list)
 		flag_g(av, &env_list, &now);
@@ -131,7 +132,7 @@ void			ft_fixenv(t_lexer **token)
     		        tokenz = tokenz->next;
     		    }
     	}
-   		if (tokenz)
+   		else if (tokenz)
         	tokenz = tokenz->next;
 	}
 }
@@ -148,9 +149,6 @@ void			source_sh(t_env **head)
 	g_hashtable = ht_create();
 	while (v.status[0])
 	{
-		ft_putstr("status: ");
-		ft_putnbr(g_the_status);
-		ft_putchar('\n');
 		init_coord(&v.coord);
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
@@ -158,8 +156,6 @@ void			source_sh(t_env **head)
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
-		 //print_tokenz(v.tokenz);
-		// ft_putendl_fd("_______________________", 1);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
 		ft_fixenv(&v.tokenz);
 		ft_execenv(head, v.tokenz, NOT_EXP);

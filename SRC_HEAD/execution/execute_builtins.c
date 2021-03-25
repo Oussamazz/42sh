@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 22:29:25 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/25 16:10:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,8 +115,7 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
 			print_in_history(PATH_HISTORY_FILE);
-			exit_blt(NULL, NULL, env_list, NULL);
-			exit(0);
+			exit_blt(tree->cmd);
 		}
 	}
 	return ;

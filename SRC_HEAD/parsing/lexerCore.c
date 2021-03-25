@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 15:28:47 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/25 17:31:22 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,12 +156,12 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 	}
 	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
 	{
-		if ((!*(buf + 1) || is_blank(*(buf + 1))))
+		if (*buf != '~' && (!*(buf + 1) || is_blank(*(buf + 1))))
 		{
 			append_list(&v->tokenz, "$", WORD, &v->coord);
 			return (buf + 1);
 		}
-		else if (*(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
+		else if (*buf == '$' && *(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
 		{
 			append_list(&v->tokenz, "?", WORD, &v->coord);
 			return (buf + 2);

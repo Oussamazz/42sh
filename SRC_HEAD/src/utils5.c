@@ -6,17 +6,29 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:44:10 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 13:04:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/25 17:24:40 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+void			ft_update(char *all, char *name)
+{
+	t_envv		*tmp;
+
+	tmp = NULL;
+	if ((tmp = ft_varchr(name, SEARCH)))
+		ft_newvar(all, tmp->type);
+	else
+		ft_newvar(all, NOT_IN_ENV);
+}
 
 void			gen_oldpwd(char *cwd, t_env **env_list)
 {
 	bool		flag;
 	char		*cwd_;
 	char		*cmd[4];
+	char *tmp = NULL;
 
 	flag = false;
 	cwd_ = NULL;
@@ -27,12 +39,9 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 		cwd = cwd_;
 		flag = true;
 	}
-	// ft_newvar(cwd, NOT_IN_ENV);
-	cmd[0] = "setenv";
-	cmd[1] = "OLDPWD";
-	cmd[2] = cwd;
-	cmd[3] = NULL;
-	blt_setenv(cmd, env_list);
+	tmp = ft_strjoin("OLDPWD=", cwd);
+	ft_update(tmp, "OLDPWD");
+	ft_strdel(&tmp);
 	if (flag)
 		ft_strdel(&cwd_);
 	return ;
@@ -41,15 +50,12 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 void			gen_pwd(char *new_path, t_env **env_list)
 {
 	char		*cmd[4];
-
+	char 		*tmp = NULL;
 	if (new_path == NULL)
 		return ;
-	// ft_newvar(new_path, NOT_IN_ENV);
-	cmd[0] = "setenv";
-	cmd[1] = "PWD";
-	cmd[2] = new_path;
-	cmd[3] = NULL;
-	blt_setenv(cmd, env_list);
+	tmp = ft_strjoin("PWD=", new_path);
+	ft_update(tmp, "PWD");
+	ft_strdel(&tmp);
 	return ;
 }
 

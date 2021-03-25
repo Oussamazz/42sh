@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 21:30:58 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/25 18:59:38 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize)
+t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize)
 {
 	t_lexer *cur;
 
@@ -64,7 +64,7 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 				fill_cmd(ret, token, &i, env);
 			else if (fill_cmd_redir(token, &i, redirections) == 1)
 			{
-				ft_putendl("break");
+				// ft_putendl("break");
 				break ;
 			}
 			token = token->next;
@@ -121,12 +121,14 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 	t_miniast	*data;
 	t_redir		*redirections;
 	int 		type = 0;
+	t_lexer *checker = NULL;
 
 	cmd = NULL;
 	if (!g_alltokenzsize)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
+		// ft_putendl("#");
 		if ((tokenz->type == ENV) || (type == ENV && tokenz->type == SEP))
 		{
 			type = tokenz->type;
@@ -149,7 +151,9 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		}
 		else
 			parse_commands_sep_pipe(head, tokenz, env);
+		// ft_putendl("?");
 		tokenz = move_list(tokenz, g_alltokenzsize);
+		// break ;
 	}
 	g_alltokenzsize = 0;
 	return (1);

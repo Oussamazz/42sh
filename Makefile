@@ -13,7 +13,7 @@ SRC_CMDSUB = sub_shell.o
 
 SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o
 
-SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o
+SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o execute_fc.o
 
 SRC_BUILTINS = blt_echo.o  exit_blt.o type_blt.o cd_blt.o fg_blt.o bg_blt.o
 

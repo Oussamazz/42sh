@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 21:28:52 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/25 19:15:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,10 @@ static void		after_exp(t_expansion *v, t_pointt *cor, t_lexer **token_node,
 		v->data = v->env_value;
 		v->env_value = ft_strjoin_until_char(v->env_value, v->buf + v->i, ' ');
 		v->data_size += ft_strlen_delim(v->buf + v->i, " ;$|><\n\t");
-		ft_putnbr(v->data_size);
-		ft_putchar(' ');
 		if (v->buf[v->data_size - 1] == '$')
 			cor->no_space = 1;
 		ft_strdel(&v->data);
 	}
-	ft_putendl("$$$$$$$");
 	if (v->env_value)
 		append_list(token_node, v->env_value, EXPANSION, cor);
 	ft_strdel(&v->env_value);
