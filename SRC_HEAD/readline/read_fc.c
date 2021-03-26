@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/26 15:36:03 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 22:34:24 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,7 @@ void execute_commande_fc(const char *file)
 		rest = ft_freejoin(rest, line, 2);
 	}
 	close(fd);
+	ft_putendl_fd(rest, 2);
 	if (rest && *rest)
 		execute_fc(rest);
 	ft_strdel(&rest);
@@ -224,25 +225,33 @@ int				ft_calc(char **hold)
 
 void execute_open_file(char *editeur)
 {
-	char *file_name = ft_strjoin("/usr/bin/",editeur);
+	if (!editeur)
+		editeur = "vim";
+	char *file_name = editeur;
 	char **cmd;
 
 	cmd = malloc(sizeof(char *) * 3);
 	cmd[0] = file_name;
 	cmd[1] = PATH_FC_FILE;
 	cmd[2] = 0;
+	
+	char *line = ft_strjoin_four(file_name, " ", PATH_FC_FILE, "");
+	ft_putendl_fd("------------", 2);
+	ft_putendl_fd(line, 2);
+	ft_putendl_fd("------------", 2);
+	execute_fc(line);
 	// ft_listtotab();
-	if (!fork())
-	{
-		if (!access(file_name,F_OK))
-		{
-			if (execve(file_name, cmd, g_envtab) == -1)
-				ft_putendl("21sh: Error: Execution Failed.");
-		}
-		exit(1);
-	}
-	else
-		wait(0);
+	// if (!fork())
+	// {
+	// 	if (!access(file_name,F_OK))
+	// 	{
+	// 		if (execve(file_name, cmd, g_envtab) == -1)
+	// 			ft_putendl("21sh: Error: Execution Failed.");
+	// 	}
+	// 	exit(1);
+	// }
+	// else
+	// 	wait(0);
 	// ft_free_arr(cmd);
 	// ft_strdel(&file_name);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 19:15:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 23:20:16 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		while (buf[v.i] && !ft_is_there(" ;$|><\n\t", buf[v.i]) && buf[v.i] != '\\')
+		while (buf[v.i] && !is_quote(buf[v.i]) && !ft_is_there(" ;$|><\n\t", buf[v.i]) && buf[v.i] != '\\')
 			v.i++;
 		return (v.i + 1);
 	}

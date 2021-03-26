@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 14:03:26 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 22:47:42 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -144,11 +144,9 @@ int				execute(t_miniast *tree, t_env **env_list)
 {
 	char		**tabs;
 	int			fd;
-	char *print = NULL;
 
 	fd = 0;
-	if (!(tabs = list_to_tabs(env_list)))
-		return (0);
+	tabs = g_settab;
 	while (tree != NULL && tree->cmd[0])
 	{
 		if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
@@ -164,6 +162,5 @@ int				execute(t_miniast *tree, t_env **env_list)
 			tree = tree->sep;
 		}
 	}
-	ft_free_arr(tabs);
 	return (1);
 }

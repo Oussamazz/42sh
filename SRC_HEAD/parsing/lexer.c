@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 13:26:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 21:49:13 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int			expansion_function(char *buf, t_lexer **token_node,
 
 	i = 0;
 	tmp = NULL;
-	if (buf[i] == '$' && (buf[i + 1] == '(') )
+	if (buf[i] == '$' && (buf[i + 1] == '('))
 	{
 		// if (check_brackets(buf))
 		// {
