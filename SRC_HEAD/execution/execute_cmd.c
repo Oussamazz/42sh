@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 18:37:10 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/26 15:05:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ void			execute_undirect(char **cmd, char **tabs, t_env **env)
 	// 	ft_putendl_fd_error("42sh: command not found: ", cmd[0], "\n", NULL);
 	// 	return ;
 	// }
+	
+	// ft_putendl(bin_file);
+	// dprintf(2, "bin: %s\n", bin_file);
 	if (access(bin_file, F_OK) == 0)
 		my_execve(bin_file, cmd, tabs);
 	else

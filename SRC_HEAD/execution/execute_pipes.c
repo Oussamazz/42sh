@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/23 15:39:06 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 16:10:37 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,7 +145,7 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		else if (WIFSIGNALED(pipes.status))
 		{
 			g_the_status = WTERMSIG(pipes.status) + 128;
-			//dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
+			dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))

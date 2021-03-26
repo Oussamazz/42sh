@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/25 17:44:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:36:03 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,6 +243,8 @@ void execute_open_file(char *editeur)
 	}
 	else
 		wait(0);
+	// ft_free_arr(cmd);
+	// ft_strdel(&file_name);
 }
 
 void ft_fc_l3adiya(t_opt *opt, char **hold)

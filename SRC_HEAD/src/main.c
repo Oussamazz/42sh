@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 19:13:04 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 15:37:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,8 @@ int				main(int ac, char **av, char **env)
 	ft_envvinit(env);
 	g_parproc = getpid();
 	stock_env(env, &env_list);
-	g_head = env_list;
+	// g_head = env_list;
+	stock_env(env, &g_head);
 	time(&now);
 	if (ac > 1 && env_list)
 		flag_g(av, &env_list, &now);

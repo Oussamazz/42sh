@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 18:59:13 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/26 14:03:26 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,12 +147,10 @@ int				execute(t_miniast *tree, t_env **env_list)
 	char *print = NULL;
 
 	fd = 0;
-	// ft_putendl_fd("lwal", 2);
 	if (!(tabs = list_to_tabs(env_list)))
 		return (0);
 	while (tree != NULL && tree->cmd[0])
 	{
-		ft_putendl_fd("dkhlt", 2);
 		if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
 			execute_blt_with_fork(tree, tabs, env_list);
 		else
