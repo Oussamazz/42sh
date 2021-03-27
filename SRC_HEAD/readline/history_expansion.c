@@ -194,7 +194,7 @@ int			cheker_history_expansion(char *str)
 	return (1);
 }
 
-void		history_expansion(char *str)
+char *history_ecxpansion(char *str)
 {
 	t_expansion_h expansion;
 
@@ -215,7 +215,8 @@ void		history_expansion(char *str)
 	if (expansion.tmp != NULL)
 	{
 		ft_strdel(&(expansion.tmp));
-		ft_putendl(expansion.hold);
+		return (expansion.hold);
 	}
 	ft_strdel(&(expansion.hold));
+	return (NULL);
 }
