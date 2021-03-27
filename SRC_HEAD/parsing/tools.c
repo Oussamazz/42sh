@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 17:45:37 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:33:50 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,11 +50,11 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord, t_env **he
 	char	tmp[MIN_INDEX];
 	int		j;
 	char 	*v;
-	char    *ptr;
 	int 	i;
 	int 	size;
 
 	j = 0;
+	(void)head;
 	size = ft_strlen(buf);
 	i = 0;
 	v = NULL;

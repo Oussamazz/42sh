@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_value_exp.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:04:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 21:15:11 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:31:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ char		*get_value_expansion(char *env_name, t_env **head)
 	t_envv	*curr;
 
 	curr = NULL;
+	(void)head;
 	env_value = NULL;
 	if (g_set)
 		curr = g_set;

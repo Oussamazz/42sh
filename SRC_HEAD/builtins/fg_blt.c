@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fg_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:35:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:07:53 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:31:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int      size_of_lst(t_job_ctrl *lst)
     t_job_ctrl *ptr;
 
     ptr = g_jobs_lst;
+    (void)lst;
     size = 0;
     while (ptr)
     {
@@ -48,7 +49,6 @@ static int  get_job_id(char **cmd)
 
 int     fg_blt(char **cmd)
 {
-    int pid;
     int status;
     int fd;
     t_job_ctrl *ptr;

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 18:59:38 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:32:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	int			i;
 	char		**ret;
 	size_t		ret_size;
-	int type = 0;
+
 	ret = NULL;
 	if (token && env && redirections)
 	{
@@ -121,7 +121,6 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 	t_miniast	*data;
 	t_redir		*redirections;
 	int 		type = 0;
-	t_lexer *checker = NULL;
 
 	cmd = NULL;
 	if (!g_alltokenzsize)

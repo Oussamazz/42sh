@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:42:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 14:01:39 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:35:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ void			ft_reset_fd(char *tty_name, int file_d)
 {
 	int			fd = 0;
 
+	(void)tty_name;
+	(void)file_d;
 	if ((fd = open(ttyname(0), O_RDWR)) == -1)
 		return ;
 	dup2(fd, STDIN_FILENO);

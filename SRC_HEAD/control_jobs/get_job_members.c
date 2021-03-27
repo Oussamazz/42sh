@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_job_members.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/27 15:16:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/04 23:18:41 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:36:41 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ char    **get_job_members(t_miniast *tree)
 {
 	int		i;
 	char	**arr;
-	char	*tmp;
 	size_t	len;
 	bool flag = 0;
 

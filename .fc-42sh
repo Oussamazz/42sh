@@ -1,4 +1,1 @@
-pwd
-test
-test sdfds
-ls -la | cat -e
+ls -la

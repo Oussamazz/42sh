@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   quote_handling.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:38:24 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 19:11:18 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 14:34:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ char			*get_content_quote(char *buffer, char c,
 	t_pointt *coord, int flag)
 {
 	const char	*tmp;
-	char 		*ptr;
-	int 		i;
 	char		*str;
 
 	tmp = buffer;

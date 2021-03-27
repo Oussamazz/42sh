@@ -3,20 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 17:11:21 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/21 18:55:47 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 14:36:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
 
-void alias_check(t_lexer *tokenz)
-{
+// void alias_check(t_lexer *tokenz)
+// {
     
-}
+// }
 
 
 void free2Dm(char ***str)

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:44:10 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 17:24:40 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:35:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 {
 	bool		flag;
 	char		*cwd_;
-	char		*cmd[4];
 	char *tmp = NULL;
 
 	flag = false;
@@ -49,8 +48,9 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 
 void			gen_pwd(char *new_path, t_env **env_list)
 {
-	char		*cmd[4];
 	char 		*tmp = NULL;
+
+	(void)env_list;
 	if (new_path == NULL)
 		return ;
 	tmp = ft_strjoin("PWD=", new_path);

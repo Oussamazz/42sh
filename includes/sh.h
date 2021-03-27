@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 11:06:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:32:58 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -343,7 +343,7 @@ char					*ft_strchr_blank(const char *str, int c);
 int						check_command_redir(t_lexer **head, char *buf,
 	t_pointt *cor);
 t_type					last_node_type(t_lexer *tokenz);
-char					**strsplit(char const *s, int flag);
+char					**strsplit(char const *s);
 int						ft_is_aggr(char c);
 t_quote					*quote_completion(t_quote **data, char quote);
 size_t					get_list_size(t_lexer *tokenz);

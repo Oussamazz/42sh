@@ -6,10 +6,9 @@ INC = ./includes/sh.h ./includes/readline.h ./includes/error_msg.h
 SRC_DIR_PARSE:= ./SRC_HEAD/
 OBJ_DIR_HEAD:= ./objs/
 
-FLAGS = -g# -Wall -Wextra -Werror
+FLAGS = -g -Wall -Wextra -Werror
 
 SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o
-SRC_CMDSUB = sub_shell.o
 
 SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o
 
@@ -40,7 +39,6 @@ OBJ_MAIN = $(addprefix objs/src/, $(SRC_MAIN))
 OBJ_ENV = $(addprefix objs/envv/, $(SRC_ENV))
 OBJ_TEST = $(addprefix objs/builtin_test/, $(SRC_TEST))
 OBJ_HASH = $(addprefix objs/hashtable/, $(SRC_HASH))
-OBJ_CMDSUB = $(addprefix objs/command_sub/, $(SRC_CMDSUB))
 OBJ_READLINE = $(addprefix objs/readline/, $(SRC_READLINE))
 OBJ_EXPANSION = $(addprefix objs/expansion/, $(SRC_EXPANSION))
 OBJ_PARSING = $(addprefix objs/parsing/, $(SRC_PARSING))
@@ -50,7 +48,7 @@ OBJ_PIPE_REDIRECTION = $(addprefix objs/pipe_redirection/, $(SRC_PIPE_REDIRECTIO
 OBJ_JOB_CTRL = $(addprefix objs/control_jobs/, $(SRC_JOB_CTRL))
 OBJ_TOOLS = $(addprefix objs/tools/, $(SRC_TOOLS))
 
-OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION) $(OBJ_CMDSUB) $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL) $(OBJ_HASH) $(OBJ_TEST) $(OBJ_ENV)
+OBJECT = $(OBJ_EXPANSION) $(OBJ_BUILTINS) $(OBJ_PARSING) $(OBJ_PIPE_REDIRECTION)  $(OBJ_MAIN) $(OBJ_READLINE) $(OBJ_EXECUTION) $(OBJ_TOOLS) $(OBJ_JOB_CTRL) $(OBJ_HASH) $(OBJ_TEST) $(OBJ_ENV)
 CURRENT_OBJ_DIR = objs
 
 all: $(NAME)

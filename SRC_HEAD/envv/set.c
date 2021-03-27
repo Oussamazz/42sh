@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/01/12 17:06:47 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/24 13:29:11 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:36:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		ft_newvar(char *str, int type)
 		return ;
 	while (str[++i] && str[i] != '=')
 		;
-	if (i == ft_strlen(str))
+	if (i == (int)ft_strlen(str))
 		return ;
 	name = ft_strsub(str, 0, i);
 	if ((node = ft_varchr(name, SEARCH)))

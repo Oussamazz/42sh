@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_cmd.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 22:41:06 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:36:03 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void			execute_undirect(char **cmd, char **tabs, t_env **env)
 	char		*bin_file = NULL;
 	char		*print = NULL;
 
+	(void)env;
 	bin_file = g_binfile;
 	// if (!(bin_file = ft_hashtable(cmd, tabs, &g_hashtable, &print)))
 	// {

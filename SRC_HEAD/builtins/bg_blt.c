@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   bg_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/11 16:02:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/21 00:02:49 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:32:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int      size_of_lst(t_job_ctrl *lst)
     t_job_ctrl *ptr;
 
     ptr = g_jobs_lst;
+    (void)lst;
     size = 0;
     while (ptr)
     {

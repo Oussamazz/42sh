@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   split.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 19:11:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:31:04 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 14:33:02 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int		word_len(char *s)
 	return (len);
 }
 
-char			**strsplit(char const *s, int flag)
+char			**strsplit(char const *s)
 {
 	int			word_countx;
 	char		**str;

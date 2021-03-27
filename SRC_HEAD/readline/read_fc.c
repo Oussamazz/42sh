@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 11:20:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:29:26 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int preparer_path(char *editeur, t_opt *opt)
 		ft_strdel(&path);
 		return (0);
 	}
-	ft_strdel(&path);
 	return (0);
 }
 
@@ -235,7 +234,7 @@ void execute_open_file(char *editeur)
 	// cmd[1] = PATH_FC_FILE;
 	// cmd[2] = 0;
 	
-	char *line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, "");
+	char *line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, ""); // vim dsfdsfdsf
 	// ft_putendl_fd("------------", 2);
 	// ft_putendl_fd(line, 2);
 	// ft_putendl_fd("------------", 2);

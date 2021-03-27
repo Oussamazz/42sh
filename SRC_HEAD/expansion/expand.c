@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expand.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 22:07:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 18:31:57 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 14:33:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ char			*expanded(t_env **head, char *str)
 	
 	flag = 0;
 	ft_bzero(&v, sizeof(t_expand));
-	if (!(v.arr = strsplit(str, flag))) ////biggy
+	if (!(v.arr = strsplit(str))) ////biggy
 		return (NULL);
 	v.val_size = get_arr_size(v.arr) + 1;
 	v.string = NULL;

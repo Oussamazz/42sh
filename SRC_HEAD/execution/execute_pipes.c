@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 16:10:37 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:36:18 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void checkchild2(int sig) {
     int status = 0;
 	int pid = 0;
 
+	(void)sig;
 	ptr = g_jobs_lst;
 	while (ptr && ptr->mode != IS_TERMINATED)
 	{

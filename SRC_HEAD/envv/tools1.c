@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/26 22:54:08 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 14:37:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void	ft_execenv(t_env **head, t_lexer *tokenz, int flag)
 	int		tmp_check;
 	t_lexer	*head_lexer;
 
+	(void)flag;
 	tmp = *head;
 	head_lexer = tokenz;
 	while (tokenz && tokenz->type == ENV)
