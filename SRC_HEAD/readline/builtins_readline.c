@@ -14,7 +14,7 @@
 
 void	ft_print_print(char **str, t_line *line, char *buff)
 {
-	int	i;
+	int i;
 
 	i = -1;
 	while (buff[++i])
@@ -23,7 +23,7 @@ void	ft_print_print(char **str, t_line *line, char *buff)
 	ft_clear(line, *str);
 }
 
-int keyshandle3(t_line *line, char **str)
+int		keyshandle3(t_line *line, char **str)
 {
 	int r;
 
@@ -31,16 +31,15 @@ int keyshandle3(t_line *line, char **str)
 	if (line->r == DEL && !line->mode_r.flag && (r = 1))
 		ft_delet(str, line);
 	else if (line->r == DEL && line->mode_r.flag && (r = 1))
-		delet_mode_r(&line->mode_r.s,line);
+		delet_mode_r(&line->mode_r.s, line);
 	else if (line->r == TAB && !line->mode_r.flag && (r = 1))
-		ft_auto_completion(line,str);
-	return(r);
+		ft_auto_completion(line, str);
+	return (r);
 }
-
 
 int		keyshendle2(t_line *line, char **str, int flag)
 {
-	int	r;
+	int r;
 
 	r = 0;
 	if (!line->mode_r.flag)
@@ -106,7 +105,8 @@ int		keyshendle(t_line *line, char **str)
 	return (r);
 }
 
-int		ft_readline_builtines(int flag, char *buff, t_line *line, t_node **current)
+int		ft_readline_builtines(int flag, char *buff, t_line *line,
+	t_node **current)
 {
 	if (keyshendle(line, &(*current)->tmp))
 		return (1);
@@ -126,8 +126,7 @@ int		ft_readline_builtines(int flag, char *buff, t_line *line, t_node **current)
 	else if (line->slct == 0 && line->mode_r.flag && CTRL_R != line->r)
 	{
 		search_mode_r(line, current);
-		return(1);
+		return (1);
 	}
 	return (1);
 }
-

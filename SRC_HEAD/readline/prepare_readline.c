@@ -12,11 +12,11 @@
 
 #include "../includes/sh.h"
 
-void ft_prompte(void)
+void		ft_prompte(void)
 {
-	char cwd[256];
-	char *cwd1;
-	char *str1;
+	char	cwd[256];
+	char	*cwd1;
+	char	*str1;
 
 	if (!getcwd(cwd, sizeof(cwd)))
 		return (ft_putstr_fd("$>", 1));
@@ -25,18 +25,18 @@ void ft_prompte(void)
 	if (ft_strcmp(cwd1, "/") == 0)
 	{
 		ft_put_multistring((char *[]){"\033[1;32m➜ ",
-									  "\033[1;36m ", cwd1, " $> \033[0m", 0});
-		return;
+			"\033[1;36m ", cwd1, " $> \033[0m", 0});
+		return ;
 	}
 	str1 = ft_strrchr(cwd1, '/');
 	ft_put_multistring((char *[]){"\033[1;32m➜ ",
-								  "\033[1;36m ", str1 + 1, " $>\033[0m", 0});
+		"\033[1;36m ", str1 + 1, " $>\033[0m", 0});
 }
 
-void get_cursor_position(t_line *line)
+void		get_cursor_position(t_line *line)
 {
-	char *buff;
-	int i;
+	char	*buff;
+	int		i;
 
 	i = 0;
 	buff = (char[20]){0};
@@ -46,7 +46,7 @@ void get_cursor_position(t_line *line)
 		i = read(1, buff, 20);
 		buff[i] = 0;
 		if (ft_strchr(buff, '['))
-			break;
+			break ;
 	}
 	line->c_o.y = ft_atoi(buff + 2) - 1;
 	if ((buff = (char *)ft_strchr(buff, ';')))
@@ -56,27 +56,26 @@ void get_cursor_position(t_line *line)
 	line->c_v = line->c_o;
 }
 
-void ft_set_terminal(void)
+void		ft_set_terminal(void)
 {
-	struct termios config;
-	char buf[1024];
+	struct termios	config;
+	char			buf[1024];
 
 	if (tcgetattr(0, &config) < 0)
 		ft_putendl_fd("error", 2);
 	config.c_lflag &= ~(ECHO | ICANON);
 	if (tcsetattr(0, 0, &config) < 0)
 		ft_putendl_fd("error", 2);
-	if (!(ft_strequ(getenv("TERM"),"xterm-256color")))
+	if (!(ft_strequ(getenv("TERM"), "xterm-256color")))
 	{
 		ft_putendl("\nTERM NOT VALIDE");
 		exit(0);
 	}
-	if (!tgetent(buf,"xterm-256color"))
+	if (!tgetent(buf, "xterm-256color"))
 		exit(0);
 }
 
-
-void ft_init(t_line *line, t_node **current)
+void		ft_init(t_line *line, t_node **current)
 {
 	struct winsize w;
 

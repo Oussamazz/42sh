@@ -1,1 +1,10 @@
-make
+fc -l
+ls -al
+ls a-
+ls
+pwd
+fc -l
+ls -a
+ls -al
+pwd
+few

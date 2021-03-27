@@ -14,20 +14,20 @@
 
 static t_node *g_history_head;
 
-void ft_rev_list(t_node **history)
+void	ft_rev_list(t_node **history)
 {
 	while ((*history))
 	{
 		if ((*history)->next == NULL)
-			break;
+			break ;
 		(*history) = (*history)->next;
 	}
 }
 
-void print_in_history(const char *file)
+void		print_in_history(const char *file)
 {
-	int fd;
-	t_node *new;
+	int		fd;
+	t_node	*new;
 
 	new = add_to_history(NULL);
 	ft_rev_list(&(new));
@@ -35,18 +35,17 @@ void print_in_history(const char *file)
 		return ;
 	while (new)
 	{
-		ft_putendl_fd(new->content,fd);
+		ft_putendl_fd(new->content, fd);
 		new = new->prev;
 	}
 	close(fd);
 }
 
-void	ft_free_history(void)
+void		ft_free_history(void)
 {
-	t_node *new;
+	t_node	*new;
 
 	new = add_to_history(NULL);
-	
 	while (new)
 	{
 		ft_strdel(&(new->content));
@@ -76,9 +75,9 @@ void	ft_history_goto(t_node **current, t_node *new, t_line *line)
 		ft_putstr(tgetstr("bl", NULL));
 }
 
-t_node	*add_to_history(const char *str)
+t_node		*add_to_history(const char *str)
 {
-	t_node *new;
+	t_node	*new;
 
 	if (!str)
 		return (g_history_head);
@@ -95,7 +94,7 @@ t_node	*add_to_history(const char *str)
 	return (g_history_head);
 }
 
-void	free_history_node(t_node *head)
+void		free_history_node(t_node *head)
 {
 	if (head)
 	{

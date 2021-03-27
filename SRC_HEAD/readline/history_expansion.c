@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 16:00:57 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/24 15:16:14 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,7 +175,8 @@ int			handel_history_expansion(char *str, t_expansion_h *expansion)
 			if (expansion->j == 0)
 				expansion->hold = ft_strjoin(expansion->tmp, expansion->hold);
 			else
-				expansion->hold = ft_freejoin(expansion->hold, expansion->tmp, 2);
+				expansion->hold = ft_freejoin(expansion->hold,
+					expansion->tmp, 2);
 			return (1);
 		}
 		else
@@ -194,7 +195,7 @@ int			cheker_history_expansion(char *str)
 	return (1);
 }
 
-char *history_expansion(char *str)
+char		*history_expansion(char *str)
 {
 	t_expansion_h expansion;
 
@@ -213,7 +214,10 @@ char *history_expansion(char *str)
 		expansion.j = expansion.i;
 	}
 	if (expansion.tmp != NULL)
+	{
+		ft_strdel(&(expansion.tmp));
 		return (expansion.hold);
+	}
 	ft_strdel(&(expansion.hold));
 	return (NULL);
 }

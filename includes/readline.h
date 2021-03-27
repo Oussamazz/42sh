@@ -265,9 +265,8 @@ void		ft_affiche_tab_e(char **result, int size, t_opt *opt, int sin);
 int			fc_e(t_opt *opt, char **hold, t_node *history);
 // t_node *ft_get_tail(t_node *history);
 int				ft_calc(char **hold);
-void load_hsitory(char const *str);
-void print_in_history(const char *file);
-void execute_open_file(char *editeur);
-
+void 		load_hsitory(char const *str);
+void 		print_in_history(const char *file);
+void 		execute_open_file(char *editeur);
 char		*history_expansion(char *str);
 #endif

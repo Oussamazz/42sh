@@ -12,8 +12,8 @@
 
 #include "../includes/sh.h"
 
-char	*g_str;
-t_line	*g_line;
+char *g_str;
+t_line *g_line;
 
 int			ft_output(int str)
 {
@@ -90,6 +90,7 @@ char		*ft_readline(int flag)
 	char	buff[MAX_INDEX];
 	t_node	*current;
 	t_line	line;
+
 	ft_init(&(line), &current);
 	while (TRUE)
 	{

@@ -12,10 +12,10 @@
 
 #include "../includes/sh.h"
 
-void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
+void		ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
 {
-	DIR *dir;
-	struct dirent *dent;
+	DIR				*dir;
+	struct dirent	*dent;
 
 	if ((dir = opendir(str)))
 	{
@@ -36,21 +36,25 @@ void ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl
 	}
 }
 
-void ft_get_all_bin_dirs(t_line *line, char **str)
+void		ft_get_all_bin_dirs(t_line *line, char **str)
 {
-	int i = 0;
-	char **dirs;
+	int			i;
+	char		**dirs;
+	int			flag;
+	char		*path;
+	t_affcmpl	*affcmpl;
+	t_affcmpl	*affcmpltmp;
 
-	t_affcmpl *affcmpl = ft_memalloc(sizeof(t_affcmpl));
-	t_affcmpl *affcmpltmp = affcmpl;
-	int flag = 0;
-	char *PATH;
+	affcmpl = ft_memalloc(sizeof(t_affcmpl));
+	affcmpltmp = affcmpl;
+	i = 0;
+	flag = 0;
 	line->compl.count = 0;
-	if (!(PATH = get_value_expansion_path("PATH")))
+	if (!(path = get_value_expansion_path("PATH")))
 		return ;
-	if (!(dirs = ft_strsplit(PATH, ':')))
+	if (!(dirs = ft_strsplit(path, ':')))
 		return ;
-	ft_strdel(&(PATH));
+	ft_strdel(&(path));
 	line->compl.len = ft_strlen(line->compl.search);
 	flag = (!line->compl.len) ? 0 : 1;
 	if (line->compl.path && *line->compl.path)
@@ -69,7 +73,7 @@ void ft_get_all_bin_dirs(t_line *line, char **str)
 	}
 }
 
-void ft_reaffiche_prompte(t_line *line)
+void		ft_reaffiche_prompte(t_line *line)
 {
 	tputs(tgoto(tgetstr("cm", 0), 0, line->c_o.y), 0, ft_output);
 	tputs(tgetstr("cd", 0), 0, ft_output);
@@ -80,7 +84,7 @@ void ft_reaffiche_prompte(t_line *line)
 	cur_goto(line, line->cursor);
 }
 
-int is_in_str(char c, const char *cmp)
+int		is_in_str(char c, const char *cmp)
 {
 	while (*cmp)
 	{
@@ -91,7 +95,7 @@ int is_in_str(char c, const char *cmp)
 	return (0);
 }
 
-char *ft_strrsearch(char *s, const char *cmp, size_t size)
+char		*ft_strrsearch(char *s, const char *cmp, size_t size)
 {
 	while (size > 0)
 	{
@@ -102,7 +106,7 @@ char *ft_strrsearch(char *s, const char *cmp, size_t size)
 	return (s + size);
 }
 
-char *ft_strrsearch2(char *s, const char *cmp, size_t size)
+char		*ft_strrsearch2(char *s, const char *cmp, size_t size)
 {
 	while (size > 0)
 	{
@@ -113,11 +117,11 @@ char *ft_strrsearch2(char *s, const char *cmp, size_t size)
 	return (s + size);
 }
 
-void get_str_for_search(char *str, t_line *line, int cursor_pos)
+void		get_str_for_search(char *str, t_line *line, int cursor_pos)
 {
-	int tmp;
-	int len;
-	int debut;
+	int		tmp;
+	int		len;
+	int		debut;
 
 	tmp = line->compl.prefix_pos;
 	len = cursor_pos - tmp;
@@ -125,11 +129,11 @@ void get_str_for_search(char *str, t_line *line, int cursor_pos)
 	line->compl.str = ft_strsub(str, debut, len);
 }
 
-void ft_parce_completion(t_line *line, char **str)
+void		ft_parce_completion(t_line *line, char **str)
 {
-	int cursor_pos;
-	char *lastchar;
-	char *prefix;
+	int		cursor_pos;
+	char	*lastchar;
+	char	*prefix;
 
 	cursor_pos = line->c_len - (1 * (line->c_len > 0));
 	prefix = ft_strrsearch(*str, " ;&$|", cursor_pos);
@@ -148,10 +152,10 @@ void ft_parce_completion(t_line *line, char **str)
 	line->compl.bracket = 0;
 }
 
-int get_blen(t_affcmpl *head)
+int			get_blen(t_affcmpl *head)
 {
-	int blen;
-	int k;
+	int		blen;
+	int		k;
 
 	blen = 0;
 	k = 0;
@@ -164,16 +168,7 @@ int get_blen(t_affcmpl *head)
 	return (blen);
 }
 
-void ft_putnchar(char c, int n)
-{
-	while (n)
-	{
-		ft_putchar(c);
-		n--;
-	}
-}
-
-void ft_affiche_brackets(char *content, t_line *line)
+void		ft_affiche_brackets(char *content, t_line *line)
 {
 	if (line->compl.type == 1)
 		ft_putchar('$');
@@ -184,7 +179,7 @@ void ft_affiche_brackets(char *content, t_line *line)
 		ft_putchar('}');
 }
 
-void affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
+void		affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
 {
 	while (head->next)
 	{
@@ -206,7 +201,7 @@ void affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
 	}
 }
 
-void completion_files(t_affcmpl *head, t_line *line)
+void		completion_files(t_affcmpl *head, t_line *line)
 {
 	struct winsize w;
 	t_affichfile afffile;
@@ -226,12 +221,17 @@ void completion_files(t_affcmpl *head, t_line *line)
 	ft_reaffiche_prompte(line);
 }
 
-void completion_str(t_affcmpl *head, t_line *line, char **str)
+void		completion_str(t_affcmpl *head, t_line *line, char **str)
 {
-	int plus_len = ft_strlen(head->content) - line->compl.len;
-	char *third_str = ft_strsub(*str, line->cursor, line->b_line - line->cursor);
-	char *second_str = ft_strsub(*str, 0, line->cursor - line->compl.len);
-	char *tmp = ft_freejoin(second_str, head->content, 0);
+	int		plus_len;
+	char	*third_str;
+	char	*second_str;
+	char	*tmp;
+
+	plus_len = ft_strlen(head->content) - line->compl.len;
+	third_str = ft_strsub(*str, line->cursor, line->b_line - line->cursor);
+	second_str = ft_strsub(*str, 0, line->cursor - line->compl.len);
+	tmp = ft_freejoin(second_str, head->content, 0);
 	ft_strdel(str);
 	*str = ft_freejoin(tmp, third_str, 2);
 	line->b_line += plus_len;
@@ -242,11 +242,11 @@ void completion_str(t_affcmpl *head, t_line *line, char **str)
 	ft_clear(line, *str);
 }
 
-void stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
+void		stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
 {
-	DIR *dir;
-	struct dirent *dent;
-	int flag;
+	DIR				*dir;
+	struct dirent	*dent;
+	int				flag;
 
 	line->compl.len = ft_strlen(line->compl.search);
 	flag = (!line->compl.len) ? 0 : 1;
@@ -267,7 +267,7 @@ void stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
 	}
 }
 
-void make_path_file(t_line *line, int command)
+void		make_path_file(t_line *line, int command)
 {
 	if (ft_strchr(line->compl.str, '/'))
 	{
@@ -292,11 +292,12 @@ void make_path_file(t_line *line, int command)
 	}
 }
 
-void stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
+void		stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 {
-	t_envv *list = g_set;
-	int flag;
+	t_envv	*list;
+	int		flag;
 
+	list = g_set;
 	line->compl.count = 0;
 	line->compl.len = ft_strlen(line->compl.search);
 	flag = (!line->compl.len) ? 0 : 1;
@@ -313,7 +314,7 @@ void stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 	}
 }
 
-void make_path_parameters(t_line *line)
+void		make_path_parameters(t_line *line)
 {
 	if (line->compl.str[0] == '$' && line->compl.str[1] == '{' && line->compl.str[2] != '{')
 	{
@@ -324,11 +325,13 @@ void make_path_parameters(t_line *line)
 		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
 }
 
-void make_path_completion(t_line *line, char **str)
+void		make_path_completion(t_line *line, char **str)
 {
-	t_affcmpl *affcmpl = ft_memalloc(sizeof(t_affcmpl));
-	t_affcmpl *affcmpltmp = affcmpl;
+	t_affcmpl	*affcmpl;
+	t_affcmpl	*affcmpltmp;
 
+	affcmpl = ft_memalloc(sizeof(t_affcmpl));
+	affcmpltmp = affcmpl;
 	if (!line->compl.type)
 	{
 		make_path_file(line, 1);
@@ -353,8 +356,10 @@ void make_path_completion(t_line *line, char **str)
 	}
 }
 
-void ft_auto_completion(t_line *line, char **str)
+void		ft_auto_completion(t_line *line, char **str)
 {
+	char	*tmp;
+
 	if (line->compl.str && *line->compl.str)
 		ft_strdel(&(line->compl.str));
 	if (line->compl.search && *line->compl.search)
@@ -362,7 +367,7 @@ void ft_auto_completion(t_line *line, char **str)
 	if (line->compl.path && *line->compl.path)
 		ft_strdel(&(line->compl.path));
 	ft_parce_completion(line, str);
-	char *tmp = ft_strdup(line->compl.str);
+	tmp = ft_strdup(line->compl.str);
 	ft_strdel(&line->compl.str);
 	line->compl.str = ft_strtrim(tmp);
 	ft_strdel(&(tmp));

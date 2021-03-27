@@ -6,13 +6,13 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 14:29:26 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 11:20:12 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
 
-void opt_error(char c)
+void		opt_error(char c)
 {
 	ft_putstr("42sh: fc: -");
 	ft_putchar(c);
@@ -20,9 +20,9 @@ void opt_error(char c)
 	ft_putendl("fc: usage: fc [-e ename] [-lnr] [first] [last] or fc -s [pat=rep] [command]");
 }
 
-int ft_isnumber(char *str)
+int			ft_isnumber(char *str)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (str[i])
@@ -34,7 +34,7 @@ int ft_isnumber(char *str)
 	return (1);
 }
 
-int check_index_fc(char *str, int *index)
+int			check_index_fc(char *str, int *index)
 {
 	if ((str[0] == '-') && (ft_isnumber(str + 1)))
 	{
@@ -49,7 +49,7 @@ int check_index_fc(char *str, int *index)
 	return (0);
 }
 
-int check_isnbrvalide(char *str)
+int			check_isnbrvalide(char *str)
 {
 	if ((str[0] == '-') && (ft_isnumber(str + 1)))
 		return (1);
@@ -58,10 +58,10 @@ int check_isnbrvalide(char *str)
 	return (0);
 }
 
-int index2_fc(char *str, int *index)
+int			index2_fc(char *str, int *index)
 {
-	t_node *list;
-	int i;
+	t_node	*list;
+	int		i;
 
 	list = add_to_history(NULL);
 	i = 0;
@@ -78,7 +78,7 @@ int index2_fc(char *str, int *index)
 		return (0);
 }
 
-int get_index_fc(char *hold, int *index)
+int			get_index_fc(char *hold, int *index)
 {
 	if (!(check_index_fc(hold, index)) && !(index2_fc(hold, index)))
 	{
@@ -88,9 +88,11 @@ int get_index_fc(char *hold, int *index)
 	return (1);
 }
 
-int preparer_path(char *editeur, t_opt *opt)
+int			preparer_path(char *editeur, t_opt *opt)
 {
-	char *path = ft_strjoin("/usr/bin/", editeur);
+	char	*path;
+
+	path = ft_strjoin("/usr/bin/", editeur);
 	if (access(path, F_OK) == 0)
 	{
 		if (!ft_strcmp("vim", editeur) || !ft_strcmp("vi", editeur) ||
@@ -108,10 +110,11 @@ int preparer_path(char *editeur, t_opt *opt)
 		ft_strdel(&path);
 		return (0);
 	}
+	ft_strdel(&path);
 	return (0);
 }
 
-int check_debut_fin_e(t_opt *opt, char **hold)
+int			check_debut_fin_e(t_opt *opt, char **hold)
 {
 	if (!opt->count)
 	{
@@ -142,16 +145,16 @@ int check_debut_fin_e(t_opt *opt, char **hold)
 	return (0);
 }
 
-void count_arg_fc(t_opt *opt)
+void		count_arg_fc(t_opt *opt)
 {
 	if (opt->check == 0)
 		opt->check = opt->i;
 	opt->count += 1;
 }
 
-int check_opt(t_opt *opt, char *hold)
+int			check_opt(t_opt *opt, char *hold)
 {
-	int i;
+	int		i;
 
 	if (check_isnbrvalide(hold))
 	{
@@ -191,12 +194,14 @@ int check_opt(t_opt *opt, char *hold)
 	return (1);
 }
 
-void execute_commande_fc(const char *file)
+void		execute_commande_fc(const char *file)
 {
-	char *line = NULL;
-	int fd;
-	char *rest = ft_strdup("");
+	char	*line;
+	int		fd;
+	char	*rest;
 
+	rest = ft_strdup("");
+	line = NULL;
 	if ((fd = open(file, O_RDWR | O_CREAT, 00600)) == -1)
 		return ;
 	while (get_next_line(fd, &line) > 0)
@@ -205,15 +210,14 @@ void execute_commande_fc(const char *file)
 		rest = ft_freejoin(rest, line, 2);
 	}
 	close(fd);
-	// ft_putendl_fd(rest, 2);
 	if (rest && *rest)
 		execute_fc(rest);
 	ft_strdel(&rest);
 }
 
-int				ft_calc(char **hold)
+int			ft_calc(char **hold)
 {
-	int i;
+	int		i;
 
 	i = 0;
 	while (hold[i])
@@ -223,52 +227,31 @@ int				ft_calc(char **hold)
 	return (i);
 }
 
-void execute_open_file(char *editeur)
+void		execute_open_file(char *editeur)
 {
+	char *line;
+
 	if (!editeur)
 		editeur = "vim";
-	// char **cmd;
-
-	// cmd = malloc(sizeof(char *) * 3);
-	// cmd[0] = file_name;
-	// cmd[1] = PATH_FC_FILE;
-	// cmd[2] = 0;
-	
-	char *line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, ""); // vim dsfdsfdsf
-	// ft_putendl_fd("------------", 2);
-	// ft_putendl_fd(line, 2);
-	// ft_putendl_fd("------------", 2);
+	line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, "");
 	if (line)
 		execute_fc(line);
-	// ft_listtotab();
-	// if (!fork())
-	// {
-	// 	if (!access(file_name,F_OK))
-	// 	{
-	// 		if (execve(file_name, cmd, g_envtab) == -1)
-	// 			ft_putendl("21sh: Error: Execution Failed.");
-	// 	}
-	// 	exit(1);
-	// }
-	// else
-	// 	wait(0);
-	// ft_free_arr(cmd);
-	// ft_strdel(&file_name);
 }
 
-void ft_fc_l3adiya(t_opt *opt, char **hold)
+void		ft_fc_l3adiya(t_opt *opt, char **hold)
 {
-	t_node *history;
-	int fd;
-	char **result;
-	int size;
+	t_node	*history;
+	int		fd;
+	char	**result;
+	int		size;
+
 	if ((fd = open(PATH_FC_FILE, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
-		return;
+		return ;
 	history = add_to_history(NULL);
 	if (!opt->count)
 	{
 		if (history->next)
-			ft_putendl_fd(history->next->content,fd);
+			ft_putendl_fd(history->next->content, fd);
 		close(fd);
 	}
 	if (ft_get_debut_fin(opt, hold))
@@ -292,9 +275,9 @@ void ft_fc_l3adiya(t_opt *opt, char **hold)
 	execute_commande_fc(PATH_FC_FILE);
 }
 
-void ft_handel_fc(t_opt *opt, char **hold)
+void		ft_handel_fc(t_opt *opt, char **hold)
 {
-	t_node *history;
+	t_node	*history;
 
 	history = add_to_history(NULL);
 	if (opt->s == 1)
@@ -307,7 +290,7 @@ void ft_handel_fc(t_opt *opt, char **hold)
 		else if (opt->count >= 1)
 		{
 			if (!(get_index_fc(hold[opt->check], &opt->debut)))
-				return;
+				return ;
 			ft_putendl(get_content_in_list(opt->debut));
 		}
 	}
@@ -319,10 +302,10 @@ void ft_handel_fc(t_opt *opt, char **hold)
 		ft_fc_l3adiya(opt, hold);
 }
 
-void parce_param_fc(char **hold)
+void		parce_param_fc(char **hold)
 {
-	t_opt opt;
-	t_node *history;
+	t_opt	opt;
+	t_node	*history;
 
 	ft_bzero(&opt, sizeof(t_opt));
 	history = add_to_history(NULL);
@@ -330,7 +313,7 @@ void parce_param_fc(char **hold)
 	while (++opt.i < (ft_calc(hold) + 1))
 	{
 		if (!(check_opt(&opt, hold[opt.i])))
-			return;
+			return ;
 	}
 	ft_handel_fc(&opt, hold);
 }
