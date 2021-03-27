@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/26 22:34:24 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 11:20:12 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,7 @@ void execute_commande_fc(const char *file)
 		rest = ft_freejoin(rest, line, 2);
 	}
 	close(fd);
-	ft_putendl_fd(rest, 2);
+	// ft_putendl_fd(rest, 2);
 	if (rest && *rest)
 		execute_fc(rest);
 	ft_strdel(&rest);
@@ -227,19 +227,19 @@ void execute_open_file(char *editeur)
 {
 	if (!editeur)
 		editeur = "vim";
-	char *file_name = editeur;
-	char **cmd;
+	// char **cmd;
 
-	cmd = malloc(sizeof(char *) * 3);
-	cmd[0] = file_name;
-	cmd[1] = PATH_FC_FILE;
-	cmd[2] = 0;
+	// cmd = malloc(sizeof(char *) * 3);
+	// cmd[0] = file_name;
+	// cmd[1] = PATH_FC_FILE;
+	// cmd[2] = 0;
 	
-	char *line = ft_strjoin_four(file_name, " ", PATH_FC_FILE, "");
-	ft_putendl_fd("------------", 2);
-	ft_putendl_fd(line, 2);
-	ft_putendl_fd("------------", 2);
-	execute_fc(line);
+	char *line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, "");
+	// ft_putendl_fd("------------", 2);
+	// ft_putendl_fd(line, 2);
+	// ft_putendl_fd("------------", 2);
+	if (line)
+		execute_fc(line);
 	// ft_listtotab();
 	// if (!fork())
 	// {

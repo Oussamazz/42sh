@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 16:10:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 11:18:33 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,6 @@ void			blt_setenv(char **cmd, t_env **env_list)
 		addtolist(env_list, ft_strdup(cmd[1]), ft_strdup(cmd[2]));
 	else
 		modify_env(env_list, cmd[1], cmd[2]);
-	//dprintf(2, "added\n");
 	return ;
 }
 
@@ -79,7 +78,7 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 	if (tree->cmd && tabs && *env_list)
 	{
 		if (ft_strequ(tree->cmd[0], "echo"))
-			blt_echo(tree->cmd);
+			blt_echo(tree->cmd, tree->redirection);
 		else if (ft_strequ(tree->cmd[0], "fg"))
 			fg_blt(tree->cmd);
 		else if (ft_strequ(tree->cmd[0], "alias"))

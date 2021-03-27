@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cd_blt.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:59:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 22:09:04 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/27 11:46:34 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,15 +64,25 @@ static void		cd_back(t_env **env_list)
 	ft_strdel(&back_path);
 }
 
-int				check_args(char **cmd, t_env **env_list)
+int				check_args(char **cmd, t_env **env_list, int *i)
 {
-	if (check_args_no(cmd) > 2)
+	if (check_args_no(cmd) > 3)
 	{
 		g_the_status = 1;
 		ft_putendl_fd("42sh: cd: Too many arguments.", 2);
 		return (1);
 	}
-	if (check_args_no(cmd) == 1)
+	else if (check_args_no(cmd) == 3 && cmd[1][0] == '-')
+	{
+		if (ft_strcmp(cmd[1], "-L") && ft_strcmp(cmd[1], "-P"))
+		{
+			ft_putendl_fd("42sh: cd: invalid arguments.", 2);
+			g_the_status = 1;
+			return (1);
+		}
+		*i += 1;
+	}
+	else if (check_args_no(cmd) == 1)
 	{
 		cd_home(env_list);
 		return (1);
@@ -82,16 +92,20 @@ int				check_args(char **cmd, t_env **env_list)
 
 void			blt_cd(char **cmd, t_env **env_list)
 {
+	int			i;
+	int			args_no;
 	char		*new_path;
 	char		*cwd;
 	char		buff[MAX_INDEX];
 
 	cwd = NULL;
-	if (check_args(cmd, env_list) == 1)
+	i = 1;
+	args_no = check_args_no(cmd);
+	if (check_args(cmd, env_list, &i) == 1)
 		return ;
-	if (check_args_no(cmd) == 2)
+	if (args_no == 2 || args_no == 3)
 	{
-		ft_strcpy(buff, cmd[1]);
+		ft_strcpy(buff, cmd[i]);
 		if (buff[0] != '/' && buff[0] != '.' && buff[0] != '-')
 		{
 			if (!(cwd = get_cwd()))
@@ -102,7 +116,7 @@ void			blt_cd(char **cmd, t_env **env_list)
 			cd_simple(new_path, env_list);
 			ft_strdel_2(&new_path, &cwd);
 		}
-		else if (cmd[1][0] == '-' && cmd[1][1] == '\0')
+		else if (cmd[i][0] == '-' && cmd[i][1] == '\0')
 			cd_back(env_list);
 		else
 			cd_simple(buff, env_list);

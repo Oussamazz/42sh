@@ -6,19 +6,37 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:14 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 15:24:15 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 11:16:21 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void	blt_echo(char **cmd)
+static int check_redirection_out(t_redir *redirection)
+{
+	while (redirection)
+	{
+		if (redirection->next == NULL)
+			break ;
+		redirection = redirection->next;
+	}
+	if (redirection->sym && ft_strequ(redirection->sym, ">&-"))
+		return (0);
+	return (1);
+}
+
+void	blt_echo(char **cmd, t_redir *redirection)
 {
 	int i;
 	int flag;
 
 	i = 0;
 	flag = 0;
+	if (redirection && !check_redirection_out(redirection))
+	{
+		g_the_status = 1;
+		return (ft_putendl_fd("42sh: echo: write error: Bad file descriptor", 2));
+	}
 	if (cmd[1] && ft_strequ(cmd[1], "-n"))
 	{
 		i++;
@@ -36,6 +54,5 @@ void	blt_echo(char **cmd)
 	if (!flag)
 		ft_putchar_fd('\n', STDOUT_FILENO);
 	g_the_status = 0;
-	// sleep(1000);
 	return ;
 }

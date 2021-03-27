@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:51:39 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 15:20:11 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 11:16:29 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,15 @@ void	exit_blt(char **cmd)
 			if (ft_isnumber(cmd[1]))
 			{
 				free_();
-				ft_putendl("exit");
 				exit(ft_atoi(cmd[1]));
 			}
 			g_the_status = 1;
 			return (ft_putendl_fd("42sh: exit: numeric argument required", 2));
 		}
 		else
+		{
+			free_();
 			exit(0);
+		}
 	}
 }

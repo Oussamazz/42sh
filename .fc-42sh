@@ -1,9 +1,1 @@
-clear
-pwd
-ls
-pwd
-clear
-pwd
-pwd | cat -e
-echo "home=$HOME"
-echo 'THE_END'
+bash

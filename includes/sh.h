@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 18:34:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 11:06:22 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -405,7 +405,7 @@ char					**split_redir(char *str);
 size_t					redirerction_parse(t_lexer **token_node,
 	char **agg, t_pointt *cor);
 void					ft_reset_fd(char *tty_name, int file_d);
-void					blt_echo(char **cmd);
+void					blt_echo(char **cmd, t_redir *redirection);
 void					blt_setenv(char **cmd, t_env **env_list);
 void					blt_unsetenv(char **cmd, t_env **env_list);
 void					blt_cd(char **cmd, t_env **env_list);
