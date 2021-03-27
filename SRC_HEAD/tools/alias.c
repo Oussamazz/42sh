@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 17:11:21 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/27 17:19:55 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 17:34:24 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,53 @@ void		free_alias_list(t_alias **alst, void (*del)(void *, void *))
 			*alst = li;
 		}
 	}
+}
+
+
+int			counter(char **str)
+{
+	int		i;
+
+	i = 0;
+	if (str)
+	{
+		while (str[i])
+			i++;
+	}
+	return (i);
+}
+
+int			isthere_alnum(char *str)
+{
+	int		i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (ft_isalnum(str[i]))
+			return (1);
+		i++;
+	}
+	return (0);
+}
+
+int			checker_alias(char **str)
+{
+	int i;
+	int j;
+
+	i = 0;
+	j = 0;
+	if (str)
+	{
+		while (str[i])
+		{
+			if (!isthere_alnum(str[i]))
+				return (0);
+			i++;
+		}
+	}
+	return (1);
 }
 
 int			if_i_found_it(t_alias *pr, t_alias *ptr, t_alias **al, char *str)
@@ -354,14 +401,15 @@ void		create_alias_list()
 	int		file;
 	char	*buff;
 	char	**cmp;
+	// char	**check;
 
 	buff = NULL;
     cmp = NULL;
 	file = open("/goinfre/afaragi/42sh/.biggyrc", O_RDONLY | O_CREAT, 0644);
 	while (get_next_line(file, &buff) > 0)
 	{
-		cmp = ft_strsplit(buff, '=');
-		if(!cmp)
+		// cmp = ft_strsplit(buff, '=');
+		if(((counter(cmp = ft_strsplit(buff, '=')) != 2 || !checker_alias(cmp))) || !cmp)
 		{
 			free2dm(&cmp);
 			ft_strdel(&buff);
@@ -435,51 +483,7 @@ void			alias_check(char **line, t_alias **alias)
 	}
 }
 
-int			counter(char **str)
-{
-	int		i;
 
-	i = 0;
-	if (str)
-	{
-		while (str[i])
-			i++;
-	}
-	return (i);
-}
-
-int			isthere_alnum(char *str)
-{
-	int		i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (ft_isalnum(str[i]))
-			return (1);
-		i++;
-	}
-	return (0);
-}
-
-int			checker_alias(char **str)
-{
-	int i;
-	int j;
-
-	i = 0;
-	j = 0;
-	if (str)
-	{
-		while (str[i])
-		{
-			if (!isthere_alnum(str[i]))
-				return (0);
-			i++;
-		}
-	}
-	return (1);
-}
 
 void		add_to_alias_file(char *line, t_alias **alias)
 {
