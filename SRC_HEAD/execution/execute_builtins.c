@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 11:18:33 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:23:26 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,8 +81,10 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			blt_echo(tree->cmd, tree->redirection);
 		else if (ft_strequ(tree->cmd[0], "fg"))
 			fg_blt(tree->cmd);
+		else if (ft_strequ(tree->cmd[0], "unalias"))
+			delete_alias_var(&g_alias, tree->cmd);
 		else if (ft_strequ(tree->cmd[0], "alias"))
-			alias_bultin(tree->cmd);
+			alias_bultin(tree->cmd, &g_alias);
 		else if (ft_strequ(tree->cmd[0], "bg"))
 			bg_blt(tree->cmd);
 		else if (ft_strequ(tree->cmd[0], "jobs"))
@@ -114,6 +116,8 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
 			print_in_history(PATH_HISTORY_FILE);
+			add_alias_list_to_file(g_alias);
+			free_alias_list(&g_alias, del);
 			exit_blt(tree->cmd);
 		}
 	}

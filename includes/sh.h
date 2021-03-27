@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:32:58 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:39:12 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,38 @@ typedef enum	e_split{
 	ReturnNull,
 	Returnagg
 }				t_split;
+
+
+/////// alias
+
+typedef struct			s_alias
+{
+	char			*name;
+	char			*value;
+	struct	s_alias *next;
+}					t_alias;
+t_alias				*g_alias;
+
+//////////////
+typedef struct			s_a_v
+{
+	char				*tmp;
+    char				*ptr;
+    char				*value;
+    char				*startline;
+    char				*endline;
+    int					start;
+    t_alias				*catch;
+    t_alias				*head;
+}						t_a_v;
+
+typedef struct			s_c_v
+{
+	int					i;
+    char				*ptr;
+    int					old_i;
+    int					flag;
+}						t_c_v;
 
 size_t			g_agg_len;
 char			*g_tty_name;
@@ -542,9 +574,13 @@ void					ft_addtmpvar(t_env **head, char *data);
 
 //alias
 
-void					alias_bultin(char **line);
- void print_tokenz(t_lexer *tokenz);
-void					alias_check(t_lexer *tokenz);
+void					alias_bultin(char **line, t_alias **head);
+void					alias_check(char **line, t_alias **head);
+void					create_alias_list();
+void					add_alias_list_to_file(t_alias *alias);
+void					delete_alias_var(t_alias **alias, char **str);
+void					free_alias_list(t_alias **alst, void (*del)(void *, void *));
+void				 	del(void *s, void *str);
 
 
 // fc execute

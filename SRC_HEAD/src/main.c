@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 15:21:23 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 17:12:44 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,9 @@ int				main(int ac, char **av, char **env)
 
 	env_list = NULL;
 	ft_envvinit(env);
+	puts("in");
+	create_alias_list();
+	puts("out");
 	g_parproc = getpid();
 	stock_env(env, &env_list);
 	// g_head = env_list;
@@ -42,6 +45,8 @@ int				main(int ac, char **av, char **env)
 	if (!(g_tty_name = ttyname(0)))
 		return (1);
 	source_sh(&env_list);
+	// add_alias_list_to_file(g_alias);
+	// free_alias_list(&g_alias, del);
 	env_list = NULL;
 	if (g_tty_name)
 		free(g_tty_name);
@@ -153,6 +158,7 @@ void			source_sh(t_env **head)
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
 			continue ;
+		alias_check(&v.str, &g_alias);
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;

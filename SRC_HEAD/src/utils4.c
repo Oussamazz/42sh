@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:42:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 16:02:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:36:45 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void			flag_g(char **av, t_env **env_list, time_t *now)
 
 int				check_builtins_nfrk(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "alias") || ft_strequ(cmd_name, "fc") ||ft_strequ(cmd_name, "type") || ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs")  || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
+	if (ft_strequ(cmd_name, "alias") ||  ft_strequ(cmd_name, "unalias") || ft_strequ(cmd_name, "fc") ||ft_strequ(cmd_name, "type") || ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs")  || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
 		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "export") || ft_strequ(cmd_name, "hash") || ft_strequ(cmd_name, "test") || ft_strequ(cmd_name, "set"))
 		return (1);
 	return (0);
