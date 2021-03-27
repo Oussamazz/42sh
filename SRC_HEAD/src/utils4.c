@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:42:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:35:13 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:02:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 int				str_is_blank(char *buffer)
 {
+	if (ft_strequ(buffer, "fc") || *buffer == '!')
+		return (1);
 	while (*buffer)
 	{
 		if (!is_blank(*buffer))

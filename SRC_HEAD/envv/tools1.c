@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/27 14:37:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 14:40:45 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,6 @@ void	ft_envvinit(char **env)
 			;
 		name = ft_strsub(env[i], 0, j);
 		ft_setaddnode(name, ft_strchr(env[i], '=') + 1, env[i], IN_ENV);
-		// ft_putendl(g_set->name);
 		ft_strdel(&name);
 	}
 }
@@ -142,28 +141,3 @@ void	ft_execenv(t_env **head, t_lexer *tokenz, int flag)
 	}
 	ft_listtotab();
 }
-
-// int		main(int argc, char **argv, char **env)
-// {
-// 	t_envv	*head;
-// 	g_envtab = NULL;
-// 	g_settab = NULL;
-// 	g_set = NULL;
-// 	ft_envvinit(env); // extract the env table to the t_envv list
-// 	head = g_set;
-// 	// while (g_set) // print for test
-// 	// {
-// 	// 	ft_putnbr(g_set->type);
-// 	// 	ft_putstr(g_set->name);
-// 	// 	ft_putstr("=");
-// 	// 	ft_putendl(g_set->content);
-// 	// 	g_set = g_set->next;
-// 	// }
-// 	ft_newvar("TERM_PROGRAM", NOT_IN_ENV);
-// 	// ft_varchr("toto", DEL);
-// 	ft_listtotab();
-// 	ft_putdblstr(g_settab);
-// 	ft_listfree();
-// 	ft_tabfree();
-// 	// g_set = head;
-// }

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/24 19:03:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:19:49 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -266,5 +266,5 @@ void load_hsitory(char const *str);
 void print_in_history(const char *file);
 void execute_open_file(char *editeur);
 
-void		history_expansion(char *str);
+char		*history_expansion(char *str);
 #endif

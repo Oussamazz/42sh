@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 13:54:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 16:00:57 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,7 +194,7 @@ int			cheker_history_expansion(char *str)
 	return (1);
 }
 
-char *history_ecxpansion(char *str)
+char *history_expansion(char *str)
 {
 	t_expansion_h expansion;
 
@@ -213,10 +213,7 @@ char *history_ecxpansion(char *str)
 		expansion.j = expansion.i;
 	}
 	if (expansion.tmp != NULL)
-	{
-		ft_strdel(&(expansion.tmp));
 		return (expansion.hold);
-	}
 	ft_strdel(&(expansion.hold));
 	return (NULL);
 }

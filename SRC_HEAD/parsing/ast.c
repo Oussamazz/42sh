@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:32:30 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:57:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	int			i;
 	char		**ret;
 	size_t		ret_size;
+	char *tmp = 0;
 
 	ret = NULL;
 	if (token && env && redirections)
@@ -47,18 +48,15 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 		i = 0;
 		while (token != NULL && token->coor.node_index <= alltoken_size)
 		{
-			// ft_putstr(token->data);
-			// ft_putendl("|");
-			// while (token && token->type == ENV)
-			// 	token = token->next;
-			// if (!token)
-			// 	break 
-			// if ((token->type == ENV) || (type == ENV && token->type == SEP))
-			// {
-			// 	type = token->type;
-			// 	token =token->next;	//ft_putendl(tokenz->data);
-			// 	continue ;
-			// }
+			if (token->data && token->type == WORD && token->data[0] == '!')
+			{
+				tmp = history_expansion(token->data);
+				if (tmp != NULL)
+				{
+					free(token->data);
+					token->data = tmp;
+				}
+			}
 			if (token->type == WORD || token->type == DQUOT ||
 				token->type == SQUOT || token->type == EXPANSION)
 				fill_cmd(ret, token, &i, env);

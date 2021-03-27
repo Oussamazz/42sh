@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 15:37:16 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 15:21:23 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ char			*get_full_cmd(void)
 		if (g_clt_d || g_clt_c)
 			return (handel_signal(&v));
 		prompt_completion(v.c);
-		// ft_putnbr(v.flag);
 		v.cmd = ft_freejoin(v.cmd, "\n", 0);
 	}
 	return (v.tmp ? v.cmd : NULL);
@@ -157,18 +156,14 @@ void			source_sh(t_env **head)
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
+		print_tokenz(v.tokenz);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
 		ft_fixenv(&v.tokenz);
 		ft_execenv(head, v.tokenz, NOT_EXP);
-		print_tokenz(v.tokenz);
-		ft_putendl_fd("_______________________", 1);
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
-		ft_putendl("tree:");
-		print_btree(v.ast);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))
 			add_to_history(v.str);
-		ft_putendl_fd("_______________________", 1);
 		if (v.status[1] > 0 && v.ast && head && v.ast->cmd)
 			v.status[0] = execute(v.ast, head);
 		free_vars(&v, (int[]){F_TMP, F_TOKENZ, F_AST, F_STR, F_G_HIS}, 5);
