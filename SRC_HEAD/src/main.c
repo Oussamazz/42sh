@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 18:49:52 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 18:59:33 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,7 @@ int				main(int ac, char **av, char **env)
 
 	env_list = NULL;
 	ft_envvinit(env);
-	puts("in");
 	create_alias_list();
-	puts("out");
 	g_parproc = getpid();
 	stock_env(env, &env_list);
 	// g_head = env_list;
@@ -82,6 +80,7 @@ char			*get_full_cmd(void)
 			}
 			if ((v.tmp[v.i] == '\\' && !v.tmp[v.i + 1]))
 			{
+				ft_move_replace(&v.tmp[v.i]);
 				tmp = ft_readline(1);
 				v.tmp = ft_strjoin(v.tmp , tmp);      ////////biggy
 				len += ft_strlen(tmp);

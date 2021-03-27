@@ -6,7 +6,7 @@
 /*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 16:39:12 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 18:59:14 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -581,6 +581,7 @@ void					add_alias_list_to_file(t_alias *alias);
 void					delete_alias_var(t_alias **alias, char **str);
 void					free_alias_list(t_alias **alst, void (*del)(void *, void *));
 void				 	del(void *s, void *str);
+void					ft_move_replace(char *str);
 
 
 // fc execute
