@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 18:59:14 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 22:57:16 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -345,6 +345,7 @@ int						aggr_function(char *str, t_pointt *cor,
 	t_lexer **lexer);
 int						quote_function(char *buf, t_lexer **tokenz,
 	t_pointt *cord, char *quote);
+int     				token_is_sep(int type);
 int						quote_handling_function(t_lexer **token_node,
 	t_quote *quot, char quote, t_pointt *coord);
 int						simple_word_function(char *buf,
@@ -585,7 +586,7 @@ void					ft_move_replace(char *str);
 
 
 // fc execute
-void    execute_fc(char *line);
-void print_tokenz(t_lexer *tokenz);
-t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize);
+void    				execute_fc(char *line);
+void					print_tokenz(t_lexer *tokenz);
+t_lexer					*move_list(t_lexer *tokenz, int alltokenzsize);
 #endif

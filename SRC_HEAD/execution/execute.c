@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 11:05:49 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:29:30 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,7 +149,14 @@ int				execute(t_miniast *tree, t_env **env_list)
 	tabs = g_settab;
 	while (tree != NULL && tree->cmd[0])
 	{
-		if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
+		if (tree->cmd[0][0] == '!' && tree->cmd[0][1] && !tree->pipe)
+		{
+			char *line = history_expansion(tree->cmd[0]);
+			if (line)
+				execute_fc(line);
+			ft_strdel(&line);
+		}
+		else if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
 			execute_blt_with_fork(tree, tabs, env_list);
 		else
 			execute_pipes(tree, tabs, env_list);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 18:51:17 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 23:22:26 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,14 +74,7 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord, t_env **he
 		coord->no_space = 1;
 	tmp[i] = '\0';
 	if (ft_isalpha(tmp[0]) && ft_strchr(tmp, '=') && is_env(token_node)) // here
-	{
-		//ft_putendl("ENV");
 		append_list(token_node, tmp, ENV, coord);
-		//ft_newvar(tmp, NOT_IN_ENV);
-		//  ft_execenv(head, *token_node);
-		//deletenode_env(token_node, tmp);
-		// ft_listtotab();
-	}
 	else
 		append_list(token_node, tmp, WORD, coord);
 	ft_strclr(tmp);

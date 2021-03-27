@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 15:57:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:38:21 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	int			i;
 	char		**ret;
 	size_t		ret_size;
-	char *tmp = 0;
+	//char *tmp = 0;
 
 	ret = NULL;
 	if (token && env && redirections)
@@ -48,23 +48,11 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 		i = 0;
 		while (token != NULL && token->coor.node_index <= alltoken_size)
 		{
-			if (token->data && token->type == WORD && token->data[0] == '!')
-			{
-				tmp = history_expansion(token->data);
-				if (tmp != NULL)
-				{
-					free(token->data);
-					token->data = tmp;
-				}
-			}
 			if (token->type == WORD || token->type == DQUOT ||
 				token->type == SQUOT || token->type == EXPANSION)
 				fill_cmd(ret, token, &i, env);
 			else if (fill_cmd_redir(token, &i, redirections) == 1)
-			{
-				// ft_putendl("break");
 				break ;
-			}
 			token = token->next;
 			i++;
 		}
@@ -111,7 +99,6 @@ int		is_logic_op(t_lexer *tokenz)
 	}
 	return (0);
 }
-// ls -la || echo oussama
 
 int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 {
@@ -125,11 +112,10 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
-		// ft_putendl("#");
 		if ((tokenz->type == ENV) || (type == ENV && tokenz->type == SEP))
 		{
 			type = tokenz->type;
-			tokenz =tokenz->next;	//ft_putendl(tokenz->data);
+			tokenz =tokenz->next;
 			continue ;
 		}
 		redirections = NULL;
@@ -148,9 +134,7 @@ int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 		}
 		else
 			parse_commands_sep_pipe(head, tokenz, env);
-		// ft_putendl("?");
 		tokenz = move_list(tokenz, g_alltokenzsize);
-		// break ;
 	}
 	g_alltokenzsize = 0;
 	return (1);

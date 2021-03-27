@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/27 14:40:45 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 23:06:26 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,11 +133,7 @@ void	ft_execenv(t_env **head, t_lexer *tokenz, int flag)
 			ft_newvar(tokenz->data, NOT_IN_ENV);
 		tokenz = tokenz->next;
 		while (tokenz && tokenz->type != ENV)
-		{
 			tokenz = tokenz->next;
-			if (tokenz && tokenz->type == ENV)
-				break ;
-		}
 	}
 	ft_listtotab();
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 18:59:33 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/27 23:22:41 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,10 +127,10 @@ void			ft_fixenv(t_lexer **token)
 	tokenz = *token;
 	while (tokenz)
 	{
-		if ((tokenz->type == SEP || tokenz->type == AND || tokenz->type == OR) && tokenz->next)
+		if (token_is_sep(tokenz->type) && tokenz->next)
    		 {
     		    tokenz = tokenz->next;
-    		    while (tokenz && ft_strchr(tokenz->data, '='))
+    		    while (tokenz && tokenz->type == WORD && ft_strchr(tokenz->data, '='))
     		    {
     		        tokenz->type = ENV;
     		        tokenz = tokenz->next;

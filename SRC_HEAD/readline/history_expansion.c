@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/24 15:16:14 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:18:50 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,6 +203,7 @@ char		*history_expansion(char *str)
 	if (!cheker_history_expansion(str))
 		return (NULL);
 	expansion.hold = ft_strdup("");
+	expansion.tmp = NULL;
 	while (str[expansion.i])
 	{
 		expansion.i++;
@@ -215,7 +216,7 @@ char		*history_expansion(char *str)
 	}
 	if (expansion.tmp != NULL)
 	{
-		ft_strdel(&(expansion.tmp));
+		// ft_strdel(&(expansion.tmp));
 		return (expansion.hold);
 	}
 	ft_strdel(&(expansion.hold));

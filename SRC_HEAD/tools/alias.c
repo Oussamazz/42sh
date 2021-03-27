@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 17:11:21 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/27 17:34:24 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/28 00:16:12 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -382,7 +382,7 @@ void		add_alias_list_to_file(t_alias *alias)
 {
 	int		file;
 
-	file = open("/goinfre/afaragi/42sh/.biggyrc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	file = open("/Users/macos/Desktop/42sh/.biggyrc", O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (alias)
 	{
 		while (alias)
@@ -405,7 +405,7 @@ void		create_alias_list()
 
 	buff = NULL;
     cmp = NULL;
-	file = open("/goinfre/afaragi/42sh/.biggyrc", O_RDONLY | O_CREAT, 0644);
+	file = open("/Users/macos/Desktop/42sh/.biggyrc", O_RDONLY | O_CREAT, 0644);
 	while (get_next_line(file, &buff) > 0)
 	{
 		// cmp = ft_strsplit(buff, '=');

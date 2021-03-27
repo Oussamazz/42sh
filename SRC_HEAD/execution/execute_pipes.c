@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:36:18 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 22:45:14 by macos            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,15 @@ int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 		execute_redirection(tree->redirection, g_tty_name);
 	if (!tree->pipe && pipes->cmd_no)
 		close(pipes->temp);
-	if (check_builtins(tree->cmd[0]))
+	// !expantion:
+	if (tree->cmd[0][0] == '!' && tree->cmd[0][1])
+	{
+		char *line = history_expansion(tree->cmd[0]);
+		if (line)
+			execute_fc(line);
+		ft_strdel(&line);
+	}
+	else if (check_builtins(tree->cmd[0]))
 		execute_blt_with_fork(tree, tabs, env_list);
 	else if (tree->cmd[0][0] == '/' ||
 		(tree->cmd[0][0] == '.' && tree->cmd[0][1] == '/'))
@@ -146,7 +154,16 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		else if (WIFSIGNALED(pipes.status))
 		{
 			g_the_status = WTERMSIG(pipes.status) + 128;
-			dprintf(2, "Terminated (signaled): %d\n", WTERMSIG(pipes.status));
+			if (WTERMSIG(pipes.status) != SIGPIPE)
+			{
+				if (WTERMSIG(pipes.status) != SIGINT)
+				{
+					ft_putstr_fd("Terminated with the signal: ", 1);
+					ft_putnbr_fd(WTERMSIG(pipes.status), 1);
+				}
+				ft_putendl_fd("", 1);
+			}
+			// dprintf(2, "Terminated (signaled): %d\n", );
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))
