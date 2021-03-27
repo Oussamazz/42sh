@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:33:50 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/27 18:51:17 by afaragi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,12 @@ char			*get_splitter(char *buf, t_mystruct *v)
 	}
 	else if(*buf == '&' && *(buf + 1) == '&') ////////biggy
 	{
+		if (*(buf + 2) == '&')
+		{
+				ft_free_tokenz(&v->tokenz);
+				ft_putendl_fd("42sh: syntax error near unexpected token `&'", 2);
+				return(NULL);
+		}
 		append_list(&v->tokenz, "&&", AND, &v->coord); 
 		buf = (buf + 2);
 	}
@@ -129,9 +135,10 @@ char			*get_splitter(char *buf, t_mystruct *v)
 	}
 	else if (*buf == '&' && *(buf + 1) != '&' && (!ft_is_there(AGG_REDI, *(buf + 1)) || !*(buf + 1)))
 	{
-		//ft_putendl("job control"); // <= job_control_function();
+		// ft_putendl("job control"); // <= job_control_function();
 		append_list(&v->tokenz, "&", AMPER, &v->coord);
 		return (++buf);
 	}
+		
 	return (buf);
 }
