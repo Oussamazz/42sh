@@ -108,6 +108,7 @@ int preparer_path(char *editeur, t_opt *opt)
 		ft_strdel(&path);
 		return (0);
 	}
+	ft_strdel(&path);
 	return (0);
 }
 

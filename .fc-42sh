@@ -1,1 +1,4 @@
-bash
+pwd
+test
+test sdfds
+ls -la | cat -e

@@ -36,21 +36,21 @@ void load_hsitory(const char *file)
 void update_cur_mode_r(t_line *line, int prompt_len)
 {
 	int len;
-	int wahed_variable;
+	int cur_update_mode_r;
 
 	len = 0;
 	if (line->mode_r.s && *line->mode_r.s)
 		len = ft_strlen(line->mode_r.s) + prompt_len;
 	else
 		len = prompt_len;
-	wahed_variable = (len / line->col);
+	cur_update_mode_r = (len / line->col);
 	if ((len % line->col) > 0)
-		wahed_variable += 1;
-	wahed_variable += line->mode_r.y;
-	if ((wahed_variable - line->row) > 0)
+		cur_update_mode_r += 1;
+	cur_update_mode_r += line->mode_r.y;
+	if ((cur_update_mode_r - line->row) > 0)
 	{
-		line->c_o.y = line->c_o.y - (wahed_variable - line->row);
-		line->mode_r.y = line->mode_r.y - (wahed_variable - line->row);
+		line->c_o.y = line->c_o.y - (cur_update_mode_r - line->row);
+		line->mode_r.y = line->mode_r.y - (cur_update_mode_r - line->row);
 		tputs(tgoto(tgetstr("cm", 0), 0, line->mode_r.y), 0, ft_output);
 		ft_putchar('\n');
 		move_cursor_v(line);

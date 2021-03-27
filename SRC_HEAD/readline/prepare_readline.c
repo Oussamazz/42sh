@@ -66,9 +66,15 @@ void ft_set_terminal(void)
 	config.c_lflag &= ~(ECHO | ICANON);
 	if (tcsetattr(0, 0, &config) < 0)
 		ft_putendl_fd("error", 2);
-	if (!tgetent(buf, getenv("TERM")))
-		exit(1);
+	if (!(ft_strequ(getenv("TERM"),"xterm-256color")))
+	{
+		ft_putendl("\nTERM NOT VALIDE");
+		exit(0);
+	}
+	if (!tgetent(buf,"xterm-256color"))
+		exit(0);
 }
+
 
 void ft_init(t_line *line, t_node **current)
 {
