@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 23:22:41 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 14:05:38 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,6 +167,8 @@ void			source_sh(t_env **head)
 		ft_execenv(head, v.tokenz, NOT_EXP);
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
+		// if (v.status[1] && v.ast)
+		// 	print_btree(v.ast);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))
 			add_to_history(v.str);
 		if (v.status[1] > 0 && v.ast && head && v.ast->cmd)

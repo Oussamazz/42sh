@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute_pipes.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 22:45:14 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 14:09:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -136,13 +136,11 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			g_binfile = ft_hashtable(tree->cmd, tabs, &g_hashtable, &print);
 		execute_pipes1(tree, &pipes, tabs, env_list);
 		if (tree->sep)
-		{
-			ft_strdel(&g_binfile);
 			break ;
-		}
 		ft_strdel(&g_binfile);
 		tree = tree->pipe;
 	}
+	ft_strdel(&g_binfile);
 	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) {
 		if (WIFSTOPPED(pipes.status)) {
 			if (!(cmd = get_job_members(g_tree)))
@@ -158,7 +156,7 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			{
 				if (WTERMSIG(pipes.status) != SIGINT)
 				{
-					ft_putstr_fd("Terminated with the signal: ", 1);
+					ft_putstr_fd("Terminated with Signal: ", 1);
 					ft_putnbr_fd(WTERMSIG(pipes.status), 1);
 				}
 				ft_putendl_fd("", 1);
@@ -167,10 +165,7 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 			// break ;
 		}
 		else if (WIFEXITED(pipes.status))
-		{
 			g_the_status = WEXITSTATUS(pipes.status);
-			// dprintf(2, "Terminated (exited): %d\n", g_the_status);
-		}
 		
 	}
 	if (is_bg > 0)

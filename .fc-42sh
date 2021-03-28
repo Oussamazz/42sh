@@ -1,0 +1,4 @@
+clear
+ls -G -la
+pwd | cat -e; echo 'END_ECHO'
+exit

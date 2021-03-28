@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   history_expansion.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 22:18:50 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 12:07:40 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,10 +215,7 @@ char		*history_expansion(char *str)
 		expansion.j = expansion.i;
 	}
 	if (expansion.tmp != NULL)
-	{
-		// ft_strdel(&(expansion.tmp));
 		return (expansion.hold);
-	}
 	ft_strdel(&(expansion.hold));
 	return (NULL);
 }

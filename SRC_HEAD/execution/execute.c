@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 22:29:30 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 13:50:53 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,7 @@ t_miniast *advance_tree(t_miniast *tree)
 	{
 		if (tree->sep)
 		{
-			if ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+			while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
 				tree = tree->sep;
 			return (tree->sep);
 		}
@@ -164,7 +164,7 @@ int				execute(t_miniast *tree, t_env **env_list)
 			tree = advance_tree(tree);
 		else
 		{
-			if ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+			while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
 				tree = tree->sep;
 			tree = tree->sep;
 		}

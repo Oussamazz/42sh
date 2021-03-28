@@ -1,6 +1,0 @@
-l=ls -la
-ls=ls -G
-gp=git push
-gc=git commit -m
-gcl=git clone
-gst=git status

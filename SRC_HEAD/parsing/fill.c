@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fill.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:19:17 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/24 21:22:29 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 12:13:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ void			fill_cmd(char **ret, t_lexer *token, int *i, t_env **env)
 	{
 		if (token->next && token->next->data &&
 			(token->next->type == DQUOT || token->next->type == SQUOT ||
-				token->next->type == EXPANSION ))
+				token->next->type == EXPANSION))
 		{
 			tmp = token->next->data;
 			token->next->data = ft_strjoin(ret[*i], tmp);
