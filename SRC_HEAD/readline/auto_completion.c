@@ -1,90 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   auto_comlition.c                                   :+:      :+:    :+:   */
+/*   auto_completion.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 12:17:19 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/02/06 12:17:20 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/28 19:09:53 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
 
-void		ft_get_all_bin_files(char *str, t_line *line, int flag, t_affcmpl **affcmpl)
-{
-	DIR				*dir;
-	struct dirent	*dent;
-
-	if ((dir = opendir(str)))
-	{
-		while ((dent = readdir(dir)) != NULL)
-		{
-			if ((flag && !ft_strncmp(line->compl.search, dent->d_name, line->compl.len)) || !flag)
-			{
-				if (!ft_strequ(dent->d_name, ".") && !ft_strequ(dent->d_name, ".."))
-				{
-					(*affcmpl)->content = ft_strdup(dent->d_name);
-					(*affcmpl)->next = ft_memalloc(sizeof(t_affcmpl));
-					(*affcmpl) = (*affcmpl)->next;
-					line->compl.count++;
-				}
-			}
-		}
-		closedir(dir);
-	}
-}
-
-void		ft_get_all_bin_dirs(t_line *line, char **str)
-{
-	int			i;
-	char		**dirs;
-	int			flag;
-	char		*path;
-	t_affcmpl	*affcmpl;
-	t_affcmpl	*affcmpltmp;
-
-	affcmpl = ft_memalloc(sizeof(t_affcmpl));
-	affcmpltmp = affcmpl;
-	i = 0;
-	flag = 0;
-	line->compl.count = 0;
-	if (!(path = get_value_expansion_path("PATH")))
-		return ;
-	if (!(dirs = ft_strsplit(path, ':')))
-		return ;
-	ft_strdel(&(path));
-	line->compl.len = ft_strlen(line->compl.search);
-	flag = (!line->compl.len) ? 0 : 1;
-	if (line->compl.path && *line->compl.path)
-		ft_get_all_bin_files(line->compl.path, line, flag, &affcmpltmp);
-	else
-		while (dirs[i])
-			ft_get_all_bin_files(dirs[i++], line, flag, &affcmpltmp);
-	if (line->compl.count > 1)
-		completion_files(affcmpl, line);
-	else if (line->compl.count == 1)
-		completion_str(affcmpl, line, str);
-	while (affcmpl)
-	{
-		ft_strdel(&affcmpl->content);
-		affcmpl = affcmpl->next;
-	}
-}
-
-void		ft_reaffiche_prompte(t_line *line)
-{
-	tputs(tgoto(tgetstr("cm", 0), 0, line->c_o.y), 0, ft_output);
-	tputs(tgetstr("cd", 0), 0, ft_output);
-	ft_prompte();
-	tputs(tgoto(tgetstr("cm", 0), line->c_o.x, line->c_o.y), 0, ft_output);
-	print_line(g_str);
-	move_cursor_v(line);
-	cur_goto(line, line->cursor);
-}
-
-int		is_in_str(char c, const char *cmp)
+int			is_in_str(char c, const char *cmp)
 {
 	while (*cmp)
 	{
@@ -152,22 +80,6 @@ void		ft_parce_completion(t_line *line, char **str)
 	line->compl.bracket = 0;
 }
 
-int			get_blen(t_affcmpl *head)
-{
-	int		blen;
-	int		k;
-
-	blen = 0;
-	k = 0;
-	while (head)
-	{
-		k = ft_strlen(head->content);
-		blen = (blen < k) ? k : blen;
-		head = head->next;
-	}
-	return (blen);
-}
-
 void		ft_affiche_brackets(char *content, t_line *line)
 {
 	if (line->compl.type == 1)
@@ -183,7 +95,8 @@ void		affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
 {
 	while (head->next)
 	{
-		tputs(tgoto(tgetstr("cm", 0), afffile->pos_col, afffile->pos_row), 0, ft_output);
+		tputs(tgoto(tgetstr("cm", 0), afffile->pos_col,
+			afffile->pos_row), 0, ft_output);
 		ft_affiche_brackets(head->content, line);
 		head = head->next;
 		afffile->i++;
@@ -203,8 +116,8 @@ void		affiche_files(t_affichfile *afffile, t_affcmpl *head, t_line *line)
 
 void		completion_files(t_affcmpl *head, t_line *line)
 {
-	struct winsize w;
-	t_affichfile afffile;
+	struct winsize	w;
+	t_affichfile	afffile;
 
 	ft_bzero(&(afffile), sizeof(t_affichfile));
 	ioctl(0, TIOCGWINSZ, &w);
@@ -255,7 +168,8 @@ void		stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
 	{
 		while ((dent = readdir(dir)) != NULL)
 		{
-			if ((flag && !ft_strncmp(line->compl.search, dent->d_name, line->compl.len)) || !flag)
+			if ((flag && !ft_strncmp(line->compl.search, dent->d_name,
+				line->compl.len)) || !flag)
 			{
 				(*affcmpl)->content = ft_strdup(dent->d_name);
 				(*affcmpl)->next = ft_memalloc(sizeof(t_affcmpl));
@@ -264,31 +178,6 @@ void		stock_path_file(char *str, t_line *line, t_affcmpl **affcmpl)
 			}
 		}
 		closedir(dir);
-	}
-}
-
-void		make_path_file(t_line *line, int command)
-{
-	if (ft_strchr(line->compl.str, '/'))
-	{
-		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '/') + 1);
-		line->compl.path = ft_strsub(line->compl.str, 0, ft_strlen(line->compl.str) - ft_strlen(line->compl.search));
-	}
-	else if (!ft_strchr(line->compl.str, '/') && command)
-	{
-		line->compl.path = NULL;
-		if (ft_strlen(line->compl.str))
-		{
-			if (!ft_strchr("|&;", line->compl.str[0]))
-				line->compl.search = ft_strdup(line->compl.str);
-			else if (ft_strchr("|&;", line->compl.str[0]))
-				line->compl.search = ft_strdup(line->compl.str + 1);
-		}
-	}
-	else if (!ft_strchr(line->compl.str, '/'))
-	{
-		line->compl.path = ft_strdup("./");
-		line->compl.search = ft_strdup(line->compl.str);
 	}
 }
 
@@ -303,7 +192,8 @@ void		stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 	flag = (!line->compl.len) ? 0 : 1;
 	while (list)
 	{
-		if ((flag && !ft_strncmp(line->compl.search, list->name, line->compl.len)) || !flag)
+		if ((flag && !ft_strncmp(line->compl.search, list->name,
+			line->compl.len)) || !flag)
 		{
 			(*affcmpl)->content = ft_strdup(list->name);
 			(*affcmpl)->next = ft_memalloc(sizeof(t_affcmpl));
@@ -314,46 +204,15 @@ void		stock_path_paramters(t_line *line, t_affcmpl **affcmpl)
 	}
 }
 
-void		make_path_parameters(t_line *line)
-{
-	if (line->compl.str[0] == '$' && line->compl.str[1] == '{' && line->compl.str[2] != '{')
-	{
-		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '{') + 1);
-		line->compl.bracket = 1;
-	}
-	else if (ft_strchr(line->compl.str, '$'))
-		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
-}
-
 void		make_path_completion(t_line *line, char **str)
 {
-	t_affcmpl	*affcmpl;
-	t_affcmpl	*affcmpltmp;
-
-	affcmpl = ft_memalloc(sizeof(t_affcmpl));
-	affcmpltmp = affcmpl;
 	if (!line->compl.type)
 	{
 		make_path_file(line, 1);
 		ft_get_all_bin_dirs(line, str);
 	}
 	else if (line->compl.type >= 1)
-	{
-		if (line->compl.type == 1)
-		{
-			make_path_parameters(line);
-			stock_path_paramters(line, &affcmpltmp);
-		}
-		else if (line->compl.type == 2)
-		{
-			make_path_file(line, 0);
-			stock_path_file(line->compl.path, line, &affcmpltmp);
-		}
-		if (line->compl.count > 1)
-			completion_files(affcmpl, line);
-		else if (line->compl.count == 1)
-			completion_str(affcmpl, line, str);
-	}
+		ft_builtine_parameter_file(line, str);
 }
 
 void		ft_auto_completion(t_line *line, char **str)
@@ -372,4 +231,6 @@ void		ft_auto_completion(t_line *line, char **str)
 	line->compl.str = ft_strtrim(tmp);
 	ft_strdel(&(tmp));
 	make_path_completion(line, str);
+	if (line->compl.str && *line->compl.str)
+		ft_strdel(&(line->compl.str));
 }

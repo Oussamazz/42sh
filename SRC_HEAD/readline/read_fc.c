@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_fc.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 18:46:24 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:51:31 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ void		opt_error(char c)
 	ft_putstr("42sh: fc: -");
 	ft_putchar(c);
 	ft_putendl(" : invalid option");
-	ft_putendl("fc: usage: fc [-e ename] [-lnr] [first] [last] or fc -s [pat=rep] [command]");
+	ft_putstr("fc: usage: fc [-e ename] [-lnr] [first] [last]");
+	ft_putendl(" or fc -s [pat=rep] [command]");
 }
 
 int			ft_isnumber(char *str)
@@ -114,7 +115,7 @@ int			preparer_path(char *editeur, t_opt *opt)
 	return (0);
 }
 
-int			check_debut_fin_e(t_opt *opt, char **hold)
+int			check_error_fc(t_opt *opt)
 {
 	if (!opt->count)
 	{
@@ -126,6 +127,13 @@ int			check_debut_fin_e(t_opt *opt, char **hold)
 		ft_putendl("fc: too many arguments");
 		return (0);
 	}
+	return (1);
+}
+
+int			check_debut_fin_e(t_opt *opt, char **hold)
+{
+	if (!check_error_fc(opt))
+		return (0);
 	else if (opt->count <= 3)
 	{
 		if (!preparer_path(hold[opt->check], opt))
@@ -152,6 +160,31 @@ void		count_arg_fc(t_opt *opt)
 	opt->count += 1;
 }
 
+int			check_valide_opt(t_opt *opt, char *hold, int i)
+{
+	if (hold[i] == 'l' && !opt->check)
+		opt->l = 1;
+	else if (hold[i] == 'n' && !opt->check)
+		opt->n = 1;
+	else if (hold[i] == 'e' && !opt->check)
+		opt->e = 1;
+	else if (hold[i] == 's' && !opt->check)
+		opt->s = 1;
+	else if (hold[i] == 'r' && !opt->check)
+		opt->r = 1;
+	else
+	{
+		if (!ft_strchr("lners", hold[i]) && !opt->check)
+		{
+			opt_error(hold[i]);
+			return (0);
+		}
+		else
+			count_arg_fc(opt);
+	}
+	return (1);
+}
+
 int			check_opt(t_opt *opt, char *hold)
 {
 	int		i;
@@ -166,26 +199,8 @@ int			check_opt(t_opt *opt, char *hold)
 		i = 1;
 		while (hold[i])
 		{
-			if (hold[i] == 'l' && !opt->check)
-				opt->l = 1;
-			else if (hold[i] == 'n' && !opt->check)
-				opt->n = 1;
-			else if (hold[i] == 'e' && !opt->check)
-				opt->e = 1;
-			else if (hold[i] == 's' && !opt->check)
-				opt->s = 1;
-			else if (hold[i] == 'r' && !opt->check)
-				opt->r = 1;
-			else
-			{
-				if (!ft_strchr("lners", hold[i]) && !opt->check)
-				{
-					opt_error(hold[i]);
-					return (0);
-				}
-				else
-					count_arg_fc(opt);
-			}
+			if (!(check_valide_opt(opt, hold, i)))
+				return (0);
 			i++;
 		}
 	}
@@ -229,78 +244,26 @@ int			ft_calc(char **hold)
 
 void		execute_open_file(char *editeur)
 {
-	char *line;
+	char	*line;
 
 	if (!editeur)
 		editeur = "vim";
 	line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, "");
 	if (line)
 		execute_fc(line);
-	ft_strdel(&line);
-}
-
-void		ft_fc_l3adiya(t_opt *opt, char **hold)
-{
-	t_node	*history;
-	int		fd;
-	char	**result;
-	int		size;
-
-	if ((fd = open(PATH_FC_FILE, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
-		return ;
-	history = add_to_history(NULL);
-	if (!opt->count)
-	{
-		if (history->next)
-			ft_putendl_fd(history->next->content, fd);
-		close(fd);
-	}
-	if (ft_get_debut_fin(opt, hold))
-	{
-		if (opt->count == 1)
-		{
-			opt->debut = ((ft_abs(opt->debut) > opt->sizeoflist) || (opt->debut == 0)) ? (-1) : opt->debut;
-			opt->debut = (opt->debut < 0) ? (opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
-			get_index_in_list(&history, opt->debut);
-			ft_putendl_fd(history->content, fd);
-			close(fd);
-		}
-		else if (opt->count >= 2)
-		{
-			ft_calc_debut_fin(opt);
-			ft_calc_range_of_debut_fin(opt, &size, &result);
-			ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
-		}
-	}
-	execute_open_file(opt->editeur);
-	execute_commande_fc(PATH_FC_FILE);
+	ft_strdel(&(line));
 }
 
 void		ft_handel_fc(t_opt *opt, char **hold)
 {
-	t_node	*history;
-
-	history = add_to_history(NULL);
 	if (opt->s == 1)
-	{
-		if (!opt->count)
-		{
-			if (history->next)
-				ft_putendl(history->next->content);
-		}
-		else if (opt->count >= 1)
-		{
-			if (!(get_index_fc(hold[opt->check], &opt->debut)))
-				return ;
-			ft_putendl(get_content_in_list(opt->debut));
-		}
-	}
+		fc_s(opt, hold);
 	else if (opt->l == 1)
 		fc_l(opt, hold);
 	else if (opt->e == 1)
-		fc_e(opt, hold, history);
+		fc_e(opt, hold);
 	else if ((opt->i - opt->count) == 1 || opt->n || opt->r)
-		ft_fc_l3adiya(opt, hold);
+		fc_without_flag(opt, hold);
 }
 
 void		parce_param_fc(char **hold)
