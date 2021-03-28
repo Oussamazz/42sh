@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 15:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/18 15:46:01 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:15:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ static char		*sig_handler(t_here_doc *v)
 		return (v->text);
 	if (v->text)
 		ft_strdel(&v->text);
+	if (v->buffer)
+		ft_strdel(&v->buffer);
 	return (NULL);
 }
 
@@ -47,7 +49,10 @@ char			*here_doc(char *delim)
 	while (delim)
 	{
 		if (g_clt_c || g_clt_d)
+		{
+			ft_putendl_fd("ctrl^C", 1);
 			return (sig_handler(&v));
+		}
 		prompt_here_doc();
 		if (!(v.buffer = ft_readline(1)))
 			return (NULL);

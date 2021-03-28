@@ -74,6 +74,7 @@ char			*valid_path(char *cmd_name, char **tabs, char **print)
 	int		i;
 
 	i = -1;
+	p = NULL;
 	if (!(p = find_path(tabs)) || !tabs)
 		return (NULL);
 	path = ft_strsplit(&p[5], ':');

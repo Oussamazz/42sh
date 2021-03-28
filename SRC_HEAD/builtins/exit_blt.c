@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:51:39 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 11:16:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:30:52 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 void	free_(void)
 {
+	// delete_hashtable(&g_hashtable, 2);
 	ft_free_history();
 	ft_tabfree();
 	ft_listfree();

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 11:20:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 18:46:24 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,6 +236,7 @@ void		execute_open_file(char *editeur)
 	line = ft_strjoin_four(editeur, " ", PATH_FC_FILE, "");
 	if (line)
 		execute_fc(line);
+	ft_strdel(&line);
 }
 
 void		ft_fc_l3adiya(t_opt *opt, char **hold)

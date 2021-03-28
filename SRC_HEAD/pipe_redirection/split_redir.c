@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 01:33:51 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:34:32 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:16:59 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,10 @@ static int			split_herdoc2(t_split_redir *v, char *str)
 	if (delim)
 		text = here_doc(delim);
 	if (text == NULL)
+	{
+		ft_strdel(&delim);
 		return (ReturnNull);
+	}
 	if (text)
 	{
 		free(v->agg[v->j]);

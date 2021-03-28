@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 15:25:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 17:40:10 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,7 +206,7 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 			return (NULL);
 		return (buf + position);
 	}
-	if ((*buf &&
+	else if ((*buf &&
 		!ft_is_there(METACHARACTER, *buf)) && *buf != '$' &&
 		!ft_is_there(AGG_REDI, *buf) && *buf != '|')
 	{
