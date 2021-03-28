@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 12:14:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 15:25:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,11 +138,10 @@ static char *get_tild_dolar(char *buf, t_mystruct *v)
 		} 
 		dollars = get_value_expansion(data, v->env_list);
 		c = *(buf + ft_strlen(data) + 3);
-		// if (!is_blank(c) && c != '|')
-		// 	v->tokenz->coor.no_space = 1;
 		if (dollars)
 			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
 		buf = buf + ft_strlen(data) + 3;
+		ft_putendl(buf);
 		ft_strdel(&data);
 		ft_strdel(&dollars);
 	}
@@ -184,7 +183,7 @@ static char		*get_pipe_agr(char *buf, t_mystruct *v)
 			PIPE_SYM, &v->coord);
 		return (buf + 1);
 	}
-	else if (*buf && ft_is_there(AGG_REDI, *buf))
+	else if (*buf && ft_is_there(AGG_REDI, *buf) && *buf != '&')
 	{
 		if ((position = aggr_function(buf, &v->coord, &v->tokenz)) == -1)
 			return (NULL);

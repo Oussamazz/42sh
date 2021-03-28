@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expansion.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/26 23:20:16 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:16:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int				get_size_expansion(char *exp)
 	return (len);
 }
 
-static char		*ft_strjoin_until_char(char const *s1, char const *s2, char c)
+char		*ft_strjoin_until_char(char const *s1, char const *s2, char c)
 {
 	char		*str;
 	size_t		lenstr;

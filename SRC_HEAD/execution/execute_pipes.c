@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 14:09:19 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:55:52 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 		execute_redirection(tree->redirection, g_tty_name);
 	if (!tree->pipe && pipes->cmd_no)
 		close(pipes->temp);
-	// !expantion:
 	if (tree->cmd[0][0] == '!' && tree->cmd[0][1])
 	{
 		char *line = history_expansion(tree->cmd[0]);
@@ -56,17 +55,17 @@ int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 	return (g_the_status);
 }
 
-void checkchild2(int sig) {
+void checkchild2(int sig) 
+{
 	t_job_ctrl *ptr;
     int status = 0;
-	int pid = 0;
 
 	(void)sig;
 	ptr = g_jobs_lst;
 	while (ptr && ptr->mode != IS_TERMINATED)
 	{
 		int g_pid = ptr->grp_pid;
-		if ((pid = waitpid(g_pid * -1, &status, WUNTRACED | WCONTINUED | WNOHANG)) > 0)
+		if (waitpid(g_pid * -1, &status, WUNTRACED | WCONTINUED | WNOHANG) > 0)
 		{
 			if (WIFCONTINUED(status))
 				ptr->mode = IS_RUNNING;
@@ -82,7 +81,17 @@ void checkchild2(int sig) {
 		}
 		ptr = ptr->next;
 	}
-	return ;
+}
+
+static void		parent_job(t_miniast *tree, t_mypipe *pipes)
+{
+	close(pipes->pipe[1]);
+	if (pipes->temp)
+		close(pipes->temp);
+	pipes->temp = pipes->pipe[0];
+	if (!tree->pipe)
+		close(pipes->temp);
+	pipes->cmd_no += 1;
 }
 
 static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
@@ -96,34 +105,65 @@ static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
 		return ;
 	if (pipes->g_pid == 0 && pipes->pid > 0)
 		pipes->g_pid = pipes->pid;
-	if (pipes->pid == 0)// child process:
+	if (pipes->pid == 0)
 		exit(execute_pip_child(tree, pipes, tabs, env_list));
 	else
 	{
 		if (setpgid(pipes->pid, pipes->g_pid) == -1)
-			return (perror("error_setpgid:"));
+			return ;
 		if (!pipes->cmd_no && !(tree->mode & IS_BACKGROUD) && tcsetpgrp((fd = open(ttyname(0), O_RDWR)), pipes->g_pid) == -1)
-			return (perror("error_tcsetpgrp g_pid:"));
+			return ;
 		if (!pipes->cmd_no && !(tree->mode & IS_BACKGROUD))
 			close(fd);
-		close(pipes->pipe[1]);
-		if (pipes->temp)
-			close(pipes->temp);
-		pipes->temp = pipes->pipe[0];
-		if (!tree->pipe)
-			close(pipes->temp);
-		pipes->cmd_no += 1;
+		parent_job(tree, pipes);
 	}
 	return ;
 }
 
+void		wait_loop_forground(int is_bg, t_mypipe pipes)
+{
+	char **cmd;
+
+	cmd = NULL;
+	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) 
+	{
+		if (WIFSTOPPED(pipes.status)) {
+			if (!(cmd = get_job_members(g_tree)))
+				return ;
+			append_job(cmd, pipes, IS_SUSPENDED);
+			print_job_node(pipes.g_pid);
+			break ;
+		}
+		else if (WIFSIGNALED(pipes.status))
+		{
+			g_the_status = WTERMSIG(pipes.status) + 128;
+			print_sigpip_int(pipes.status);
+		}
+		else if (WIFEXITED(pipes.status))
+			g_the_status = WEXITSTATUS(pipes.status);
+		
+	}
+}
+
+void		job_background(int is_bg, t_mypipe pipes)
+{
+	char **cmd;
+
+	cmd = NULL;
+	if (is_bg > 0)
+	{
+		if (!(cmd = get_job_members(g_tree)))
+				return ;
+		append_job(cmd, pipes, IS_BACKGROUD | IS_RUNNING);
+		print_job_node(pipes.g_pid);
+	}
+}
+
 int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 {
-	char 				**cmd;
 	t_mypipe			pipes;
 	int					is_bg;
 	char				*print = NULL;
-
 
 	is_bg = 0;
 	g_tree = tree;
@@ -141,40 +181,8 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 		tree = tree->pipe;
 	}
 	ft_strdel(&g_binfile);
-	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) {
-		if (WIFSTOPPED(pipes.status)) {
-			if (!(cmd = get_job_members(g_tree)))
-				return (-1);
-			append_job(cmd, pipes, IS_SUSPENDED);
-			print_job_node(pipes.g_pid);
-			break ;
-		}
-		else if (WIFSIGNALED(pipes.status))
-		{
-			g_the_status = WTERMSIG(pipes.status) + 128;
-			if (WTERMSIG(pipes.status) != SIGPIPE)
-			{
-				if (WTERMSIG(pipes.status) != SIGINT)
-				{
-					ft_putstr_fd("Terminated with Signal: ", 1);
-					ft_putnbr_fd(WTERMSIG(pipes.status), 1);
-				}
-				ft_putendl_fd("", 1);
-			}
-			// dprintf(2, "Terminated (signaled): %d\n", );
-			// break ;
-		}
-		else if (WIFEXITED(pipes.status))
-			g_the_status = WEXITSTATUS(pipes.status);
-		
-	}
-	if (is_bg > 0)
-	{
-		if (!(cmd = get_job_members(g_tree)))
-				return (-1);
-		append_job(cmd, pipes, IS_BACKGROUD | IS_RUNNING);
-		print_job_node(pipes.g_pid);
-	}
+	wait_loop_forground(is_bg, pipes);
+	job_background(is_bg, pipes);
 	close(pipes.temp);
 	sig_groupe();
 	return (255);

@@ -25,7 +25,7 @@ SRC_PIPE_REDIRECTION =	agg_redir.o here_doc.o redirections.o \
 
 SRC_MAIN =	envirement.o error_handler.o free1.o\
 			ft_free.o his.o main.o node.o printing.o utils.o utils2.o quote_handling.o signals.o here_doc_fd.o \
-			utils3.o utils4.o utils5.o utils6.o
+			utils3.o utils4.o utils5.o utils6.o printing_jobs.o
 
 SRC_HASH = alloc_hash.o errors_print.o flags.o h_tools.o hash_tools.o hash_tools2.o hashtable.o
 

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/05 14:35:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:31:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 14:33:57 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int     fg_blt(char **cmd)
             if (tcsetpgrp(fd, ptr->grp_pid) == -1)
             {
                 close(fd);
-                perror("tcsetpgrp");
                 return (1);
             }
             close(fd);

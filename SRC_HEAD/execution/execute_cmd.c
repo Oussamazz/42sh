@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:36:03 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 15:08:35 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,6 @@ void			execute_undirect(char **cmd, char **tabs, t_env **env)
 
 	(void)env;
 	bin_file = g_binfile;
-	// if (!(bin_file = ft_hashtable(cmd, tabs, &g_hashtable, &print)))
-	// {
-	// 	ft_putendl_fd_error("42sh: command not found: ", cmd[0], "\n", NULL);
-	// 	return ;
-	// }
-	
-	// ft_putendl(bin_file);
-	// dprintf(2, "bin: %s\n", bin_file);
 	if (access(bin_file, F_OK) == 0)
 		my_execve(bin_file, cmd, tabs);
 	else

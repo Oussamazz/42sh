@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 13:50:53 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/28 15:07:59 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,18 +140,33 @@ t_miniast *advance_tree(t_miniast *tree)
 	return (tree);
 }
 
+t_miniast *tree_advance(t_miniast *tree)
+{
+	if (!tree->sep)
+		tree = advance_tree(tree);
+	else
+	{
+		while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+			tree = tree->sep;
+		tree = tree->sep;
+	}
+	return (tree);
+}
+
 int				execute(t_miniast *tree, t_env **env_list)
 {
 	char		**tabs;
 	int			fd;
+	char		*line;
 
 	fd = 0;
+	line = NULL;
 	tabs = g_settab;
 	while (tree != NULL && tree->cmd[0])
 	{
 		if (tree->cmd[0][0] == '!' && tree->cmd[0][1] && !tree->pipe)
 		{
-			char *line = history_expansion(tree->cmd[0]);
+			line = history_expansion(tree->cmd[0]);
 			if (line)
 				execute_fc(line);
 			ft_strdel(&line);
@@ -160,14 +175,8 @@ int				execute(t_miniast *tree, t_env **env_list)
 			execute_blt_with_fork(tree, tabs, env_list);
 		else
 			execute_pipes(tree, tabs, env_list);
-		if (!tree->sep)
-			tree = advance_tree(tree);
-		else
-		{
-			while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
-				tree = tree->sep;
-			tree = tree->sep;
-		}
+		tree = tree_advance(tree);
+		
 	}
 	return (1);
 }

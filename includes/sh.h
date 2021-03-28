@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 22:57:16 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/28 15:16:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -421,6 +421,8 @@ int						ft_str_is_digit(char *lfd);
 void					ft_reset_fd(char *tty_name, int file_d);
 int						parse_commands(t_miniast **head,
 	t_lexer *tokenz, t_env **env);
+char		*ft_strjoin_until_char(char const *s1, char const *s2, char c);
+void					print_sigpip_int(int status);
 char					**fill_node(t_lexer *token,
 	t_redir **redirections, t_env **env, int alltoken_size);
 int						check_grammar_tokenz(t_lexer *tokenz);
