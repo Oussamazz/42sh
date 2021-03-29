@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 18:38:25 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:00:55 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,53 +56,73 @@ static void		assign_v(t_getfullcmd *v)
 	v->c = v->tmp[v->i] * v->quote_opened;
 }
 
-char			*get_full_cmd(void)
+int back_read(t_getfullcmd *v, int *len, char **ptr)
 {
-	t_getfullcmd v;
-	int len = 0;
-	char *tmp = 0;
-	ft_bzero(&v, sizeof(t_getfullcmd));
-	v.cmd = ft_strdup("");
-	while (v.cmd && (v.tmp = ft_readline(v.flag)))
-	{
-		v.i = 0;
-		len = ft_strlen(v.tmp);
-		while (v.i < len && v.tmp[v.i])
-		{
-			if(v.tmp[v.i] == '\\' && (v.tmp[v.i + 1] && (v.tmp[v.i + 1] == '\'' || v.tmp[v.i + 1] == '\"' || v.tmp[v.i + 1] == '\\')))      ////////biggy
-			{
-				v.i += 2;
-				if(v.i >= len)
-					break;
-				continue;
-			}
-			if ((v.tmp[v.i] == '\\' && !v.tmp[v.i + 1]))
-			{
-				ft_move_replace(&v.tmp[v.i]);
-				tmp = ft_readline(1);
-				v.tmp = ft_strjoin(v.tmp , tmp);      ////////biggy
-				len += ft_strlen(tmp);
-				if(!ft_strlen(tmp))
-				{
-					free(tmp);
-					break;
-				}
-				free(tmp);
-				continue;
-			}
-			if (is_quote(v.tmp[v.i]) && (v.c == v.tmp[v.i] || v.c == 0))
-				assign_v(&v);
-			v.i++;
-		}
-		v.cmd = ft_freejoin(v.cmd, v.tmp, 2);
-		if (!v.quote_opened)
-			break ;
-		if (g_clt_d || g_clt_c)
-			return (handel_signal(&v));
-		prompt_completion(v.c);
-		v.cmd = ft_freejoin(v.cmd, "\n", 0);
-	}
-	return (v.tmp ? v.cmd : NULL);
+	char	*s;
+
+    ft_move_replace(&(*v).tmp[(*v).i]);
+    ft_putstr(">");
+    (*ptr) = ft_readline(1);
+	s = (*v).tmp;
+    (*v).tmp = ft_strjoin((*v).tmp, (*ptr));
+	free(s);
+    (*len) += ft_strlen((*ptr));
+    if (!ft_strlen((*ptr)))
+    {
+        free((*ptr));
+        return (0);
+    }
+    free((*ptr));
+    return (1);
+}
+
+void    backslash_checker(t_getfullcmd *v, int *len, char **tmp)
+{
+    while ((*v).i < (*len) && (*v).tmp[(*v).i])
+    {
+        if ((*v).tmp[(*v).i] == '\\' && ((*v).tmp[(*v).i + 1]
+        && ((*v).tmp[(*v).i + 1] == '\'' || (*v).tmp[(*v).i + 1] == '\"'
+        || (*v).tmp[(*v).i + 1] == '\\')))
+        {
+            (*v).i += 2;
+            if ((*v).i >= (*len))
+                break;
+            continue;
+        }
+        else if (((*v).tmp[(*v).i] == '\\' && !(*v).tmp[(*v).i + 1]))
+        {
+            if (!back_read(v, len, tmp))
+                break;
+            continue;
+        }
+        if (is_quote((*v).tmp[(*v).i]) &&
+        ((*v).c == (*v).tmp[(*v).i] || (*v).c == 0))
+            assign_v(v);
+        (*v).i++;
+    }
+}
+
+char            *get_full_cmd(void)
+{
+    t_getfullcmd v;
+    int len = 0;
+    char *tmp = 0;
+    ft_bzero(&v, sizeof(t_getfullcmd));
+    v.cmd = ft_strdup("");
+    while (v.cmd && (v.tmp = ft_readline(v.flag)))
+    {
+        v.i = 0;
+        len = ft_strlen(v.tmp);
+        backslash_checker(&v, &len, &tmp);
+        v.cmd = ft_freejoin(v.cmd, v.tmp, 2);
+        if (!v.quote_opened)
+            break ;
+        if (g_clt_d || g_clt_c)
+            return (handel_signal(&v));
+        prompt_completion(v.c);
+        v.cmd = ft_freejoin(v.cmd, "\n", 0);
+    };
+    return (v.tmp ? v.cmd : NULL);
 }
 
  void print_tokenz(t_lexer *tokenz)
@@ -155,7 +175,6 @@ void			source_sh(t_env **head)
 		ft_prompte();
 		if (!(v.str = get_full_cmd()))
 			continue ;
-		ft_putendl(v.str);
 		alias_check(&v.str, &g_alias);
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
@@ -166,8 +185,6 @@ void			source_sh(t_env **head)
 		ft_execenv(head, v.tokenz, NOT_EXP);
 		if (v.tokenz && head && v.status[1] > 0)
 			v.status[1] = parse_commands(&v.ast, v.tokenz, head);
-		// if (v.status[1] && v.ast)
-		// 	print_btree(v.ast);
 		if (v.str[0] != '\0' && !str_is_blank(v.str))
 			add_to_history(v.str);
 		if (v.status[1] > 0 && v.ast && head && v.ast->cmd)
