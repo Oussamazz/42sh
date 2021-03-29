@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 11:18:05 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 19:38:34 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:18:28 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,23 @@ void		make_path_parameters(t_line *line)
 		line->compl.search = ft_strdup(ft_strrchr(line->compl.str, '$') + 1);
 }
 
+void		free_list(t_affcmpl *affcmpl, t_affcmpl *affcmpltmp)
+{
+	while (affcmpl)
+	{
+		affcmpltmp = affcmpl;
+		(affcmpl) = (affcmpl)->next;
+		free((affcmpltmp)->content);
+		free(affcmpltmp);
+	}
+}
+
 void		ft_builtine_parameter_file(t_line *line, char **str)
 {
 	t_affcmpl *affcmpl;
 	t_affcmpl *affcmpltmp;
 
-	affcmpl = malloc(sizeof(t_affcmpl));
+	affcmpl = ft_memalloc(sizeof(t_affcmpl));
 	affcmpltmp = affcmpl;
 	if (line->compl.type == 1)
 	{
@@ -82,5 +93,5 @@ void		ft_builtine_parameter_file(t_line *line, char **str)
 		completion_files(affcmpl, line);
 	else if (line->compl.count == 1)
 		completion_str(affcmpl, line, str);
-	ft_free_list(&affcmpl);
+	free_list(affcmpl, affcmpltmp);
 }

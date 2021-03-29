@@ -6,21 +6,11 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 10:33:15 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 19:37:53 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:17:49 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
-
-void		ft_free_list(t_affcmpl **affcmpl)
-{
-	while ((*affcmpl))
-	{
-		ft_strdel(&(*affcmpl)->content);
-		(*affcmpl) = (*affcmpl)->next;
-	}
-	ft_memdel((void **)affcmpl);
-}
 
 void		ft_get_bin_dirs(t_line *line, t_affcmpl **affcmpltmp)
 {
@@ -95,17 +85,12 @@ void		ft_get_all_bin_dirs(t_line *line, char **str)
 	t_affcmpl	*affcmpl;
 	t_affcmpl	*affcmpltmp;
 
-	affcmpl = malloc(sizeof(t_affcmpl));
+	affcmpl = ft_memalloc(sizeof(t_affcmpl));
 	affcmpltmp = affcmpl;
 	ft_get_bin_dirs(line, &affcmpltmp);
 	if (line->compl.count > 1)
 		completion_files(affcmpl, line);
 	else if (line->compl.count == 1)
 		completion_str(affcmpl, line, str);
-	while ((affcmpl))
-	{
-		free((affcmpl)->content);
-		(affcmpl) = (affcmpl)->next;
-	}
-	ft_memdel((void**)affcmpl);
+	free_list(affcmpl, affcmpltmp);
 }

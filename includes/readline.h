@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 18:05:06 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:18:04 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -277,4 +277,5 @@ void				fc_many_argement(t_opt *opt);
 void				fc_one_argement(int fd, t_opt *opt);
 void				ft_handel_fc(t_opt *opt, char **hold);
 void				fc_s(t_opt *opt, char **hold);
+void				free_list(t_affcmpl *affcmpl, t_affcmpl *affcmpltmp);
 #endif

@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/06 12:17:19 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 19:09:53 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 12:54:06 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -219,18 +219,16 @@ void		ft_auto_completion(t_line *line, char **str)
 {
 	char	*tmp;
 
-	if (line->compl.str && *line->compl.str)
-		ft_strdel(&(line->compl.str));
-	if (line->compl.search && *line->compl.search)
-		ft_strdel(&(line->compl.search));
-	if (line->compl.path && *line->compl.path)
-		ft_strdel(&(line->compl.path));
 	ft_parce_completion(line, str);
 	tmp = ft_strdup(line->compl.str);
 	ft_strdel(&line->compl.str);
 	line->compl.str = ft_strtrim(tmp);
 	ft_strdel(&(tmp));
 	make_path_completion(line, str);
-	if (line->compl.str && *line->compl.str)
+	if (line->compl.str)
 		ft_strdel(&(line->compl.str));
+	if (line->compl.search)
+		ft_strdel(&(line->compl.search));
+	if (line->compl.path)
+		ft_strdel(&(line->compl.path));
 }

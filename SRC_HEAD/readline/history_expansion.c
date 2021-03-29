@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/29 20:16:12 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 17:47:49 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:21:36 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -130,7 +130,7 @@ char		*ft_make_value_expansion(char *next_char, char *str)
 	if (return_value != NULL)
 		return (return_value);
 	else if (ft_isnumber(next_char) || ((next_char[0] == '-') &&
-										(ft_isnumber(next_char + 1))))
+		(ft_isnumber(next_char + 1))))
 	{
 		if ((next_char[0] == '-') && (next_char[1] == '\0'))
 		{
@@ -148,6 +148,7 @@ char		*ft_get_value(char *str, int debut, int fin)
 	int		i;
 	int		len;
 	char	*rest;
+	char	*tmp;
 
 	i = 0;
 	len = 0;
@@ -160,7 +161,9 @@ char		*ft_get_value(char *str, int debut, int fin)
 		i++;
 	}
 	rest = ft_strsub(str, debut, len);
-	return (ft_make_value_expansion(rest + 1, rest));
+	tmp = ft_make_value_expansion(rest + 1, rest);
+	ft_strdel(&rest);
+	return (tmp);
 }
 
 int			handel_history_expansion(char *str, t_expansion_h *expansion)
@@ -173,7 +176,8 @@ int			handel_history_expansion(char *str, t_expansion_h *expansion)
 		if (expansion->tmp)
 		{
 			if (expansion->j == 0)
-				expansion->hold = ft_strjoin(expansion->tmp, expansion->hold);
+				expansion->hold = ft_freejoin(expansion->tmp,
+					expansion->hold, 2);
 			else
 				expansion->hold = ft_freejoin(expansion->hold,
 					expansion->tmp, 2);
