@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   manage_alias_line.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:25:08 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:25:37 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:24:01 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-void	get_start_end_line(t_a_v *vars, char **line, int e, t_alias **alias)
+void		get_start_end_line(t_a_v *vars, char **line, int e, t_alias **alias)
 {
 	(*vars).ptr = (*vars).head->name;
 	(*vars).head->name = ft_strdup("#");
@@ -82,9 +82,9 @@ void		replace_line(int *s, int e, char **line)
 	}
 }
 
-void				printfx(char **line, int s, int e, t_alias **alias)
+void		printfx(char **line, int s, int e, t_alias **alias)
 {
-	t_a_v	vars;
+	t_a_v vars;
 
 	init_alias(&vars, s, e, line);
 	vars.catch = copy_list((*alias));
@@ -96,12 +96,12 @@ void				printfx(char **line, int s, int e, t_alias **alias)
 		if (!vars.startline)
 		{
 			if (if_no_start_line(&vars, line, &s, &e))
-				continue;
+				continue ;
 			else
 				return ;
 		}
 		else if (if_there_start_line(&vars, line, &s, &e))
-			continue;
+			continue ;
 		clean_vars(&vars, 1);
 	}
 	free_alias_list(&vars.catch, del);

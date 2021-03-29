@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils4.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:42:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 16:36:45 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:27:14 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,15 @@ int				str_is_blank(char *buffer)
 	return (1);
 }
 
-void			flag_g(char **av, t_env **env_list, time_t *now)
-{
-	char		*user;
-
-	user = NULL;
-	if (!(user = get_value_expansion("USER", env_list)))
-		error_message("42sh: Error: USER NOT FOUND.\n", 1);
-	starting_message(av, &user, now);
-	return ;
-}
-
 int				check_builtins_nfrk(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "alias") ||  ft_strequ(cmd_name, "unalias") || ft_strequ(cmd_name, "fc") ||ft_strequ(cmd_name, "type") || ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs")  || ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
-		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "export") || ft_strequ(cmd_name, "hash") || ft_strequ(cmd_name, "test") || ft_strequ(cmd_name, "set"))
+	if (ft_strequ(cmd_name, "alias") || ft_strequ(cmd_name, "unalias") ||
+		ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "type") ||
+		ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "jobs") ||
+		ft_strequ(cmd_name, "fg") || ft_strequ(cmd_name, "bg")
+		|| ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "unset") ||
+		ft_strequ(cmd_name, "export") || ft_strequ(cmd_name, "hash") ||
+		ft_strequ(cmd_name, "test") || ft_strequ(cmd_name, "set"))
 		return (1);
 	return (0);
 }
@@ -64,8 +58,9 @@ int				ft_str_is_digit(char *lfd)
 
 void			ft_reset_fd(char *tty_name, int file_d)
 {
-	int			fd = 0;
+	int			fd;
 
+	fd = 0;
 	(void)tty_name;
 	(void)file_d;
 	if ((fd = open(ttyname(0), O_RDWR)) == -1)

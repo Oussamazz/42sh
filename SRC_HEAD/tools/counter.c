@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   counter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:27:29 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:27:44 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:20:47 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int			counter(char **str)
+int		counter(char **str)
 {
-	int		i;
+	int	i;
 
 	i = 0;
 	if (str)

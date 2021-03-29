@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_alias_list.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:14:57 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:19:33 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:26:16 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ void		get_value_from_list(char *line, t_alias *alias, int flag)
 			ft_putstr_fd("='", 1);
 			ft_putstr_fd(alias->value, 1);
 			ft_putendl_fd("'", 1);
-
 		}
 		else if (!ft_strcmp(alias->name, line))
 			ft_putendl_fd(alias->value, 1);
@@ -32,7 +31,7 @@ void		get_value_from_list(char *line, t_alias *alias, int flag)
 		free(line);
 }
 
-void		create_alias_list()
+void		create_alias_list(void)
 {
 	t_alias	*alias;
 	int		file;
@@ -40,15 +39,16 @@ void		create_alias_list()
 	char	**cmp;
 
 	buff = NULL;
-    cmp = NULL;
+	cmp = NULL;
 	file = open("/Users/afaragi/.biggyrc", O_RDONLY | O_CREAT, 0644);
 	while (get_next_line(file, &buff) > 0)
 	{
-		if(((counter(cmp = ft_strsplit(buff, '=')) != 2 || !checker_alias(cmp))) || !cmp)
+		if (((counter(cmp = ft_strsplit(buff, '=')) != 2 ||
+			!checker_alias(cmp))) || !cmp)
 		{
 			free2dm(&cmp);
 			ft_strdel(&buff);
-			continue;
+			continue ;
 		}
 		alias = alias_create(cmp[0], cmp[1]);
 		g_alias = alias_lst_adder(&g_alias, alias);

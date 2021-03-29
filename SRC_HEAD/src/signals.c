@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:53:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/25 18:14:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:50:38 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,9 @@ char	*handel_signal(t_getfullcmd *v)
 
 void	sig_groupe(void)
 {
-	int fd = 0;
+	int fd;
 
+	fd = 0;
 	if ((fd = open(ttyname(0), O_RDWR)) == -1)
 		return ;
 	signal(SIGTTIN, SIG_IGN);

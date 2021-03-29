@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/21 17:11:21 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:27:50 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:17:31 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	free2dm(char ***str)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	while ((*str)[i])
@@ -25,7 +25,7 @@ void	free2dm(char ***str)
 	free((*str));
 }
 
-void		clean_vars(t_a_v *vars, int flag)
+void	clean_vars(t_a_v *vars, int flag)
 {
 	ft_strdel(&(*vars).endline);
 	ft_strdel(&(*vars).startline);
@@ -34,7 +34,7 @@ void		clean_vars(t_a_v *vars, int flag)
 		ft_strdel(&(*vars).tmp);
 }
 
-char		*return_value(char *name, t_alias *alias)
+char	*return_value(char *name, t_alias *alias)
 {
 	if (alias)
 	{
@@ -48,16 +48,16 @@ char		*return_value(char *name, t_alias *alias)
 	return (NULL);
 }
 
-void		ft_move_replace(char *str)
+void	ft_move_replace(char *str)
 {
-	int		i;
+	int i;
 
 	i = -1;
 	while (str[++i])
 		str[i] = str[i + 1];
 }
 
-int			is_indice(int c)
+int		is_indice(int c)
 {
 	if (c == ' ' || c == '\n' || c == ';' || c == '|' || c == '&')
 		return (1);

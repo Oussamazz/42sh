@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   alias_bultin.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:26:08 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:26:52 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:19:12 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void		init_alias(t_a_v *vars, int s, int e, char **line)
 int			if_del_found(t_c_v *var, char **line)
 {
 	if ((*line)[(*var).i] == ';' || (*line)[(*var).i] == '|' ||
-		!ft_strncmp(&(*line)[(*var).i], "&&", 2)
-		|| !ft_strncmp(&(*line)[(*var).i], "||", 2))
+		!ft_strncmp(&(*line)[(*var).i], "&&", 2) ||
+			!ft_strncmp(&(*line)[(*var).i], "||", 2))
 	{
-		if (!ft_strncmp(&(*line)[(*var).i], "&&", 2)
-		|| !ft_strncmp(&(*line)[(*var).i], "||", 2))
+		if (!ft_strncmp(&(*line)[(*var).i], "&&", 2) ||
+			!ft_strncmp(&(*line)[(*var).i], "||", 2))
 			(*var).i += 2;
 		else
 			(*var).i++;
@@ -63,9 +63,9 @@ int			if_del_found(t_c_v *var, char **line)
 
 int			check_line_var(t_c_v *var, t_alias **alias, char **line)
 {
-	if ((is_indice((*line)[(*var).i])
-	|| (!ft_strncmp(&(*line)[(*var).i], "&&", 2)
-	|| !ft_strncmp(&(*line)[(*var).i], "||", 2))) && (*var).flag)
+	if ((is_indice((*line)[(*var).i]) ||
+		(!ft_strncmp(&(*line)[(*var).i], "&&", 2) ||
+			!ft_strncmp(&(*line)[(*var).i], "||", 2))) && (*var).flag)
 	{
 		printfx(line, (*var).old_i, (*var).i, alias);
 		(*var).old_i = (*var).i;
@@ -76,9 +76,9 @@ int			check_line_var(t_c_v *var, t_alias **alias, char **line)
 	return (0);
 }
 
-void			alias_check(char **line, t_alias **alias)
+void		alias_check(char **line, t_alias **alias)
 {
-	t_c_v	var;
+	t_c_v var;
 
 	var.i = 0;
 	var.old_i = var.i;

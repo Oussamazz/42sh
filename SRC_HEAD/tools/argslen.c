@@ -6,22 +6,22 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/17 16:28:20 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/17 16:29:28 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:19:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-int     ft_argslen(char **arr)
+int		ft_argslen(char **arr)
 {
-    int len;
+	int len;
 
-    if (arr)
-    {
-        len = 0;
-        while (arr[len])
-            len++;
-        return (len);
-    }
-    return (0);
+	if (arr)
+	{
+		len = 0;
+		while (arr[len])
+			len++;
+		return (len);
+	}
+	return (0);
 }

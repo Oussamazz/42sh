@@ -6,36 +6,37 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 02:38:24 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 13:54:40 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:49:31 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-char            *get_content_quote(char *buffer, char c,
-    t_pointt *coord, int flag)
+char	*get_content_quote(char *buffer, char c,
+	t_pointt *coord, int flag)
 {
-    const char  *tmp;
-    char        *str;
-    tmp = buffer;
-    if (buffer)
-    {
-        while (*buffer)
-        {
-            if (*buffer == '\\')
-            {
-                buffer += 2;
-                continue;
-            }
-            if(*buffer == c)
-                break;
-            buffer++;
-        }
-        str = ft_strsub(tmp, 0, buffer - tmp);
-        if (!flag)
-            flag = is_blank(buffer[1]) ? 0 : 1;
-        coord->no_space = flag;
-        return (str);
-    }
-    return (NULL);
+	const char	*tmp;
+	char		*str;
+
+	tmp = buffer;
+	if (buffer)
+	{
+		while (*buffer)
+		{
+			if (*buffer == '\\')
+			{
+				buffer += 2;
+				continue;
+			}
+			if (*buffer == c)
+				break ;
+			buffer++;
+		}
+		str = ft_strsub(tmp, 0, buffer - tmp);
+		if (!flag)
+			flag = is_blank(buffer[1]) ? 0 : 1;
+		coord->no_space = flag;
+		return (str);
+	}
+	return (NULL);
 }

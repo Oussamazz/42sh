@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 17:44:10 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:35:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:58:28 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 {
 	bool		flag;
 	char		*cwd_;
-	char *tmp = NULL;
+	char		*tmp;
 
 	flag = false;
 	cwd_ = NULL;
+	tmp = NULL;
 	if (cwd == NULL)
 	{
 		if (!(cwd_ = get_value_expansion_cd("PWD", env_list)))
@@ -48,9 +49,10 @@ void			gen_oldpwd(char *cwd, t_env **env_list)
 
 void			gen_pwd(char *new_path, t_env **env_list)
 {
-	char 		*tmp = NULL;
+	char		*tmp;
 
 	(void)env_list;
+	tmp = NULL;
 	if (new_path == NULL)
 		return ;
 	tmp = ft_strjoin("PWD=", new_path);

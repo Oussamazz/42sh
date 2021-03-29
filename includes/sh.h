@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 14:39:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:26:56 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -453,7 +453,6 @@ int						ft_is_tilde(char *str);
 char					*expanded(t_env **head, char *str);
 void					tilde_exp(char *exp, char **data, t_env **env_list);
 void					print_env_list(t_env **head);
-void					starting_message(char **argv, char **user, time_t *now);
 void					print_arr(char **arr);
 void					print_btree(t_miniast *ast);
 void					ft_putendl_fd_error(char *s1,
@@ -604,7 +603,7 @@ int                     isthere_alnum(char *str);
 int                     checker_alias(char **str);
 int                     if_i_found_it(t_alias *pr, t_alias *ptr, t_alias **al, char *str);
 void                    get_value_from_list(char *line, t_alias *alias, int flag);
-void                    create_alias_list();
+void                    create_alias_list(void);
 t_alias                 *alias_create(char *name, char *value);
 t_alias                 *alias_lst_adder(t_alias **old, t_alias *new);
 void                    delete_alias_var(t_alias **alias, char **str);

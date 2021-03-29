@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   manage_alias_file.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:19:45 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 14:22:37 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:23:17 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void		add_to_alias_file(char *line, t_alias **alias)
 	else
 		ft_putendl_fd("alias : Wrong Fromat Or Already added", 2);
 	free2dm(&check);
-    ft_strdel(&tmp);
+	ft_strdel(&tmp);
 }
 
 void		add_alias_list_to_file(t_alias *alias)
@@ -65,8 +65,8 @@ int			isthere_alnum(char *str)
 
 int			checker_alias(char **str)
 {
-	int i;
-	int j;
+	int		i;
+	int		j;
 
 	i = 0;
 	j = 0;

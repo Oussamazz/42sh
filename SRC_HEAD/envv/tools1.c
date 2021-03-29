@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools1.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 16:41:49 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/27 23:06:26 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/29 15:40:51 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void	ft_tabfree(void)
 	ft_strdbldel(&g_settab);
 }
 
-void	ft_listfree(void) // free all the list
+void	ft_listfree(void)
 {
 	while (g_set)
 		ft_setdelnode(&g_set, NULL, 1);

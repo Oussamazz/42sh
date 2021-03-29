@@ -6,16 +6,16 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/28 17:36:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/05 14:31:43 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:13:20 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int     get_options(char **cmd)
+static int	get_options(char **cmd)
 {
-	int i;
-	int options;
+	int		i;
+	int		options;
 
 	options = -1;
 	if (!cmd)
@@ -37,13 +37,11 @@ static int     get_options(char **cmd)
 	return (options);
 }
 
-
-
-void    jobs_blt(char **cmd)
+void		jobs_blt(char **cmd)
 {
-	int options;
-	t_job_ctrl *ptr;
-	t_job_ctrl *next;
+	int			options;
+	t_job_ctrl	*ptr;
+	t_job_ctrl	*next;
 
 	ptr = g_jobs_lst;
 	if ((options = get_options(cmd)) < 0)
@@ -67,4 +65,3 @@ void    jobs_blt(char **cmd)
 		ptr = next;
 	}
 }
-

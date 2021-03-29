@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   list_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ahmcherk <ahmcherk@student.42.fr>          +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/01 18:26:15 by ahmcherk          #+#    #+#             */
-/*   Updated: 2021/03/17 15:49:12 by ahmcherk         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:44:00 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,7 @@ void		ft_listtotab(void)
 	i = -1;
 	j = -1;
 	if (g_envtab)
-	{
-		free(g_envtab);
-		g_envtab = NULL;
-	}
+		ft_memdel((void**)&g_envtab);
 	if (g_settab)
 		ft_strdbldel(&g_settab);
 	if (!(g_envtab = (char **)malloc(sizeof(char *) * 400)) ||
