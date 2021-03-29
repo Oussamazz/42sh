@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/26 01:33:51 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 17:16:59 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:32:28 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,33 +64,6 @@ static int			split_herdoc2(t_split_redir *v, char *str)
 	ft_strdel(&delim);
 	return (Break);
 }
-
-// static int			split_redir_fd(t_split_redir *v, char *str)
-// {
-// 	if (ft_isascii(str[v->i + 1]) && str[v->i + 1] != '<' &&
-// 		str[v->i + 1] != '>' && str[v->i + 1] != '-')
-// 	{
-// 		ft_free_arr(v->agg);
-// 		err_ret("42sh: syntax error near unexpected token `&'\n", NULL);
-// 		return (ReturnNull);
-// 	}
-// 	v->agg[v->j][0] = str[v->i];
-// 	if (v->i + 1 < v->len && (str[v->i + 1] == '>' || str[v->i + 1] == '<'))
-// 	{
-// 		v->agg[v->j][1] = str[v->i + 1];
-// 		v->active_word = 0;
-// 		if (v->i + 2 < v->len && (str[v->i + 2] == str[v->i + 1] ||
-// 			str[v->i + 2] == '-'))
-// 		{
-// 			v->agg[v->j][2] = str[v->i + 2];
-// 			v->j++;
-// 			return (Break);
-// 		}
-// 		v->i++;
-// 	}
-// 	v->j++;
-// 	return (Normal);
-// }
 
 static int			do_spliting(t_split_redir *v, char *str)
 {

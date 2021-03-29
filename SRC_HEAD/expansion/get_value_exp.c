@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:04:25 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:31:14 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:34:44 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ char		*get_value_expansion(char *env_name, t_env **head)
 		curr = g_set;
 	if (env_name && curr)
 	{
-		// puts("dkhlt l expansion");
 		while (curr)
 		{
 			if (ft_strequ(curr->name, env_name))
@@ -46,7 +45,6 @@ char		*get_value_expansion_cd(char *env_name, t_env **head)
 		curr = *head;
 	if (env_name && curr)
 	{
-		// puts("dkhlt l expansion");
 		while (curr)
 		{
 			if (ft_strequ(curr->env_var_name, env_name))
@@ -56,7 +54,6 @@ char		*get_value_expansion_cd(char *env_name, t_env **head)
 	}
 	return (env_value);
 }
-
 
 char		*get_value_expansion_path(char *env_name)
 {

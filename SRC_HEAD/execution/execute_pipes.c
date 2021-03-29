@@ -6,14 +6,13 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 14:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 18:35:37 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:51:05 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-
-void		execute_pipes2(t_miniast *tree, t_mypipe *pipes)
+void execute_pipes2(t_miniast *tree, t_mypipe *pipes)
 {
 	close(pipes->pipe[0]);
 	if (pipes->cmd_no != 0)
@@ -29,8 +28,8 @@ void		execute_pipes2(t_miniast *tree, t_mypipe *pipes)
 	return ;
 }
 
-int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
-	char **tabs, t_env **env_list)
+int execute_pip_child(t_miniast *tree, t_mypipe *pipes,
+					  char **tabs, t_env **env_list)
 {
 	signal(SIGTSTP, SIG_DFL);
 	execute_pipes2(tree, pipes);
@@ -48,17 +47,17 @@ int		execute_pip_child(t_miniast *tree, t_mypipe *pipes,
 	else if (check_builtins(tree->cmd[0]))
 		execute_blt_with_fork(tree, tabs, env_list);
 	else if (tree->cmd[0][0] == '/' ||
-		(tree->cmd[0][0] == '.' && tree->cmd[0][1] == '/'))
+			 (tree->cmd[0][0] == '.' && tree->cmd[0][1] == '/'))
 		execute_direct(tree->cmd, tabs);
 	else if (tree->cmd[0] && env_list)
 		execute_undirect(tree->cmd, tabs, env_list);
 	return (g_the_status);
 }
 
-void checkchild2(int sig) 
+void checkchild2(int sig)
 {
 	t_job_ctrl *ptr;
-    int status = 0;
+	int status = 0;
 
 	(void)sig;
 	ptr = g_jobs_lst;
@@ -73,7 +72,7 @@ void checkchild2(int sig)
 				ptr->mode = IS_SUSPENDED;
 			if (WIFEXITED(status))
 				delete_node(&g_jobs_lst, ptr->grp_pid);
-			else if (WIFSIGNALED(status)) 
+			else if (WIFSIGNALED(status))
 			{
 				ptr->status = status;
 				ptr->mode = IS_TERMINATED;
@@ -83,7 +82,7 @@ void checkchild2(int sig)
 	}
 }
 
-static void		parent_job(t_miniast *tree, t_mypipe *pipes)
+static void parent_job(t_miniast *tree, t_mypipe *pipes)
 {
 	close(pipes->pipe[1]);
 	if (pipes->temp)
@@ -94,11 +93,12 @@ static void		parent_job(t_miniast *tree, t_mypipe *pipes)
 	pipes->cmd_no += 1;
 }
 
-static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
-	char **tabs, t_env **env_list)
+static void execute_pipes1(t_miniast *tree, t_mypipe *pipes,
+						   char **tabs, t_env **env_list)
 {
-	int			fd = 0;
+	int fd;
 
+	fd = 0;
 	if (pipe(pipes->pipe) == -1)
 		return ;
 	if ((pipes->pid = fork()) == -1)
@@ -122,12 +122,13 @@ static void		execute_pipes1(t_miniast *tree, t_mypipe *pipes,
 
 void		wait_loop_forground(int is_bg, t_mypipe pipes)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = NULL;
-	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1) 
+	while (!is_bg && (pipes.pid = waitpid(pipes.g_pid * -1, &(pipes.status), WUNTRACED | WCONTINUED)) != -1)
 	{
-		if (WIFSTOPPED(pipes.status)) {
+		if (WIFSTOPPED(pipes.status))
+		{
 			if (!(cmd = get_job_members(g_tree)))
 				return ;
 			append_job(cmd, pipes, IS_SUSPENDED);
@@ -141,7 +142,6 @@ void		wait_loop_forground(int is_bg, t_mypipe pipes)
 		}
 		else if (WIFEXITED(pipes.status))
 			g_the_status = WEXITSTATUS(pipes.status);
-		
 	}
 }
 
@@ -153,19 +153,21 @@ void		job_background(int is_bg, t_mypipe pipes)
 	if (is_bg > 0)
 	{
 		if (!(cmd = get_job_members(g_tree)))
-				return ;
+			return ;
 		append_job(cmd, pipes, IS_BACKGROUD | IS_RUNNING);
 		print_job_node(pipes.g_pid);
 	}
+	close(pipes.temp);
 }
 
-int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
+int			execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 {
-	t_mypipe			pipes;
-	int					is_bg;
-	char				*print = NULL;
+	t_mypipe	pipes;
+	int			is_bg;
+	char		*print;
 
 	is_bg = 0;
+	print = NULL;
 	g_tree = tree;
 	if (tree)
 		is_bg = tree->mode & IS_BACKGROUD;
@@ -183,7 +185,6 @@ int				execute_pipes(t_miniast *tree, char **tabs, t_env **env_list)
 	ft_strdel_2(&g_binfile, &print);
 	wait_loop_forground(is_bg, pipes);
 	job_background(is_bg, pipes);
-	close(pipes.temp);
 	sig_groupe();
 	return (255);
 }

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/09 15:50:27 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 17:15:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:32:09 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,7 @@ char			*here_doc(char *delim)
 	while (delim)
 	{
 		if (g_clt_c || g_clt_d)
-		{
-			ft_putendl_fd("ctrl^C", 1);
 			return (sig_handler(&v));
-		}
 		prompt_here_doc();
 		if (!(v.buffer = ft_readline(1)))
 			return (NULL);

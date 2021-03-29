@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   execute_builtins.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 16:23:26 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/29 16:48:00 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int		check_varname(char *cmd)
+static int	check_varname(char *cmd)
 {
-	int		i;
+	int i;
 
 	i = 0;
 	if (!cmd || !ft_isalpha(*cmd))
@@ -28,9 +28,9 @@ static int		check_varname(char *cmd)
 	return (1);
 }
 
-int				check_args_no(char **cmd)
+int			check_args_no(char **cmd)
 {
-	int			i;
+	int i;
 
 	i = 0;
 	while (cmd[i++] != NULL)
@@ -38,9 +38,9 @@ int				check_args_no(char **cmd)
 	return (i - 1);
 }
 
-void			blt_unsetenv(char **cmd, t_env **env_list)
+void		blt_unsetenv(char **cmd, t_env **env_list)
 {
-	int			i;
+	int i;
 
 	if (check_args_no(cmd) < 2)
 		return (ft_putendl_fd("42sh: Error: [unsetenv [var_name] ...].", 2));
@@ -54,7 +54,7 @@ void			blt_unsetenv(char **cmd, t_env **env_list)
 	return ;
 }
 
-void			blt_setenv(char **cmd, t_env **env_list)
+void		blt_setenv(char **cmd, t_env **env_list)
 {
 	if ((check_args_no(cmd)) == 1)
 		return (print_env_list(env_list));
@@ -73,7 +73,8 @@ void			blt_setenv(char **cmd, t_env **env_list)
 	return ;
 }
 
-void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
+void		execute_blt_with_fork(t_miniast *tree, char **tabs,
+	t_env **env_list)
 {
 	if (tree->cmd && tabs && *env_list)
 	{
@@ -97,21 +98,21 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			blt_cd(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "fc"))
 			parce_param_fc(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "export")) // from here
+		else if (ft_strequ(tree->cmd[0], "export"))
 			ft_export(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "unset")) 
+		else if (ft_strequ(tree->cmd[0], "unset"))
 			blt_unsetenv(tree->cmd, env_list);
 		else if (ft_strequ(tree->cmd[0], "set"))
 		{
 			ft_listtotab();
 			ft_putdblstr(g_settab);
-		}	
+		}
 		else if (ft_strequ(tree->cmd[0], "hash"))
 			ft_hash(tree->cmd, &g_hashtable);
 		else if (ft_strequ(tree->cmd[0], "test"))
 		{
-			 ft_putnbr_fd(ft_test(tree->cmd), 1);
-			 ft_putchar('\n');
+			ft_putnbr_fd(ft_test(tree->cmd), 1);
+			ft_putchar('\n');
 		}
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
@@ -121,5 +122,4 @@ void			execute_blt_with_fork(t_miniast *tree, char **tabs, t_env **env_list)
 			exit_blt(tree->cmd);
 		}
 	}
-	return ;
 }

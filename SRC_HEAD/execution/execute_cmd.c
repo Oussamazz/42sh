@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/06 18:10:21 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 15:08:35 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 16:45:45 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,13 @@
 
 int				check_builtins(char *cmd_name)
 {
-	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "alias") || ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "set")
-	 || ft_strequ(cmd_name, "fg") ||
+	if (ft_strequ(cmd_name, "jobs") || ft_strequ(cmd_name, "alias") ||
+		ft_strequ(cmd_name, "echo") || ft_strequ(cmd_name, "set")
+		|| ft_strequ(cmd_name, "fg") ||
 		ft_strequ(cmd_name, "unset") || ft_strequ(cmd_name, "env") ||
 		ft_strequ(cmd_name, "cd") || ft_strequ(cmd_name, "type") ||
-			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") || ft_strequ(cmd_name, "hash") || ft_strequ(cmd_name, "test"))
+			ft_strequ(cmd_name, "exit") || ft_strequ(cmd_name, "fc") ||
+			ft_strequ(cmd_name, "hash") || ft_strequ(cmd_name, "test"))
 		return (1);
 	return (0);
 }
@@ -53,10 +55,11 @@ void			execute_direct(char **cmd, char **tabs)
 
 void			execute_undirect(char **cmd, char **tabs, t_env **env)
 {
-	char		*bin_file = NULL;
-	char		*print = NULL;
+	char		*bin_file;
+	char		*print;
 
 	(void)env;
+	print = NULL;
 	bin_file = g_binfile;
 	if (access(bin_file, F_OK) == 0)
 		my_execve(bin_file, cmd, tabs);
