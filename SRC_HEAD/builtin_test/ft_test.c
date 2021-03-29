@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/23 06:01:14 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/18 12:16:00 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:44:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int			ft_is_numeric(char *str)
 	}
 	return (1);
 }
-
 
 int			ft_test(char **args)
 {

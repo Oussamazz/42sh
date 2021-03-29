@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 18:51:39 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 17:30:52 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:51:13 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	free_(void)
 {
-	// delete_hashtable(&g_hashtable, 2);
 	ft_free_history();
 	ft_tabfree();
 	ft_listfree();
@@ -29,7 +28,6 @@ void	exit_blt(char **cmd)
 	{
 		ft_putendl_fd("Too many arguments", 2);
 		g_the_status = 1;
-		return ;
 	}
 	else if (cmd_no == 2 || cmd_no == 1)
 	{

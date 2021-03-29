@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:19:17 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 13:50:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:18:31 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,8 @@ int				fill_cmd_redir(t_lexer *token, int *i, t_redir **redirections)
 		fill_redirections(redirections, token);
 		*i -= 1;
 	}
-	else if (token->type == SEP || token->type == PIPE_SYM || token->type == AMPER || token->type == OR || token->type == AND)
+	else if (token->type == SEP || token->type == PIPE_SYM ||
+		token->type == AMPER || token->type == OR || token->type == AND)
 		return (1);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 19:11:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 14:33:02 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:55:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,40 +14,34 @@
 
 static int		word_count(char *s)
 {
-	int			i;
-	int flag = 0;
-	int			res;
+	t_wc			wc;
 
-	i = 0;
-	res = 0;
-	while (s[i] != '\0' && s[i + 1])
+	ft_bzero(&wc, sizeof(t_wc));
+	while (s[wc.i] != '\0' && s[wc.i + 1])
 	{
-		if (!is_blank(s[i]) && is_blank(s[i + 1]))
-			res++;
-		if(s[i] == '\\' && flag)
+		if (!is_blank(s[wc.i]) && is_blank(s[wc.i + 1]))
+			wc.res++;
+		if (s[wc.i] == '\\' && wc.flag)
+			wc.flag = 0;
+		else if (s[wc.i] == '\\')
+			wc.flag = 1;
+		if (wc.i && (s[wc.i] == '$' || s[wc.i] == '\\') && !wc.flag)
+			wc.res++;
+		else if (is_blank(s[wc.i]))
 		{
-			flag = 0;
-		}
-		else if(s[i] == '\\' )
-		{
-			flag = 1;
-		}
-		if (i && (s[i] == '$' ||s[i] == '\\')  && !flag)
-			res++;
-		else if (is_blank(s[i]))
-		{
-			while (is_blank(s[i]))
-				i++;
+			while (is_blank(s[wc.i]))
+				wc.i++;
 			continue ;
 		}
-		i++;
+		wc.i++;
 	}
-	if ((!s[i] && ft_isascii(s[i - 1])) || (!s[i + 1] && ft_isascii(s[i])))
-		res++;
-	return (res);
+	if ((!s[wc.i] && ft_isascii(s[wc.i - 1]))
+	|| (!s[wc.i + 1] && ft_isascii(s[wc.i])))
+		wc.res++;
+	return (wc.res);
 }
 
-static int		get_type(char c)
+static	int		get_type(char c)
 {
 	if (is_blank(c))
 		return (1);
@@ -56,35 +50,32 @@ static int		get_type(char c)
 	return (2);
 }
 
-
 static int		word_len(char *s)
 {
-	int			len;
-	int			type;
-	int index = 0;
+	t_wlen			wl;
 
-	len = 0;
-	type = get_type(*s);
-	
+	wl.len = 0;
+	wl.type = get_type(*s);
+	wl.index = 0;
 	while (*s != '\0')
 	{
-		if(*s == '\\' && len && *(s - 1) != '\\' )
-			index = 0;
-		else if(*s == '\\')
-			index = 1;
-		if (len && (*s == '$' || *s == '\\' )&& !index)   ///////bigggy
+		if (*s == '\\' && wl.len && *(s - 1) != '\\')
+			wl.index = 0;
+		else if (*s == '\\')
+			wl.index = 1;
+		if (wl.len && (*s == '$' || *s == '\\') && !wl.index)
 			break ;
-		if (len && ft_isalnum(*s) && index)   ///////bigggy
-			index = 0;
-		if (get_type(*s) == type)
-			len++;
-		else if (len && (!ft_isalnum(*s)))
+		if (wl.len && ft_isalnum(*s) && wl.index)
+			wl.index = 0;
+		if (get_type(*s) == wl.type)
+			wl.len++;
+		else if (wl.len && (!ft_isalnum(*s)))
 			break ;
 		else
 			break ;
 		s++;
 	}
-	return (len);
+	return (wl.len);
 }
 
 char			**strsplit(char const *s)
@@ -92,7 +83,6 @@ char			**strsplit(char const *s)
 	int			word_countx;
 	char		**str;
 	int			i;
-	
 
 	if (!s)
 		return (NULL);

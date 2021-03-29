@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 15:07:59 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:27:22 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,13 +125,14 @@ int				execute_redirection(t_redir *redirections, char *tty_name)
 	return (fd);
 }
 
-t_miniast *advance_tree(t_miniast *tree)
+t_miniast		*advance_tree(t_miniast *tree)
 {
 	while (tree)
 	{
 		if (tree->sep)
 		{
-			while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+			while ((!g_the_status && tree->logic_op == OR) ||
+				(g_the_status && tree->logic_op == AND))
 				tree = tree->sep;
 			return (tree->sep);
 		}
@@ -140,13 +141,14 @@ t_miniast *advance_tree(t_miniast *tree)
 	return (tree);
 }
 
-t_miniast *tree_advance(t_miniast *tree)
+t_miniast		*tree_advance(t_miniast *tree)
 {
 	if (!tree->sep)
 		tree = advance_tree(tree);
 	else
 	{
-		while ((!g_the_status && tree->logic_op == OR) || (g_the_status && tree->logic_op == AND))
+		while ((!g_the_status && tree->logic_op == OR) ||
+			(g_the_status && tree->logic_op == AND))
 			tree = tree->sep;
 		tree = tree->sep;
 	}
@@ -171,12 +173,12 @@ int				execute(t_miniast *tree, t_env **env_list)
 				execute_fc(line);
 			ft_strdel(&line);
 		}
-		else if (tree->cmd && tree->cmd[0] && check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
-			execute_blt_with_fork(tree, tabs, env_list);
+		else if (tree->cmd && tree->cmd[0] &&
+			check_builtins_nfrk(tree->cmd[0]) && !tree->pipe)
+			execute_blt_with_fork(tree, env_list);
 		else
 			execute_pipes(tree, tabs, env_list);
 		tree = tree_advance(tree);
-		
 	}
 	return (1);
 }

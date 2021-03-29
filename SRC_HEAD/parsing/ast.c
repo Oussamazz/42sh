@@ -6,43 +6,45 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 13:49:59 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:22:41 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-t_lexer	*move_list(t_lexer *tokenz, int alltokenzsize)
+t_lexer		*move_list(t_lexer *tokenz, int alltokenzsize)
 {
-	t_lexer *cur;
+	t_lexer	*cur;
 
 	if (!tokenz->next)
 		return (NULL);
 	cur = tokenz;
 	while (cur != NULL && (cur->coor.node_index <= alltokenzsize))
 	{
-		if (cur->type != SEP && cur->type != PIPE_SYM && cur->type != AMPER && cur->type != OR && cur->type != AND)
+		if (cur->type != SEP && cur->type != PIPE_SYM &&
+			cur->type != AMPER && cur->type != OR && cur->type != AND)
 			cur = cur->next;
 		else
 			break ;
 	}
-	if (cur && (cur->type == SEP || cur->type == PIPE_SYM || cur->type == AMPER || cur->type == OR || cur->type == AND))
+	if (cur && (cur->type == SEP || cur->type == PIPE_SYM ||
+		cur->type == AMPER || cur->type == OR || cur->type == AND))
 		return (cur);
 	return (NULL);
 }
 
-char			**fill_node(t_lexer *token, t_redir **redirections,
+char		**fill_node(t_lexer *token, t_redir **redirections,
 	t_env **env, int alltoken_size)
 {
-	int			i;
-	char		**ret;
-	size_t		ret_size;
+	int		i;
+	char	**ret;
+	size_t	ret_size;
 
 	ret = NULL;
 	if (token && env && redirections)
 	{
 		ret_size = get_arr_size_tokenz(token);
-		if (!(ret = (char**)ft_memalloc(sizeof(char*) * (ret_size + 1))))
+		if (!(ret = (char **)ft_memalloc(sizeof(char *) * (ret_size + 1))))
 			return (NULL);
 		i = 0;
 		while (token != NULL && token->coor.node_index <= alltoken_size)
@@ -60,18 +62,19 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	return (ret);
 }
 
-static void		parse_commands_sep_pipe(t_miniast **head,
+static void	parse_commands_sep_pipe(t_miniast **head,
 	t_lexer *tokenz, t_env **env)
 {
 	if (tokenz->type == PIPE_SYM && tokenz->next)
 		parse_commands(&(*head)->pipe, tokenz->next, env);
-	else if ((tokenz->type == SEP || tokenz->type == AMPER || tokenz->type == OR || tokenz->type == AND) && tokenz->next)
+	else if ((tokenz->type == SEP || tokenz->type == AMPER ||
+		tokenz->type == OR || tokenz->type == AND) && tokenz->next)
 		parse_commands(&(*head)->sep, tokenz->next, env);
 }
 
-int		is_background(t_lexer *tokenz)
+int			is_background(t_lexer *tokenz)
 {
-	int flag;
+	int		flag;
 
 	flag = 0;
 	while (tokenz)
@@ -80,13 +83,12 @@ int		is_background(t_lexer *tokenz)
 			break ;
 		if (tokenz->type == AMPER)
 			flag = 1;
-		tokenz = tokenz->next;	
+		tokenz = tokenz->next;
 	}
 	return (flag);
 }
 
-
-int		is_logic_op(t_lexer *tokenz)
+int			is_logic_op(t_lexer *tokenz)
 {
 	while (tokenz)
 	{
@@ -99,31 +101,32 @@ int		is_logic_op(t_lexer *tokenz)
 	return (0);
 }
 
-int		env_skip(t_lexer **token, int  *type)
+int			env_skip(t_lexer **token, int *type)
 {
-	t_lexer *tokenz;
+	t_lexer	*tokenz;
 
 	tokenz = *token;
 	if ((tokenz->type == ENV) || (*type == ENV && tokenz->type == SEP))
 	{
 		*type = (*token)->type;
-		(*token) =(*token)->next;
+		(*token) = (*token)->next;
 		return (1);
 	}
 	return (0);
 }
 
-int		fill_(t_miniast **head, t_miniast **data_, t_lexer *tokenz, t_env **env)
+int			fill_(t_miniast **head, t_miniast **data_,
+	t_lexer *tokenz, t_env **env)
 {
-	int type;
-	t_miniast *data;
+	int			type;
+	t_miniast	*data;
 
 	data = *(data_);
 	type = 0;
-	if (!(data = (t_miniast*)ft_memalloc(sizeof(t_miniast))))
+	if (!(data = (t_miniast *)ft_memalloc(sizeof(t_miniast))))
 		return (-1);
 	if (!(data->cmd = fill_node(tokenz, &(data->redirection),
-		env, g_alltokenzsize)))
+								env, g_alltokenzsize)))
 		return (-2);
 	if (is_background(tokenz))
 		data->mode |= IS_BACKGROUD;
@@ -133,12 +136,12 @@ int		fill_(t_miniast **head, t_miniast **data_, t_lexer *tokenz, t_env **env)
 	return (0);
 }
 
-int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
+int			parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 {
 	char		**cmd;
 	t_miniast	*data;
 	t_redir		*redirections;
-	int 		type;
+	int			type;
 
 	cmd = NULL;
 	type = 0;

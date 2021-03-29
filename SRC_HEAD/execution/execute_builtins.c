@@ -6,15 +6,15 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 16:48:00 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:26:01 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	check_varname(char *cmd)
+static int		check_varname(char *cmd)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	if (!cmd || !ft_isalpha(*cmd))
@@ -28,9 +28,9 @@ static int	check_varname(char *cmd)
 	return (1);
 }
 
-int			check_args_no(char **cmd)
+int				check_args_no(char **cmd)
 {
-	int i;
+	int			i;
 
 	i = 0;
 	while (cmd[i++] != NULL)
@@ -38,9 +38,9 @@ int			check_args_no(char **cmd)
 	return (i - 1);
 }
 
-void		blt_unsetenv(char **cmd, t_env **env_list)
+void			blt_unsetenv(char **cmd, t_env **env_list)
 {
-	int i;
+	int			i;
 
 	if (check_args_no(cmd) < 2)
 		return (ft_putendl_fd("42sh: Error: [unsetenv [var_name] ...].", 2));
@@ -54,7 +54,7 @@ void		blt_unsetenv(char **cmd, t_env **env_list)
 	return ;
 }
 
-void		blt_setenv(char **cmd, t_env **env_list)
+void			blt_setenv(char **cmd, t_env **env_list)
 {
 	if ((check_args_no(cmd)) == 1)
 		return (print_env_list(env_list));
@@ -73,36 +73,39 @@ void		blt_setenv(char **cmd, t_env **env_list)
 	return ;
 }
 
-void		execute_blt_with_fork(t_miniast *tree, char **tabs,
-	t_env **env_list)
+void			blt_check(t_miniast *tree, t_env **env_list)
 {
-	if (tree->cmd && tabs && *env_list)
+	if (ft_strequ(tree->cmd[0], "echo"))
+		blt_echo(tree->cmd, tree->redirection);
+	else if (ft_strequ(tree->cmd[0], "fg"))
+		fg_blt(tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "unalias"))
+		delete_alias_var(&g_alias, tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "alias"))
+		alias_bultin(tree->cmd, &g_alias);
+	else if (ft_strequ(tree->cmd[0], "bg"))
+		bg_blt(tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "jobs"))
+		jobs_blt(tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "env"))
+		print_env_list(env_list);
+	else if (ft_strequ(tree->cmd[0], "type"))
+		type_builtin(tree->cmd, env_list);
+	else if (ft_strequ(tree->cmd[0], "cd"))
+		blt_cd(tree->cmd, env_list);
+	else if (ft_strequ(tree->cmd[0], "fc"))
+		parce_param_fc(tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "export"))
+		ft_export(tree->cmd);
+	else if (ft_strequ(tree->cmd[0], "unset"))
+		blt_unsetenv(tree->cmd, env_list);
+}
+
+void			execute_blt_with_fork(t_miniast *tree, t_env **env_list)
+{
+	if (tree->cmd && *env_list)
 	{
-		if (ft_strequ(tree->cmd[0], "echo"))
-			blt_echo(tree->cmd, tree->redirection);
-		else if (ft_strequ(tree->cmd[0], "fg"))
-			fg_blt(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "unalias"))
-			delete_alias_var(&g_alias, tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "alias"))
-			alias_bultin(tree->cmd, &g_alias);
-		else if (ft_strequ(tree->cmd[0], "bg"))
-			bg_blt(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "jobs"))
-			jobs_blt(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "env"))
-			print_env_list(env_list);
-		else if (ft_strequ(tree->cmd[0], "type"))
-			type_builtin(tree->cmd, env_list);
-		else if (ft_strequ(tree->cmd[0], "cd"))
-			blt_cd(tree->cmd, env_list);
-		else if (ft_strequ(tree->cmd[0], "fc"))
-			parce_param_fc(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "export"))
-			ft_export(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "unset"))
-			blt_unsetenv(tree->cmd, env_list);
-		else if (ft_strequ(tree->cmd[0], "set"))
+		if (ft_strequ(tree->cmd[0], "set"))
 		{
 			ft_listtotab();
 			ft_putdblstr(g_settab);
@@ -110,10 +113,7 @@ void		execute_blt_with_fork(t_miniast *tree, char **tabs,
 		else if (ft_strequ(tree->cmd[0], "hash"))
 			ft_hash(tree->cmd, &g_hashtable);
 		else if (ft_strequ(tree->cmd[0], "test"))
-		{
-			ft_putnbr_fd(ft_test(tree->cmd), 1);
-			ft_putchar('\n');
-		}
+			g_the_status = ft_test(tree->cmd);
 		else if (ft_strequ(tree->cmd[0], "exit"))
 		{
 			print_in_history(PATH_HISTORY_FILE);
@@ -121,5 +121,7 @@ void		execute_blt_with_fork(t_miniast *tree, char **tabs,
 			free_alias_list(&g_alias, del);
 			exit_blt(tree->cmd);
 		}
+		else
+			blt_check(tree, env_list);
 	}
 }

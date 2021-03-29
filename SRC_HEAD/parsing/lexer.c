@@ -6,14 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/20 01:50:54 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 17:25:38 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:18:00 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-// echo $(ls $(echo /) | cat -e)
-
 
 int			expansion_function(char *buf, t_lexer **token_node,
 	t_pointt *coord, t_env **env_list)
@@ -61,7 +58,7 @@ int			aggr_function(char *buf, t_pointt *coord, t_lexer **token_node)
 }
 
 int			quote_function(char *buf, t_lexer **token_node,
-	t_pointt *coord, char *quote)
+		t_pointt *coord, char *quote)
 {
 	int		i;
 	int		flag;
@@ -97,8 +94,8 @@ int			simple_word_function(char *buf,
 	temp = NULL;
 	i = 0;
 	if (*buf && ft_isdigit(*buf) &&
-	ft_is_there(AGG_REDI, *(buf + 1)) &&
-	 *(buf + 1) != '\0' && *(buf + 1) != '&')
+		ft_is_there(AGG_REDI, *(buf + 1)) &&
+		*(buf + 1) != '\0' && *(buf + 1) != '&')
 	{
 		temp = get_left_fd_(buf);
 		append_list_redi(token_node, ft_strdup(temp), L_REDIR, coord);

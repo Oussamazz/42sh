@@ -18,7 +18,7 @@ SRC_BUILTINS = blt_echo.o  exit_blt.o type_blt.o cd_blt.o fg_blt.o bg_blt.o
 
 SRC_EXPANSION = expand.o expansion.o tild_expansion.o get_value_exp.o
 
-SRC_PARSING = ast.o check_grammar.o lexer.o lexerCore.o split.o fill.o tools.o get_the_line.o
+SRC_PARSING = ast.o check_grammar.o lexer.o lexercore.o split.o fill.o tools.o get_the_line.o
 
 SRC_PIPE_REDIRECTION =	agg_redir.o here_doc.o redirections.o \
 						split_redir.o agg_in_out.o split_tools.o

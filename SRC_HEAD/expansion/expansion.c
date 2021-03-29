@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 16:39:20 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:19:36 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,21 @@ static int		exp_tild(t_expansion *v, t_lexer **token_node, t_env **env_list,
 	return (ft_strlen_delim(v->buf, " ;$|><\n\t"));
 }
 
+void	exp_parse_init(t_expansion *v, char **buf)
+{
+	if ((*buf)[(*v).i] == '$')
+		(*buf)++;
+	(*v).j = 0;
+	(*v).buf = (*buf);
+}
+
+void	exp_chek(char *buf, t_expansion *v)
+{
+	while (buf[(*v).i] && !is_quote(buf[(*v).i]) &&
+		!ft_is_there(" ;$|><\n\t", buf[(*v).i]) && buf[(*v).i] != '\\')
+		(*v).i++;
+}
+
 int				expansion_parse(t_lexer **token_node, char *buf,
 	t_env **env_list, t_pointt *cor)
 {
@@ -108,10 +123,7 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 	{
 		if (!(v.data = ft_strnew(v.data_size)))
 			return (-1);
-		if (buf[v.i] == '$')
-			buf++;
-		v.j = 0;
-		v.buf = buf;
+		exp_parse_init(&v, &buf);
 		while (buf[v.i] && (ft_isalnum(buf[v.i]) ||
 			(buf[v.i] == '~' && v.i == 0)) && v.i < v.data_size)
 		{
@@ -123,9 +135,7 @@ int				expansion_parse(t_lexer **token_node, char *buf,
 			v.i++;
 		}
 		after_exp(&v, cor, token_node, env_list);
-		while (buf[v.i] && !is_quote(buf[v.i]) &&
-			!ft_is_there(" ;$|><\n\t", buf[v.i]) && buf[v.i] != '\\')
-			v.i++;
+		exp_chek(buf, &v);
 		return (v.i + 1);
 	}
 	return (v.i + 1);

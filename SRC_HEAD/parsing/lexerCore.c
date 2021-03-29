@@ -6,20 +6,20 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 15:37:29 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:13:12 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
 
-static int	check_type_(t_type type)
+static int		check_type_(t_type type)
 {
 	if (type != WORD && type != DQUOT && type != SQUOT)
-		return 1;
+		return (1);
 	return (0);
 }
 
-int			setenv_exist(t_lexer *lst)
+int				setenv_exist(t_lexer *lst)
 {
 	while (lst)
 	{
@@ -27,8 +27,8 @@ int			setenv_exist(t_lexer *lst)
 		{
 			if (lst->next != NULL && lst->next->next != NULL)
 			{
-				if (lst->next->next->next && 
-					 check_type_(lst->next->next->next->type))
+				if (lst->next->next->next &&
+					check_type_(lst->next->next->next->type))
 					return (1);
 			}
 		}
@@ -37,10 +37,10 @@ int			setenv_exist(t_lexer *lst)
 	return (0);
 }
 
-char **get_setenv_args(t_lexer *lst)
+char			**get_setenv_args(t_lexer *lst)
 {
-	char **cmd;
-	int i;
+	char		**cmd;
+	int			i;
 
 	if (!(cmd = ft_memalloc(sizeof(char *) * 4)))
 		return (NULL);
@@ -62,9 +62,9 @@ char **get_setenv_args(t_lexer *lst)
 	return (cmd);
 }
 
-void	env_update(t_lexer **tokenz, t_env **env_list)
+void			env_update(t_lexer **tokenz, t_env **env_list)
 {
-	char **cmd;
+	char		**cmd;
 
 	cmd = NULL;
 	if (setenv_exist(*tokenz))
@@ -76,11 +76,11 @@ void	env_update(t_lexer **tokenz, t_env **env_list)
 	return ;
 }
 
-char		*expansion_brackets(char *buf, t_mystruct *v)
+char			*expansion_brackets(char *buf, t_mystruct *v)
 {
-	char *data;
-	char *dollars;
-	char c;
+	char		*data;
+	char		*dollars;
+	char		c;
 
 	data = NULL;
 	dollars = NULL;
@@ -92,7 +92,7 @@ char		*expansion_brackets(char *buf, t_mystruct *v)
 		append_list(&v->tokenz, "?", WORD, &v->coord);
 		ft_strdel(&data);
 		return (buf + 4);
-	} 
+	}
 	dollars = get_value_expansion(data, v->env_list);
 	c = *(buf + ft_strlen(data) + 3);
 	if (dollars)
@@ -103,9 +103,9 @@ char		*expansion_brackets(char *buf, t_mystruct *v)
 	return (buf);
 }
 
-char *get_tild_dolar1(char *buf, t_mystruct *v)
+char			*get_tild_dolar1(char *buf, t_mystruct *v)
 {
-	int position;
+	int			position;
 
 	position = 0;
 	if (*buf != '~' && (!*(buf + 1) || is_blank(*(buf + 1))))
@@ -114,7 +114,7 @@ char *get_tild_dolar1(char *buf, t_mystruct *v)
 		return (buf + 1);
 	}
 	else if (*buf == '$' && *(buf + 1) == '?' &&
-		(*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
+			(*(buf + 2) == '\0' || ft_is_there(METACHARACTER, *(buf + 2))))
 	{
 		append_list(&v->tokenz, "?", WORD, &v->coord);
 		return (buf + 2);
@@ -126,31 +126,31 @@ char *get_tild_dolar1(char *buf, t_mystruct *v)
 	return (NULL);
 }
 
-static char *get_tild_dolar(char *buf, t_mystruct *v)
+static char		*get_tild_dolar(char *buf, t_mystruct *v)
 {
-	int position;
-	char *data;
-	
+	int			position;
+	char		*data;
+
 	v->coord.no_space = 0;
 	data = NULL;
 	if (*buf == '$')
 		ft_execenv(v->env_list, v->tokenz, EXP);
-	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/')
+	if (*buf == '$' && *(buf + 1) && *(buf + 1) == '/' && (position = 1))
 	{
-		position = 1;
-		while (buf[position] && !is_blank(buf[position]) && buf[position] != '$')
+		while (buf[position] && !is_blank(buf[position]) &&
+			buf[position] != '$')
 			position++;
 		data = ft_strsub(buf, 0, position);
 		append_list(&v->tokenz, data, WORD, &v->coord);
 		ft_strdel(&data);
-		buf++; 
-		while(*buf && !is_blank(*buf) && *buf != '$') 
+		buf++;
+		while (*buf && !is_blank(*buf) && *buf != '$')
 			buf++;
 	}
 	else if (*buf == '$' && *(buf + 1) == '{' && brackets(buf))
 		return (expansion_brackets(buf, v));
 	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') &&
-		(*buf != buf[1]) && !is_quote(buf[1]))
+			(*buf != buf[1]) && !is_quote(buf[1]))
 		return (get_tild_dolar1(buf, v));
 	return (buf);
 }
@@ -163,7 +163,7 @@ static char		*get_pipe_agr(char *buf, t_mystruct *v)
 	if (*buf && ft_is_there(PIPE, *buf))
 	{
 		append_list_pipe(&v->tokenz, ft_strdup("|"),
-			PIPE_SYM, &v->coord);
+				PIPE_SYM, &v->coord);
 		return (buf + 1);
 	}
 	else if (*buf && ft_is_there(AGG_REDI, *buf) && *buf != '&')
@@ -190,11 +190,12 @@ static char		*get_qoute_word(char *buf, t_mystruct *v)
 		return (buf + position);
 	}
 	else if ((*buf &&
-		!ft_is_there(METACHARACTER, *buf)) && *buf != '$' &&
-		!ft_is_there(AGG_REDI, *buf) && *buf != '|')
+			!ft_is_there(METACHARACTER, *buf)) && *buf != '$' &&
+				!ft_is_there(AGG_REDI, *buf) && *buf != '|')
 	{
 		if (buf && *(buf))
-			buf += simple_word_function(buf, &v->tokenz, &v->coord, v->env_list);
+			buf += simple_word_function(buf,
+				&v->tokenz, &v->coord, v->env_list);
 	}
 	return (buf);
 }
@@ -211,6 +212,7 @@ static char		*ignore_blanks(char *str)
 t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 {
 	t_mystruct	v;
+
 	ft_bzero(&v, sizeof(t_mystruct));
 	v.env_list = env_list;
 	v.coord = *coord;

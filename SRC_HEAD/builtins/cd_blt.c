@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:59:22 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 11:46:34 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:50:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,23 @@
 
 static void		cd_simple(char *path, t_env **env_list)
 {
-	struct stat	st;
-	char		*tmp;
-	char		*tmp2;
+	t_cd_smpl cd;
 
 	if (path && access(path, F_OK) == 0)
 	{
-		stat(path, &st);
-		if (!S_ISDIR(st.st_mode) && ft_strrchr(path, '/'))
+		stat(path, &cd.st);
+		if (!S_ISDIR(cd.st.st_mode) && ft_strrchr(path, '/'))
 		{
-			return (ft_putendl_fd_error("42sh: cd: not a directory: ",
-				ft_strrchr(path, '/') + 1, NULL, NULL));
+			ft_putendl_fd_error("42sh: cd: not a directory: ",
+				ft_strrchr(path, '/') + 1, "\n", NULL);
+			return ;
 		}
 		if (access(path, X_OK) == 0)
 		{
-			gen_oldpwd((tmp = get_cwd()), env_list);
+			gen_oldpwd((cd.tmp = get_cwd()), env_list);
 			chdir(path);
-			gen_pwd((tmp2 = get_cwd()), env_list);
-			ft_strdel_2(&tmp, &tmp2);
+			gen_pwd((cd.tmp2 = get_cwd()), env_list);
+			ft_strdel_2(&cd.tmp, &cd.tmp2);
 		}
 		else if (ft_strrchr(path, '/'))
 			ft_putendl_fd_error(ERROR5, ft_strrchr(path, '/') + 1, "\n", NULL);
@@ -92,33 +91,29 @@ int				check_args(char **cmd, t_env **env_list, int *i)
 
 void			blt_cd(char **cmd, t_env **env_list)
 {
-	int			i;
-	int			args_no;
-	char		*new_path;
-	char		*cwd;
-	char		buff[MAX_INDEX];
+	t_cd		cd;
 
-	cwd = NULL;
-	i = 1;
-	args_no = check_args_no(cmd);
-	if (check_args(cmd, env_list, &i) == 1)
+	cd.cwd = NULL;
+	cd.i = 1;
+	cd.args_no = check_args_no(cmd);
+	if (check_args(cmd, env_list, &cd.i) == 1)
 		return ;
-	if (args_no == 2 || args_no == 3)
+	if (cd.args_no == 2 || cd.args_no == 3)
 	{
-		ft_strcpy(buff, cmd[i]);
-		if (buff[0] != '/' && buff[0] != '.' && buff[0] != '-')
+		ft_strcpy(cd.buff, cmd[cd.i]);
+		if (cd.buff[0] != '/' && cd.buff[0] != '.' && cd.buff[0] != '-')
 		{
-			if (!(cwd = get_cwd()))
+			if (!(cd.cwd = get_cwd()))
 				return ;
-			ft_strcat(cwd, "/");
-			if (!(new_path = ft_strjoin(cwd, buff)))
+			ft_strcat(cd.cwd, "/");
+			if (!(cd.new_path = ft_strjoin(cd.cwd, cd.buff)))
 				return ;
-			cd_simple(new_path, env_list);
-			ft_strdel_2(&new_path, &cwd);
+			cd_simple(cd.new_path, env_list);
+			ft_strdel_2(&cd.new_path, &cd.cwd);
 		}
-		else if (cmd[i][0] == '-' && cmd[i][1] == '\0')
+		else if (cmd[cd.i][0] == '-' && cmd[cd.i][1] == '\0')
 			cd_back(env_list);
 		else
-			cd_simple(buff, env_list);
+			cd_simple(cd.buff, env_list);
 	}
 }

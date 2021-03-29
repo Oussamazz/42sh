@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/02/17 17:48:40 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/02/24 12:13:08 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 19:19:30 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	check_type_(t_type type)
 {
 	if (type == PIPE_SYM || type == SEP)
-		return 1;
+		return (1);
 	return (0);
 }
 
@@ -27,8 +27,8 @@ int			setenv_exist(t_lexer *lst)
 		{
 			if (lst->next != NULL && lst->next->next != NULL)
 			{
-				if (lst->next->next->next && 
-					 check_type_(lst->next->next->next->type))
+				if (lst->next->next->next &&
+					check_type_(lst->next->next->next->type))
 					return (1);
 			}
 		}
@@ -39,8 +39,8 @@ int			setenv_exist(t_lexer *lst)
 
 char		**get_setenv_args(t_lexer *lst)
 {
-	char **cmd;
-	int i;
+	char	**cmd;
+	int		i;
 
 	if (!(cmd = ft_memalloc(sizeof(char *) * 4)))
 		return (NULL);
@@ -64,7 +64,7 @@ char		**get_setenv_args(t_lexer *lst)
 
 void		env_update(t_lexer **tokenz, t_env **env_list)
 {
-	char **cmd;
+	char	**cmd;
 
 	cmd = NULL;
 	if (setenv_exist(*tokenz))
@@ -75,4 +75,3 @@ void		env_update(t_lexer **tokenz, t_env **env_list)
 	}
 	return ;
 }
-

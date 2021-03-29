@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_grammar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:15:08 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 23:15:00 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/29 19:24:33 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,9 @@ static int		check_token_type(t_type type, t_lexer *tokenz,
 {
 	if ((tokenz->type == type && next->coor.node_index <= tokenz_size
 			&& (next->type == type)) ||
-			(next->type!= ENV && next->type != WORD && next->type != SQUOT &&
+			(next->type != ENV && next->type != WORD && next->type != SQUOT &&
 			next->type != DQUOT && next->type != EXPANSION))
 	{
-		ft_putendl_fd("tmaa", 2);
 		print_error_sym(type);
 		return (0);
 	}
@@ -55,38 +54,43 @@ static int		check_grammar_tokenz_2(t_lexer *tokenz, int tokenz_size)
 	return (1);
 }
 
+int				check_grm(t_lexer *tokenz)
+{
+	if (tokenz->next && (tokenz->type == SEP || tokenz->type == AMPER) &&
+		(tokenz->next->type == SEP || tokenz->next->type == AMPER))
+		return (ft_putendl_fd_int("parse error", 2, -1));
+	if ((tokenz->type == AND) && (tokenz->next == NULL ||
+		tokenz->next->type != WORD))
+		return (print_error_sym(AND));
+	if ((tokenz->type == OR) && (tokenz->next == NULL ||
+		tokenz->next->type != WORD))
+		return (print_error_sym(OR));
+	if (tokenz->type == AGGR_SYM && !tokenz->next &&
+		!(ft_strlen(tokenz->data) > 2))
+		return (print_error_sym(AGGR_SYM));
+	return (0);
+}
+
 int				check_grammar_tokenz(t_lexer *tokenz)
 {
 	size_t		tokenz_size;
 
-	if (tokenz)
+	if (tokenz == NULL)
+		return (0);
+	tokenz_size = get_list_size(tokenz);
+	while (tokenz && tokenz->coor.node_index <= (int)tokenz_size)
 	{
-		tokenz_size = get_list_size(tokenz);
-		while (tokenz && tokenz->coor.node_index <= (int)tokenz_size)
-		 {
-			if (tokenz->next && (tokenz->type == SEP || tokenz->type == AMPER) &&
-			 (tokenz->next->type == SEP || tokenz->next->type == AMPER))
-			 {
-				 ft_putendl_fd("parse error", 2);
-				 return (0);
-			 }
-			if((tokenz->type == AND ) && (tokenz->next == NULL || tokenz->next->type  != WORD )) //biggy
-				return (print_error_sym(AND));
-			if((tokenz->type == OR ) && (tokenz->next == NULL || tokenz->next->type  != WORD ))
-				return (print_error_sym(OR));
-			// if (tokenz->type == AGGR_SYM && tokenz->coor.node_index == 1)
-			// 	return (print_error_sym(AGGR_SYM));
-			if (tokenz->type == AGGR_SYM && !tokenz->next &&
-				!(ft_strlen(tokenz->data) > 2))
-				return (print_error_sym(AGGR_SYM));
-			else if (tokenz->type == PIPE_SYM && (!tokenz->next ||
-				tokenz->coor.node_index == 1))
-				return (print_error_sym(PIPE_SYM));
-			if (!(check_grammar_tokenz_2(tokenz, (int)tokenz_size)))
-				return (0);
-			tokenz = tokenz->next;
-		}
-		return (1);
+		if (check_grm(tokenz) == -1)
+			return (-1);
+		if (tokenz->next && tokenz->type == AGGR_SYM &&
+			(tokenz->next->type == SEP || tokenz->next->type == PIPE_SYM))
+			return (print_error_sym(AGGR_SYM));
+		else if (tokenz->type == PIPE_SYM && (!tokenz->next ||
+			tokenz->coor.node_index == 1))
+			return (print_error_sym(PIPE_SYM));
+		if (!(check_grammar_tokenz_2(tokenz, (int)tokenz_size)))
+			return (0);
+		tokenz = tokenz->next;
 	}
-	return (0);
+	return (1);
 }

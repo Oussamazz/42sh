@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 16:29:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:09:38 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ int					main(int ac, char **av, char **env)
 	env_list = NULL;
 	ft_envvinit(env);
 	create_alias_list();
-	g_parproc = getpid();
 	stock_env(env, &env_list);
 	stock_env(env, &g_head);
 	if (!(g_tty_name = ttyname(0)))

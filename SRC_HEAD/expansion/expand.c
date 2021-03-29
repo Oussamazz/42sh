@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 22:07:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 16:40:47 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:10:19 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,39 +35,58 @@ static void		not_is_expansion(t_expand *v, int flag)
 		v->string = ft_strdup(v->arr[v->i]);
 }
 
-int				check_backslash(char **str)
+void		clean_it(t_c_b *check, char **str)
 {
-	int			i;
-	int			flag;
-	int			j;
-
-	i = 0;
-	j = 0;
-	flag = 0;
-	while ((*str)[i])
+	while ((*str)[(*check).i])
 	{
-		if ((*str)[i] == '\\' && (*str)[i + 1])
-			flag ^= 1;
-		i++;
-	}
-	i = 0;
-	j = 0;
-	while ((*str)[i])
-	{
-		if ((*str)[i] == '\\' && (*str)[i + 1])
+		if ((*str)[(*check).i] == '\\' && (*str)[(*check).i + 1])
 		{
-			j = i;
-			while ((*str)[j])
+			(*check).j = (*check).i;
+			while ((*str)[(*check).j])
 			{
-				(*str)[j] = (*str)[j + 1];
-				j++;
+				(*str)[(*check).j] = (*str)[(*check).j + 1];
+				(*check).j++;
 			}
-			i++;
+			(*check).i++;
 			continue ;
 		}
-		i++;
+		(*check).i++;
 	}
-	return (flag);
+}
+
+int		check_backslash(char **str)
+{
+	t_c_b check;
+
+	check.j = 0;
+	check.flag = 0;
+	check.i = 0;
+	while ((*str)[check.i])
+	{
+		if ((*str)[check.i] == '\\' && (*str)[check.i + 1])
+			check.flag ^= 1;
+		check.i++;
+	}
+	check.i = 0;
+	check.j = 0;
+	clean_it(&check, str);
+	return (check.flag);
+}
+
+void			expand_checker(t_expand *v, int *flag, t_env **head)
+{
+	while ((*v).arr[(*v).i] != NULL
+	&& (*v).j < (*v).val_size && (*v).i < (*v).val_size)
+	{
+		(*flag) = check_backslash(&(*v).arr[(*v).i]);
+		if (!(*flag)
+		&& ft_is_expansion(((*v).tmp = ft_strchr((*v).arr[(*v).i], '$'))))
+			expansion_func(v, head);
+		else
+			not_is_expansion(v, (*flag));
+		(*flag) = 0;
+		(*v).i++;
+	}
 }
 
 char			*expanded(t_env **head, char *str)
@@ -86,16 +105,7 @@ char			*expanded(t_env **head, char *str)
 		return (NULL);
 	v.j = 0;
 	v.i = 0;
-	while (v.arr[v.i] != NULL && v.j < v.val_size && v.i < v.val_size)
-	{
-		flag = check_backslash(&v.arr[v.i]);
-		if (!flag && ft_is_expansion((v.tmp = ft_strchr(v.arr[v.i], '$'))))
-			expansion_func(&v, head);
-		else
-			not_is_expansion(&v, flag);
-		flag = 0;
-		v.i++;
-	}
+	expand_checker(&v, &flag, head);
 	ft_free_arr(v.arr);
 	free(v.value);
 	v.value = NULL;
