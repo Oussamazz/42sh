@@ -3,16 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   readline.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afaragi <afaragi@student.42.fr>            +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/27 16:18:29 by afaragi          ###   ########.fr       */
+/*   Updated: 2021/03/28 18:05:06 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef READLINE_H
 # define READLINE_H
-
 # include <stdio.h>
 # include <curses.h>
 # include <term.h>
@@ -25,38 +24,32 @@
 # include <signal.h>
 # include <sys/ioctl.h>
 
-# define UP			4283163
-# define DOWN		4348699
-# define LEFT		4479771
-# define RIGHT		4414235
-# define SPACE		32
-# define DEL		127
-# define END		10
-# define ESC		27
-# define ALT_RTH	1130044187
-# define ALT_LFT	1146821403
-# define HOME		4741915
-# define DEEP		4610843
-# define PAGE_DOWN	1113266971
-# define PAGE_UP	1096489755
-# define ALT_D		4
-# define ALT_S		40899
-# define ALT_V		10127586
-# define TRUE		1
-# define ALT_C		42947
-# define CTRL_L		12
-# define CTRL_R		18
-# define TAB		9
-# define PATH_HISTORY_FILE	"./.42sh_history"
-# define PATH_FC_FILE	"./.fc-42sh"
+# define UP 4283163
+# define DOWN 4348699
+# define LEFT 4479771
+# define RIGHT 4414235
+# define SPACE 32
+# define DEL 127
+# define END 10
+# define ESC 27
+# define ALT_RTH 1130044187
+# define ALT_LFT 1146821403
+# define HOME 4741915
+# define DEEP 4610843
+# define PAGE_DOWN 1113266971
+# define PAGE_UP 1096489755
+# define ALT_D 4
+# define ALT_S 40899
+# define ALT_V 10127586
+# define TRUE 1
+# define ALT_C 42947
+# define CTRL_L 12
+# define CTRL_R 18
+# define TAB 9
+# define PATH_HISTORY_FILE "./.42sh_history"
+# define PATH_FC_FILE "./.fc-42sh"
 
-// #define EQUAL 0
-// #define NOT_EQUAL 1
-
-
-
-
-typedef	struct		s_opt
+typedef struct		s_opt
 {
 	int				l;
 	int				n;
@@ -72,8 +65,6 @@ typedef	struct		s_opt
 	int				debut;
 }					t_opt;
 
-
-
 typedef struct		s_node
 {
 	char			*content;
@@ -83,11 +74,13 @@ typedef struct		s_node
 	struct s_node	*next;
 	struct s_node	*prev;
 }					t_node;
+
 typedef struct		s_point
 {
 	int				x;
 	int				y;
 }					t_point;
+
 typedef struct		s_expansion_h
 {
 	int				i;
@@ -96,11 +89,10 @@ typedef struct		s_expansion_h
 	char			*tmp;
 }					t_expansion_h;
 
-
 typedef struct		s_affcmpl
 {
-	char			*content;
-	struct s_affcmpl *next;
+	char				*content;
+	struct s_affcmpl	*next;
 }					t_affcmpl;
 
 typedef struct		s_cmplt
@@ -124,15 +116,14 @@ typedef struct		s_affichfile
 	int				i;
 }					t_affichfile;
 
-
 typedef struct		s_mode_r
 {
 	int				flag;
 	char			*s;
 	char			c[2];
 	char			tmp;
-	int 			x;
-	int 			y;
+	int				x;
+	int				y;
 	int				count;
 }					t_mode_r;
 
@@ -159,11 +150,11 @@ typedef struct		s_line
 	char			c[2];
 }					t_line;
 
-t_line				*g_line;
-char				*g_str;
-int					g_clt_c;
-int					g_clt_d;
-int					g_lohtory;
+t_line *g_line;
+char *g_str;
+int g_clt_c;
+int g_clt_d;
+int g_lohtory;
 
 /*
 ** readline function
@@ -219,54 +210,71 @@ int					count_row(t_line *line);
 int					ft_readline_builtines(int flag, char *buff,
 	t_line *line, t_node **current);
 t_node				*add_to_history(const char *str);
-void				prompte_mode_r(char c,char **str);
+void				prompte_mode_r(char c, char **str);
 void				mode_r(t_line *line);
-void				delet_mode_r(char **str,t_line *line);
-int					get_index_mode_r(t_line *line,int *index);
+void				delet_mode_r(char **str, t_line *line);
+int					get_index_mode_r(t_line *line, int *index);
 void				print_prompte_(t_line *line, int error);
 void				search_mode_r(t_line *line, t_node **current);
 void				ft_disable_mode_r(t_line *line);
 void				ft_auto_completion(t_line *line, char **str);
 void				completion_files(t_affcmpl *head, t_line *line);
 void				ft_d(t_line *line);
-void				completion_str(t_affcmpl *head, t_line *line,char **str);
-
-
+void				completion_str(t_affcmpl *head, t_line *line, char **str);
 
 /*
 ** fc function
 */
-void opt_error(char c);
-int ft_isnumber(char *str);
-int check_index_fc(char *str, int *index);
-int check_isnbrvalide(char *str);
-int index2_fc(char *str, int *index);
-int get_index_fc(char *hold, int *index);
-int preparer_path(char *editeur, t_opt *opt);
-int check_debut_fin_e(t_opt *opt, char **hold);
-void count_arg_fc(t_opt *opt);
-int check_opt(t_opt *opt, char *hold);
-void execute_commande_fc(const char *file);
-void ft_fc_l3adiya(t_opt *opt, char **hold);
-void ft_handel_fc(t_opt *opt, char **hold);
-void parce_param_fc(char **hold);
-int ft_abs(int num);
-void get_index_in_list(t_node **history,int debut);
-char *get_content_in_list(int debut);
-int calc_list(t_node *history);
-int ft_sin(int i);
-void ft_affiche_tab_l(char **result,int size,t_opt *opt,int sin);
-void ft_calc_debut_fin(t_opt *opt);
-int    ft_get_debut_fin(t_opt *opt,char **hold);
-int ft_get_debut_fin_l(t_opt *opt,char **hold);
-void ft_calc_range_of_debut_fin(t_opt *opt,int *size,char ***result);
-int fc_l(t_opt *opt,char **hold);
-void		ft_affiche_tab_e(char **result, int size, t_opt *opt, int sin);
-int			fc_e(t_opt *opt, char **hold, t_node *history);
-// t_node *ft_get_tail(t_node *history);
-int				ft_calc(char **hold);
-void 		load_hsitory(char const *str);
-void 		print_in_history(const char *file);
-void 		execute_open_file(char *editeur);
-char		*history_expansion(char *str);
+
+void				opt_error(char c);
+int					ft_isnumber(char *str);
+int					check_index_fc(char *str, int *index);
+int					check_isnbrvalide(char *str);
+int					index2_fc(char *str, int *index);
+int					get_index_fc(char *hold, int *index);
+int					preparer_path(char *editeur, t_opt *opt);
+int					check_debut_fin_e(t_opt *opt, char **hold);
+void				count_arg_fc(t_opt *opt);
+int					check_opt(t_opt *opt, char *hold);
+void				execute_commande_fc(const char *file);
+void				fc_without_flag(t_opt *opt, char **hold);
+void				ft_handel_fc(t_opt *opt, char **hold);
+void				parce_param_fc(char **hold);
+int					ft_abs(int num);
+void				get_index_in_list(t_node **history, int debut);
+char				*get_content_in_list(int debut);
+int					calc_list(t_node *history);
+int					ft_sin(int i);
+void				ft_affiche_tab_l(char **result, int size, t_opt *opt,
+	int sin);
+void				ft_calc_debut_fin(t_opt *opt);
+int					ft_get_debut_fin(t_opt *opt, char **hold);
+int					ft_get_debut_fin_l(t_opt *opt, char **hold);
+void				ft_calc_range_of_debut_fin(t_opt *opt, int *size,
+	char ***result);
+int					fc_l(t_opt *opt, char **hold);
+void				ft_affiche_tab_e(char **result, int size, t_opt *opt,
+	int sin);
+int					fc_e(t_opt *opt, char **hold);
+int					ft_calc(char **hold);
+void				load_hsitory(char const *str);
+void				print_in_history(const char *file);
+void				execute_open_file(char *editeur);
+char				*history_expansion(char *str);
+void				ft_get_all_bin_dirs(t_line *line, char **str);
+void				all_bin_files(char *str, t_line *line, int flag,
+	t_affcmpl **affcmpl);
+int					get_blen(t_affcmpl *head);
+void				make_path_file(t_line *line, int command);
+void				ft_free_list(t_affcmpl **affcmpl);
+void				ft_reaffiche_prompte(t_line *line);
+void				ft_builtine_parameter_file(t_line *line, char **str);
+void				make_path_parameters(t_line *line);
+void				stock_path_paramters(t_line *line, t_affcmpl **affcmpl);
+void				stock_path_file(char *str, t_line *line,
+	t_affcmpl **affcmpl);
+void				fc_many_argement(t_opt *opt);
+void				fc_one_argement(int fd, t_opt *opt);
+void				ft_handel_fc(t_opt *opt, char **hold);
+void				fc_s(t_opt *opt, char **hold);
 #endif
