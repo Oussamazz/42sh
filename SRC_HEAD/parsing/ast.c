@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ast.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/27 22:38:21 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/29 13:49:59 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char			**fill_node(t_lexer *token, t_redir **redirections,
 	int			i;
 	char		**ret;
 	size_t		ret_size;
-	//char *tmp = 0;
 
 	ret = NULL;
 	if (token && env && redirections)
@@ -100,37 +99,60 @@ int		is_logic_op(t_lexer *tokenz)
 	return (0);
 }
 
+int		env_skip(t_lexer **token, int  *type)
+{
+	t_lexer *tokenz;
+
+	tokenz = *token;
+	if ((tokenz->type == ENV) || (*type == ENV && tokenz->type == SEP))
+	{
+		*type = (*token)->type;
+		(*token) =(*token)->next;
+		return (1);
+	}
+	return (0);
+}
+
+int		fill_(t_miniast **head, t_miniast **data_, t_lexer *tokenz, t_env **env)
+{
+	int type;
+	t_miniast *data;
+
+	data = *(data_);
+	type = 0;
+	if (!(data = (t_miniast*)ft_memalloc(sizeof(t_miniast))))
+		return (-1);
+	if (!(data->cmd = fill_node(tokenz, &(data->redirection),
+		env, g_alltokenzsize)))
+		return (-2);
+	if (is_background(tokenz))
+		data->mode |= IS_BACKGROUD;
+	if ((type = is_logic_op(tokenz)))
+		data->logic_op = type;
+	*head = data;
+	return (0);
+}
+
 int				parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 {
 	char		**cmd;
 	t_miniast	*data;
 	t_redir		*redirections;
-	int 		type = 0;
+	int 		type;
 
 	cmd = NULL;
+	type = 0;
 	if (!g_alltokenzsize)
 		g_alltokenzsize = get_list_size(tokenz);
 	while (tokenz && tokenz->coor.node_index <= g_alltokenzsize)
 	{
-		if ((tokenz->type == ENV) || (type == ENV && tokenz->type == SEP))
-		{
-			type = tokenz->type;
-			tokenz =tokenz->next;
+		if (env_skip(&tokenz, &type))
 			continue ;
-		}
 		redirections = NULL;
 		if ((*head) == NULL && env && tokenz && tokenz->data)
 		{
-			if (!(data = (t_miniast*)ft_memalloc(sizeof(t_miniast))))
+			if (fill_(head, &data, tokenz, env) < 0)
 				return (-1);
-			if (!(data->cmd = fill_node(tokenz, &(data->redirection),
-				env, g_alltokenzsize)))
-				return (-2);
-			if (is_background(tokenz))
-				data->mode |= IS_BACKGROUD;
-			if ((type = is_logic_op(tokenz)))
-				data->logic_op = type;
-			*head = data;
 		}
 		else
 			parse_commands_sep_pipe(head, tokenz, env);

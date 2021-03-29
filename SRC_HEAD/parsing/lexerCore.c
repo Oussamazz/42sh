@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/25 13:15:48 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 17:40:10 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 15:04:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,99 +76,82 @@ void	env_update(t_lexer **tokenz, t_env **env_list)
 	return ;
 }
 
-// static char		*get_tild_dolar(char *buf, t_mystruct *v)
-// {
-// 	int			position;
-// 	char		*dollars;
+char		*expansion_brackets(char *buf, t_mystruct *v)
+{
+	char *data;
+	char *dollars;
+	char c;
 
-// 	env_update(&v->tokenz, v->env_list);
-// 	if (*buf == '$' && *(buf + 1) == '$')
-// 	{
-// 		append_list(&v->tokenz, (dollars = get_dollars(buf)), WORD, &v->coord);
-// 		ft_strdel(&dollars);
-// 		return (buf + 2);
-// 	}
-// 	if ((*buf == '$' || *buf == '~') && !(*buf == '$'
-// 		&& buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
-// 	{
-// 		if (*buf == '$' && (!*(buf + 1) || is_blank(*(buf + 1))))
-// 		{
-// 			append_list(&v->tokenz, "$", WORD, &v->coord);
-// 			return (buf + 1);
-// 		}
-// 		else if ((position = expansion_function(buf, &v->tokenz,
-// 			&v->coord, v->env_list)) > 0)
-// 			return (buf + position);
-// 		ft_free_tokenz(&v->tokenz);
-// 		return (NULL);
-// 	}
-// 	return (buf);
-// }
+	data = NULL;
+	dollars = NULL;
+	c = 0;
+	if (!(data = get_the_line(buf + 1)))
+		return (NULL);
+	if (ft_strequ(data, "?"))
+	{
+		append_list(&v->tokenz, "?", WORD, &v->coord);
+		ft_strdel(&data);
+		return (buf + 4);
+	} 
+	dollars = get_value_expansion(data, v->env_list);
+	c = *(buf + ft_strlen(data) + 3);
+	if (dollars)
+		append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
+	buf = buf + ft_strlen(data) + 3;
+	ft_strdel(&data);
+	ft_strdel(&dollars);
+	return (buf);
+}
+
+char *get_tild_dolar1(char *buf, t_mystruct *v)
+{
+	int position;
+
+	position = 0;
+	if (*buf != '~' && (!*(buf + 1) || is_blank(*(buf + 1))))
+	{
+		append_list(&v->tokenz, "$", WORD, &v->coord);
+		return (buf + 1);
+	}
+	else if (*buf == '$' && *(buf + 1) == '?' &&
+		(*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
+	{
+		append_list(&v->tokenz, "?", WORD, &v->coord);
+		return (buf + 2);
+	}
+	else if ((position = expansion_function(buf, &v->tokenz,
+											&v->coord, v->env_list)) > 0)
+		return (buf + position);
+	ft_free_tokenz(&v->tokenz);
+	return (NULL);
+}
 
 static char *get_tild_dolar(char *buf, t_mystruct *v)
 {
-	char c;
 	int position;
-	char *dollars;
-	char *data = NULL;     //////biggy
+	char *data;
 	
 	v->coord.no_space = 0;
+	data = NULL;
 	if (*buf == '$')
 		ft_execenv(v->env_list, v->tokenz, EXP);
 	if(*buf == '$' &&  *(buf + 1) &&  *(buf + 1) == '/')
 	{
 		position = 1;
-		while (buf[position] && !is_blank(buf[position]) && buf[position] != '$' )
+		while (buf[position] && !is_blank(buf[position]) && buf[position] != '$')
 			position++;
 		data = ft_strsub(buf, 0, position);
 		append_list(&v->tokenz, data, WORD, &v->coord);
-		free(data);
+		ft_strdel(&data);
 		buf++; 
 		while(*buf && !is_blank(*buf) && *buf != '$') 
 			buf++;
 	}
-	if (*buf == '$' && *(buf + 1) == '{' && brackets(buf))
-	{
-		data = get_the_line(buf + 1);
-		if (ft_strequ(data, "?"))
-		{
-			append_list(&v->tokenz, "?", WORD, &v->coord);
-			ft_strdel(&data);
-			return (buf + 4);
-		} 
-		dollars = get_value_expansion(data, v->env_list);
-		c = *(buf + ft_strlen(data) + 3);
-		if (dollars)
-			append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
-		buf = buf + ft_strlen(data) + 3;
-		ft_putendl(buf);
-		ft_strdel(&data);
-		ft_strdel(&dollars);
-	}
-	else if (*buf == '$' && *(buf + 1) == '$')
-	{
-		append_list(&v->tokenz, (dollars = get_dollars(buf)), WORD, &v->coord);
-		ft_strdel(&dollars);
-		return (buf + 2);
-	}
-	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') && (*buf != buf[1]) && !is_quote(buf[1]))
-	{
-		if (*buf != '~' && (!*(buf + 1) || is_blank(*(buf + 1))))
-		{
-			append_list(&v->tokenz, "$", WORD, &v->coord);
-			return (buf + 1);
-		}
-		else if (*buf == '$' && *(buf + 1) == '?' && (*(buf + 2) == '\0' || ft_is_there(METACHARACTER , *(buf + 2))))
-		{
-			append_list(&v->tokenz, "?", WORD, &v->coord);
-			return (buf + 2);
-		}
-		else if ((position = expansion_function(buf, &v->tokenz,
-												&v->coord, v->env_list)) > 0)
-			return (buf + position);
-		ft_free_tokenz(&v->tokenz);
-		return (NULL);
-	}
+	else if (*buf == '$' && *(buf + 1) == '{' && brackets(buf))
+		return (expansion_brackets(buf, v));
+	else if ((*buf == '$' || *buf == '~') && !(*buf == '$' && buf[1] == '/') &&
+		(*buf != buf[1]) && !is_quote(buf[1]))
+		return (get_tild_dolar1(buf, v));
 	return (buf);
 }
 
@@ -245,7 +228,7 @@ t_lexer			*lexer(char *buf, t_env **env_list, t_pointt *coord)
 			return (NULL);
 		if ((buf = get_pipe_agr(buf, &v)) == NULL)
 			return (NULL);
-		if ((buf = get_qoute_word(buf, &v)) == NULL) // a=b echo $a	
+		if ((buf = get_qoute_word(buf, &v)) == NULL)
 			return (NULL);
 	}
 	return (v.tokenz);

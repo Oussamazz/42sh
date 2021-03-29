@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/08 17:13:38 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 12:00:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:49:24 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int				main(int ac, char **av, char **env)
 	create_alias_list();
 	g_parproc = getpid();
 	stock_env(env, &env_list);
-	// g_head = env_list;
 	stock_env(env, &g_head);
 	time(&now);
 	if (ac > 1 && env_list)
@@ -125,18 +124,18 @@ char            *get_full_cmd(void)
     return (v.tmp ? v.cmd : NULL);
 }
 
- void print_tokenz(t_lexer *tokenz)
-{
-	while (tokenz)
-	{
-		ft_putnbr(tokenz->type);
-		ft_putstr("=> ");
-		ft_putstr(tokenz->data);
-		ft_putendl("%");
-		tokenz = tokenz->next;
-	}
-	return ;
-}
+//  void print_tokenz(t_lexer *tokenz)
+// {
+// 	while (tokenz)
+// 	{
+// 		ft_putnbr(tokenz->type);
+// 		ft_putstr("=> ");
+// 		ft_putstr(tokenz->data);
+// 		ft_putendl("%");
+// 		tokenz = tokenz->next;
+// 	}
+// 	return ;
+// }
 
 void			ft_fixenv(t_lexer **token)
 {
@@ -159,17 +158,20 @@ void			ft_fixenv(t_lexer **token)
 	}
 }
 
+void	init_(t_mystruct *v)
+{
+	signal(SIGCHLD, checkchild2);
+	signal(SIGTSTP, SIG_IGN);
+	ft_bzero(v, sizeof(t_mystruct));
+	g_hashtable = ht_create();	
+}
+
 void			source_sh(t_env **head)
 {
 	t_mystruct	v;
 
-	g_his = NULL;
-	signal(SIGCHLD, checkchild2);
-	signal(SIGTSTP, SIG_IGN);
-	ft_bzero(&v, sizeof(t_mystruct));
-	v.status[0] = 1;
-	g_hashtable = ht_create();
-	while (v.status[0])
+	init_(&v);
+	while (1)
 	{
 		init_coord(&v.coord);
 		ft_prompte();
@@ -179,7 +181,6 @@ void			source_sh(t_env **head)
 		ft_envcpy(head); 
 		if (*(v.str) && !(v.tokenz = lexer(v.str, head, &v.coord)))
 			g_the_status = 258;
-		print_tokenz(v.tokenz);
 		v.status[1] = check_grammar_tokenz(v.tokenz);
 		ft_fixenv(&v.tokenz);
 		ft_execenv(head, v.tokenz, NOT_EXP);

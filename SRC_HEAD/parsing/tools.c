@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 15:10:17 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:43:45 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,19 @@ int		is_env(t_lexer **token)
 	 return (1);
 }
 
-int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord, t_env **head)
+void	append_(char *tmp, t_lexer **token_node, t_pointt *coord)
 {
-	char	tmp[MIN_INDEX];
+	if (ft_isalpha(tmp[0]) && ft_strchr(tmp, '=') && is_env(token_node))
+		append_list(token_node, tmp, ENV, coord);
+	else
+		append_list(token_node, tmp, WORD, coord);
+}
+
+int				get_the_word(char *buf, t_lexer **token_node,
+	t_pointt *coord, t_env **head)
+{
+	char	tmp[4096];
 	int		j;
-	char 	*v;
 	int 	i;
 	int 	size;
 
@@ -57,27 +65,20 @@ int				get_the_word(char *buf, t_lexer **token_node, t_pointt *coord, t_env **he
 	(void)head;
 	size = ft_strlen(buf);
 	i = 0;
-	v = NULL;
 	while (j < size &&  buf[j] && !ft_is_there(METACHARACTER, buf[j]) &&
 		!ft_is_aggr(buf[j]) && buf[j] != '|' && buf[j] != '$' && buf[j] != '&')
 	{
 		if(buf[j] == '\\' && buf[j + 1])
 		{
-			tmp[i] = buf[j+1];
-			j += 2;                ////////biggy
-			i++;
+			tmp[i++] = buf[j+1];
+			j += 2;
 			continue;
 		}
 		tmp[i++] = buf[j++];
 	}
-	if (buf[j] == '$')
-		coord->no_space = 1;
 	tmp[i] = '\0';
-	if (ft_isalpha(tmp[0]) && ft_strchr(tmp, '=') && is_env(token_node)) // here
-		append_list(token_node, tmp, ENV, coord);
-	else
-		append_list(token_node, tmp, WORD, coord);
-	ft_strclr(tmp);
+	buf[j] == '$' ? coord->no_space = 1 : 0;
+	append_(tmp, token_node, coord);
 	return (j);
 }
 
@@ -98,6 +99,19 @@ char			*get_dollars(char *buf)
 	return (ft_itoa((int)getppid()));
 }
 
+char	*and_logic_op(char *buf, t_mystruct *v)
+{
+	if (*(buf + 2) == '&')
+	{
+		ft_free_tokenz(&v->tokenz);
+		ft_putendl_fd("42sh: syntax error near unexpected token `&'", 2);
+		return(NULL);
+	}
+	append_list(&v->tokenz, "&&", AND, &v->coord); 
+	buf = (buf + 2);
+	return (buf);
+}
+
 char			*get_splitter(char *buf, t_mystruct *v)
 {
 	int			position;
@@ -110,25 +124,15 @@ char			*get_splitter(char *buf, t_mystruct *v)
 		ft_free_tokenz(&v->tokenz);
 		return (NULL);
 	}
-	else if(*buf == '&' && *(buf + 1) == '&') ////////biggy
-	{
-		if (*(buf + 2) == '&')
-		{
-				ft_free_tokenz(&v->tokenz);
-				ft_putendl_fd("42sh: syntax error near unexpected token `&'", 2);
-				return(NULL);
-		}
-		append_list(&v->tokenz, "&&", AND, &v->coord); 
-		buf = (buf + 2);
-	}
-	else if(*buf == '|' && *(buf + 1) == '|') ////////biggy
+	else if(*buf == '&' && *(buf + 1) == '&')
+		return (and_logic_op(buf, v));
+	else if(*buf == '|' && *(buf + 1) == '|')
 	{
 		append_list(&v->tokenz, "||", OR, &v->coord);
 		buf =  (buf + 2);
 	}
 	else if (*buf == '&' && *(buf + 1) != '&' && (!ft_is_there(AGG_REDI, *(buf + 1)) || !*(buf + 1)))
 	{
-		// ft_putendl("job control"); // <= job_control_function();
 		append_list(&v->tokenz, "&", AMPER, &v->coord);
 		return (++buf);
 	}

@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 15:16:46 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 14:39:46 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -577,15 +577,38 @@ void					ft_addtmpvar(t_env **head, char *data);
 
 //alias
 
-void					alias_bultin(char **line, t_alias **head);
-void					alias_check(char **line, t_alias **head);
-void					create_alias_list();
-void					add_alias_list_to_file(t_alias *alias);
-void					delete_alias_var(t_alias **alias, char **str);
-void					free_alias_list(t_alias **alst, void (*del)(void *, void *));
-void				 	del(void *s, void *str);
-void					ft_move_replace(char *str);
-
+void                    free2dm(char ***str);
+void                    clean_vars(t_a_v *vars, int flag);
+char                    *return_value(char *name, t_alias *alias);
+int                     is_indice(int c);
+int                     counter(char **str);
+t_alias                 *copy_list(t_alias *alias);
+void                    init_alias(t_a_v *vars, int s, int e, char **line);
+int                     if_del_found(t_c_v *var, char **line);
+int                     check_line_var(t_c_v *var, t_alias **alias, char **line);
+void                    alias_check(char **line, t_alias **alias);
+void                    alias_bultin(char **line, t_alias **alias);
+void                    get_start_end_line(t_a_v *vars, char **line, int e, t_alias **alias);
+int                     if_no_start_line(t_a_v *vars, char **line, int *s, int *e);
+int                     if_there_start_line(t_a_v *vars, char **line, int *s, int *e);
+void                    printfx(char **line, int s, int e, t_alias **alias);
+void                    replace_line(int *s, int e, char **line);
+char                    *ft_strdup_from_to(const char *s, int start, int end);
+t_alias                 *check_alias_repeate(char *name, t_alias *alias);
+void                    del(void *s, void *str);
+void                    ft_one_alias_del(t_alias **alst, void (*del)(void *, void *));
+void                    free_alias_list(t_alias **alst, void (*del)(void *, void *));
+void                    add_to_alias_file(char *line, t_alias **alias);
+void                    add_alias_list_to_file(t_alias *alias);
+int                     isthere_alnum(char *str);
+int                     checker_alias(char **str);
+int                     if_i_found_it(t_alias *pr, t_alias *ptr, t_alias **al, char *str);
+void                    get_value_from_list(char *line, t_alias *alias, int flag);
+void                    create_alias_list();
+t_alias                 *alias_create(char *name, char *value);
+t_alias                 *alias_lst_adder(t_alias **old, t_alias *new);
+void                    delete_alias_var(t_alias **alias, char **str);
+void                    ft_move_replace(char *str);
 
 // fc execute
 void    				execute_fc(char *line);

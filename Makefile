@@ -10,7 +10,7 @@ FLAGS = -g -Wall -Wextra -Werror
 
 SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o
 
-SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o
+SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o alias_bultin.o counter.o free_alias_list.o manage_alias_file.o manage_alias_line.o manage_alias_list.o
 
 SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o execute_fc.o
 

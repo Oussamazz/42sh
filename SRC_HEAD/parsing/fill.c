@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:19:17 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/28 12:13:44 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 13:50:41 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void			fill_cmd(char **ret, t_lexer *token, int *i, t_env **env)
 	if (token->data && !*(token->data))
 		ret[*i] = ft_strdup("");
 	else if (token->type != DQUOT)
-	{
 		ret[*i] = ft_strdup(token->data);
-	}
 	else
 	{
 		ret[*i] = expanded(env, token->data);
