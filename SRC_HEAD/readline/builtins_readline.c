@@ -3,25 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins_readline.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 14:27:02 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/12/31 18:41:55 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:50:17 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
-
-void	ft_print_print(char **str, t_line *line, char *buff)
-{
-	int i;
-
-	i = -1;
-	while (buff[++i])
-		if (ft_isprint(buff[i]) || buff[i] == '\n')
-			ft_printnbl(str, line, buff[i]);
-	ft_clear(line, *str);
-}
 
 int		keyshandle3(t_line *line, char **str)
 {

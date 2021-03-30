@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/28 16:04:07 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/28 19:03:07 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:45:34 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,8 +36,7 @@ void		fc_many_argement(t_opt *opt)
 	ft_calc_debut_fin(opt);
 	ft_calc_range_of_debut_fin(opt, &size, &result);
 	ft_affiche_tab_e(result, ft_abs(size), opt, ft_sin(size));
-	if (result)
-		ft_free_arr(result);
+	free(result);
 }
 
 void		fc_without_flag(t_opt *opt, char **hold)

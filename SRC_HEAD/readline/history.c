@@ -3,43 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   history.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: macos <macos@student.42.fr>                +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 23:59:46 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/01/01 13:21:15 by macos            ###   ########.fr       */
+/*   Updated: 2021/03/29 17:44:00 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
 
 static t_node *g_history_head;
-
-void	ft_rev_list(t_node **history)
-{
-	while ((*history))
-	{
-		if ((*history)->next == NULL)
-			break ;
-		(*history) = (*history)->next;
-	}
-}
-
-void		print_in_history(const char *file)
-{
-	int		fd;
-	t_node	*new;
-
-	new = add_to_history(NULL);
-	ft_rev_list(&(new));
-	if ((fd = open(file, O_RDWR | O_TRUNC | O_CREAT, 00600)) == -1)
-		return ;
-	while (new)
-	{
-		ft_putendl_fd(new->content, fd);
-		new = new->prev;
-	}
-	close(fd);
-}
 
 void		ft_free_history(void)
 {
@@ -54,7 +27,7 @@ void		ft_free_history(void)
 	}
 }
 
-void	ft_history_goto(t_node **current, t_node *new, t_line *line)
+void		ft_history_goto(t_node **current, t_node *new, t_line *line)
 {
 	if (new)
 	{
@@ -110,7 +83,7 @@ void		free_history_node(t_node *head)
 	}
 }
 
-char	*ft_end(t_node **current, t_line *line)
+char		*ft_end(t_node **current, t_line *line)
 {
 	struct termios	config;
 	char			*return_line;

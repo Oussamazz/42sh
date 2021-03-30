@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   signal_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/28 14:41:42 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/22 16:54:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:50:22 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
+
+void	ft_print_print(char **str, t_line *line, char *buff)
+{
+	int i;
+
+	i = -1;
+	while (buff[++i])
+		if (ft_isprint(buff[i]) || buff[i] == '\n')
+			ft_printnbl(str, line, buff[i]);
+	ft_clear(line, *str);
+}
 
 void	ft_ctl_d(int flag)
 {

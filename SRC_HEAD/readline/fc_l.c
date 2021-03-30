@@ -3,71 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fc_l.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yabakhar <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/16 00:09:39 by yabakhar          #+#    #+#             */
-/*   Updated: 2020/10/19 17:35:42 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 17:37:05 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/sh.h"
-
-int			ft_abs(int num)
-{
-	return (num = (num >= 0) ? num : (num * -1));
-}
-
-void		get_index_in_list(t_node **history, int debut)
-{
-	int		i;
-
-	i = 0;
-	while (*history)
-	{
-		if (i == debut)
-			return ;
-		(*history) = (*history)->next;
-		i++;
-	}
-	return ;
-}
-
-char		*get_content_in_list(int debut)
-{
-	int		i;
-	t_node	*history;
-
-	i = 0;
-	history = add_to_history(NULL);
-	while (history)
-	{
-		if (i == debut)
-			return (history->content);
-		(history) = (history)->next;
-		i++;
-	}
-	return (NULL);
-}
-
-int			calc_list(t_node *history)
-{
-	int		i;
-
-	i = 0;
-	while (history)
-	{
-		i++;
-		history = history->next;
-	}
-	return (i);
-}
-
-int			ft_sin(int i)
-{
-	if (i >= 0)
-		return (-1);
-	return (1);
-}
 
 void		ft_affiche_tab_l(char **result, int size, t_opt *opt, int sin)
 {
@@ -96,31 +39,6 @@ void		ft_affiche_tab_l(char **result, int size, t_opt *opt, int sin)
 			opt->debut = opt->debut + sin;
 		}
 	}
-}
-
-void		ft_calc_debut_fin(t_opt *opt)
-{
-	opt->debut = ((ft_abs(opt->debut) > opt->sizeoflist)
-		|| (opt->debut == 0)) ? (-1) : opt->debut;
-	opt->fin = ((ft_abs(opt->fin) > opt->sizeoflist)
-		|| (opt->fin == 0)) ? (-1) : opt->fin;
-	opt->debut = (opt->debut < 0) ?
-		(opt->sizeoflist - ft_abs(opt->debut)) : opt->debut;
-	opt->fin = (opt->fin < 0) ? (opt->sizeoflist - ft_abs(opt->fin)) : opt->fin;
-}
-
-int			ft_get_debut_fin(t_opt *opt, char **hold)
-{
-	if (opt->count >= 1)
-	{
-		if (!(get_index_fc(hold[opt->check], &opt->debut)))
-			return (0);
-		if (opt->count > 1)
-			if (!(get_index_fc(hold[opt->check + 1], &opt->fin)))
-				return (0);
-		return (1);
-	}
-	return (0);
 }
 
 int			ft_get_debut_fin_l(t_opt *opt, char **hold)

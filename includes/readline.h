@@ -6,7 +6,7 @@
 /*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/02 12:55:33 by yabakhar          #+#    #+#             */
-/*   Updated: 2021/03/29 13:18:04 by yabakhar         ###   ########.fr       */
+/*   Updated: 2021/03/29 18:41:05 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,4 +278,24 @@ void				fc_one_argement(int fd, t_opt *opt);
 void				ft_handel_fc(t_opt *opt, char **hold);
 void				fc_s(t_opt *opt, char **hold);
 void				free_list(t_affcmpl *affcmpl, t_affcmpl *affcmpltmp);
+int					is_in_str(char c, const char *cmp);
+char				*ft_strrsearch(char *s, const char *cmp, size_t size);
+char				*ft_strrsearch2(char *s, const char *cmp, size_t size);
+void				get_str_for_search(char *str, t_line *line, int cursor_pos);
+void				ft_affiche_brackets(char *content, t_line *line);
+void				affiche_files(t_affichfile *afffile, t_affcmpl *head,
+	t_line *line);
+void				stock_path_file(char *str, t_line *line,
+	t_affcmpl **affcmpl);
+int					cheker_history_expansion(char *str);
+char				*get_node(char *str);
+char				*get_all_value(int i);
+char				*check_error(char *str);
+char				*ft_is_not_pair(int i, char *rest_value);
+void				update_cur_mode_r(t_line *line, int prompt_len);
+void				ft_disable_mode_r(t_line *line);
+int					get_index_mode_r(t_line *line, int *index);
+int					check_error_fc(t_opt *opt);
+int					check_valide_opt(t_opt *opt, char *hold, int i);
+void				free2dm(char ***str);
 #endif
