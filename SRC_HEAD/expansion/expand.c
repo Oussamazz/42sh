@@ -6,26 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/19 22:07:06 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 17:10:19 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:50:49 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-static void		expansion_func(t_expand *v, t_env **head)
-{
-	if (!(v->value[v->j] = get_value_expansion(
-			ft_strchr(v->arr[v->i], '$') + 1, head)))
-		v->i = v->i;
-	else if (v->string)
-	{
-		v->string = ft_freejoin(v->string, v->value[v->j], 0);
-		ft_strdel(&v->value[v->j]);
-	}
-	else
-		v->string = v->value[v->j];
-	v->j++;
-}
 
 static void		not_is_expansion(t_expand *v, int flag)
 {
@@ -35,7 +20,7 @@ static void		not_is_expansion(t_expand *v, int flag)
 		v->string = ft_strdup(v->arr[v->i]);
 }
 
-void		clean_it(t_c_b *check, char **str)
+void			clean_it(t_c_b *check, char **str)
 {
 	while ((*str)[(*check).i])
 	{
@@ -54,7 +39,7 @@ void		clean_it(t_c_b *check, char **str)
 	}
 }
 
-int		check_backslash(char **str)
+int				check_backslash(char **str)
 {
 	t_c_b check;
 
@@ -110,25 +95,4 @@ char			*expanded(t_env **head, char *str)
 	free(v.value);
 	v.value = NULL;
 	return (v.string);
-}
-
-int				ft_is_expansion(char *str)
-{
-	if (str)
-	{
-		if (str[0] == '$' && ft_isalnum(str[1]) && !is_quote(str[1]))
-			return (1);
-	}
-	return (0);
-}
-
-int				ft_is_tilde(char *str)
-{
-	if (str)
-	{
-		if (((str[0] == '~' && !is_quote(str[1]))) ||
-			(str[0] == '~' && str[1] == 47))
-			return (1);
-	}
-	return (0);
 }

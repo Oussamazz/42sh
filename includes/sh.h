@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:34:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:07:07 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -381,7 +381,13 @@ int						execute_redirection(t_redir *redirections,
 	char *tty_name);
 int						ft_redirect_in_out(t_redir *redirections,
 	t_redir *prev, int fd);
-	void		env_update(t_lexer **tokenz, t_env **env_list);
+char					*ignore_blanks(char *str);
+int						back_read(t_getfullcmd *v, int *len, char **ptr);
+void					assign_v(t_getfullcmd *v);
+int						check_type_(t_type type);
+int						setenv_exist(t_lexer *lst);
+void					env_update(t_lexer **tokenz, t_env **env_list);
+char					**get_setenv_args(t_lexer *lst);
 int						append_redir(t_redir *redirection, t_redir *prev);
 int						here_document(t_redir *redirection, char *tty_name);
 int						agg_redirection(t_redir *redirections,
@@ -396,6 +402,7 @@ int						check_command_redir(t_lexer **head, char *buf,
 t_type					last_node_type(t_lexer *tokenz);
 char					**strsplit(char const *s);
 int						ft_is_aggr(char c);
+void					backslash_checker(t_getfullcmd *v, int *len, char **tmp);
 t_quote					*quote_completion(t_quote **data, char quote);
 size_t					get_list_size(t_lexer *tokenz);
 char					*get_left_fd_(char *buf);
@@ -415,10 +422,12 @@ char					*join_all_bufs(t_his *his);
 int						str_is_blank(char *buffer);
 char					*get_content_quote(char *buffer,
 	char c, t_pointt *coord, int flag_c);
+char					*expansion_brackets(char *buf, t_mystruct *v);
 int						check_builtins_nfrk(char *cmd_name);
 int						get_the_word(char *buf,
 	t_lexer **token_node, t_pointt *coord, t_env **head);
 size_t					get_arr_size_tokenz(t_lexer *token);
+int						is_env(t_lexer **token);
 int						ft_agg_digit(t_redir *redirection, int fd, int lfd);
 int						ft_agg_close(t_redir *redirection,
 	int fd, int lfd);
@@ -487,10 +496,19 @@ int						print_error_sym(t_type type);
 void					exit_blt(char **cmd);
 void					free_env_list(t_env **head);
 void					free_vars(t_mystruct *v, int *to_free, int size);
+void					execute_pipes2(t_miniast *tree, t_mypipe *pipes);
+int						execute_pip_child(t_miniast *tree, t_mypipe *pipes,
+	char **tabs, t_env **env_list);
 void					sig_groupe(void);
 char       				 **get_pipes_members(t_miniast *lst);
 void					append_job(char **arr, t_mypipe pipes, int mode);
 char    				**get_job_members(t_miniast *tree);
+void					expansion_func(t_expand *v, t_env **head);
+void					exp_parse_init(t_expansion *v, char **buf);
+void					exp_chek(char *buf, t_expansion *v);
+int						is_background(t_lexer *tokenz);
+int						is_logic_op(t_lexer *tokenz);
+int						env_skip(t_lexer **token, int *type);
 int						delete_node(t_job_ctrl  **head_ref, int g_pid);
 void    				jobs_blt(char **cmd);
 void    				main_infos(t_job_ctrl *ptr);

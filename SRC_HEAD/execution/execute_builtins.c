@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 17:32:52 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:26:01 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:37:47 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,57 +71,4 @@ void			blt_setenv(char **cmd, t_env **env_list)
 	else
 		modify_env(env_list, cmd[1], cmd[2]);
 	return ;
-}
-
-void			blt_check(t_miniast *tree, t_env **env_list)
-{
-	if (ft_strequ(tree->cmd[0], "echo"))
-		blt_echo(tree->cmd, tree->redirection);
-	else if (ft_strequ(tree->cmd[0], "fg"))
-		fg_blt(tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "unalias"))
-		delete_alias_var(&g_alias, tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "alias"))
-		alias_bultin(tree->cmd, &g_alias);
-	else if (ft_strequ(tree->cmd[0], "bg"))
-		bg_blt(tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "jobs"))
-		jobs_blt(tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "env"))
-		print_env_list(env_list);
-	else if (ft_strequ(tree->cmd[0], "type"))
-		type_builtin(tree->cmd, env_list);
-	else if (ft_strequ(tree->cmd[0], "cd"))
-		blt_cd(tree->cmd, env_list);
-	else if (ft_strequ(tree->cmd[0], "fc"))
-		parce_param_fc(tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "export"))
-		ft_export(tree->cmd);
-	else if (ft_strequ(tree->cmd[0], "unset"))
-		blt_unsetenv(tree->cmd, env_list);
-}
-
-void			execute_blt_with_fork(t_miniast *tree, t_env **env_list)
-{
-	if (tree->cmd && *env_list)
-	{
-		if (ft_strequ(tree->cmd[0], "set"))
-		{
-			ft_listtotab();
-			ft_putdblstr(g_settab);
-		}
-		else if (ft_strequ(tree->cmd[0], "hash"))
-			ft_hash(tree->cmd, &g_hashtable);
-		else if (ft_strequ(tree->cmd[0], "test"))
-			g_the_status = ft_test(tree->cmd);
-		else if (ft_strequ(tree->cmd[0], "exit"))
-		{
-			print_in_history(PATH_HISTORY_FILE);
-			add_alias_list_to_file(g_alias);
-			free_alias_list(&g_alias, del);
-			exit_blt(tree->cmd);
-		}
-		else
-			blt_check(tree, env_list);
-	}
 }

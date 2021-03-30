@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:15:08 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:24:33 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:44:34 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int				check_grammar_tokenz(t_lexer *tokenz)
 		if (check_grm(tokenz) == -1)
 			return (-1);
 		if (tokenz->next && tokenz->type == AGGR_SYM &&
-			(tokenz->next->type == SEP || tokenz->next->type == PIPE_SYM))
+			(tokenz->next->type == PIPE_SYM))
 			return (print_error_sym(AGGR_SYM));
 		else if (tokenz->type == PIPE_SYM && (!tokenz->next ||
 			tokenz->coor.node_index == 1))

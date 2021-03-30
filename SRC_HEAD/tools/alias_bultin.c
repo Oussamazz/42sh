@@ -6,30 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/29 14:26:08 by afaragi           #+#    #+#             */
-/*   Updated: 2021/03/29 16:19:12 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:09:48 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-t_alias		*copy_list(t_alias *alias)
-{
-	t_alias	*cpy;
-	t_alias	*new;
-
-	new = NULL;
-	cpy = NULL;
-	if (alias)
-	{
-		while (alias)
-		{
-			new = alias_create(alias->name, alias->value);
-			cpy = alias_lst_adder(&cpy, new);
-			alias = alias->next;
-		}
-	}
-	return (cpy);
-}
 
 void		init_alias(t_a_v *vars, int s, int e, char **line)
 {

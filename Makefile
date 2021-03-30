@@ -8,24 +8,24 @@ OBJ_DIR_HEAD:= ./objs/
 
 FLAGS = -g -Wall -Wextra -Werror
 
-SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o
+SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o tools2.o
 
 SRC_TOOLS = get_pipes_members.o argslen.o brackets.o alias.o alias_bultin.o counter.o free_alias_list.o manage_alias_file.o manage_alias_line.o manage_alias_list.o
 
-SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o execute_fc.o
+SRC_EXECUTION = execute.o execute_cmd.o execute_builtins.o execute_pipes.o execute_fc.o  tools1.o  tools2.o 
 
 SRC_BUILTINS = blt_echo.o  exit_blt.o type_blt.o cd_blt.o fg_blt.o bg_blt.o
 
-SRC_EXPANSION = expand.o expansion.o tild_expansion.o get_value_exp.o
+SRC_EXPANSION = expand.o expansion.o tild_expansion.o get_value_exp.o tools1.o
 
-SRC_PARSING = ast.o check_grammar.o lexer.o lexercore.o split.o fill.o tools.o get_the_line.o
+SRC_PARSING = ast.o check_grammar.o lexer.o lexercore.o split.o fill.o tools.o get_the_line.o tools1.o tools2.o
 
 SRC_PIPE_REDIRECTION =	agg_redir.o here_doc.o redirections.o \
 						split_redir.o agg_in_out.o split_tools.o
 
 SRC_MAIN =	envirement.o error_handler.o free1.o\
 			ft_free.o his.o main.o node.o printing.o utils.o utils2.o quote_handling.o signals.o here_doc_fd.o \
-			utils3.o utils4.o utils5.o utils6.o printing_jobs.o
+			utils3.o utils4.o utils5.o utils6.o printing_jobs.o tools1.o
 
 SRC_HASH = alloc_hash.o errors_print.o flags.o h_tools.o hash_tools.o hash_tools2.o hashtable.o
 

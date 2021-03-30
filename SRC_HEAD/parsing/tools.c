@@ -6,47 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/31 15:15:23 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:16:28 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:56:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-size_t		get_arr_size_tokenz(t_lexer *token)
-{
-	size_t	size;
-
-	size = -1;
-	if (token)
-	{
-		size++;
-		while (token != NULL)
-		{
-			if (token->type != PIPE_SYM &&
-				token->type != METACHAR && token->type != SEP &&
-					token->type != ENV)
-				size++;
-			else
-				break ;
-			token = token->next;
-		}
-	}
-	return (size);
-}
-
-int			is_env(t_lexer **token)
-{
-	t_lexer *tokenz;
-
-	tokenz = *token;
-	while (tokenz)
-	{
-		if (tokenz->type != ENV)
-			return (0);
-		tokenz = tokenz->next;
-	}
-	return (1);
-}
 
 void		append_(char *tmp, t_lexer **token_node, t_pointt *coord)
 {

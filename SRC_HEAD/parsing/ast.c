@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/30 19:09:07 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:22:41 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:54:08 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,49 +70,6 @@ static void	parse_commands_sep_pipe(t_miniast **head,
 	else if ((tokenz->type == SEP || tokenz->type == AMPER ||
 		tokenz->type == OR || tokenz->type == AND) && tokenz->next)
 		parse_commands(&(*head)->sep, tokenz->next, env);
-}
-
-int			is_background(t_lexer *tokenz)
-{
-	int		flag;
-
-	flag = 0;
-	while (tokenz)
-	{
-		if (tokenz->type == SEP)
-			break ;
-		if (tokenz->type == AMPER)
-			flag = 1;
-		tokenz = tokenz->next;
-	}
-	return (flag);
-}
-
-int			is_logic_op(t_lexer *tokenz)
-{
-	while (tokenz)
-	{
-		if (tokenz->type == SEP)
-			break ;
-		if (tokenz->type == OR || tokenz->type == AND)
-			return (tokenz->type);
-		tokenz = tokenz->next;
-	}
-	return (0);
-}
-
-int			env_skip(t_lexer **token, int *type)
-{
-	t_lexer	*tokenz;
-
-	tokenz = *token;
-	if ((tokenz->type == ENV) || (*type == ENV && tokenz->type == SEP))
-	{
-		*type = (*token)->type;
-		(*token) = (*token)->next;
-		return (1);
-	}
-	return (0);
 }
 
 int			fill_(t_miniast **head, t_miniast **data_,

@@ -6,67 +6,11 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/12/04 03:16:16 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:27:22 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:36:37 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
-
-int				ft_redirect_in_out_2(int fd, char *left_fd,
-	t_redir *redirections)
-{
-	int			left;
-
-	left = 0;
-	if (left_fd)
-	{
-		if (ft_str_is_digit(left_fd))
-			left = ft_atoi(left_fd);
-		else
-		{
-			ft_putstr_fd(ERROR4, 2);
-			ft_putendl_fd(ERROR44, 2);
-			return (-1);
-		}
-		dup2(fd, left);
-	}
-	else
-	{
-		if (!ft_strcmp(redirections->sym, ">"))
-			dup2(fd, STDOUT_FILENO);
-		else if (!ft_strcmp(redirections->sym, "<"))
-			dup2(fd, STDIN_FILENO);
-	}
-	close(fd);
-	return (0);
-}
-
-int				ft_redirect_in_out(t_redir *redirections, t_redir *prev, int fd)
-{
-	char		*right_fd;
-	char		*left_fd;
-
-	left_fd = NULL;
-	if (redirections->next)
-		right_fd = redirections->next->rfd;
-	if (prev)
-		left_fd = prev->lfd;
-	if (ft_strcmp(redirections->sym, ">") == 0 && right_fd)
-		fd = open(right_fd, O_CREAT | O_WRONLY | O_TRUNC, 0644);
-	else if (right_fd)
-	{
-		fd = open(right_fd, O_RDONLY);
-		if (fd < 0)
-		{
-			ft_putendl_fd_error("42sh: No such file or directory: ", right_fd,
-				"\n", NULL);
-			exit(0);
-			return (fd);
-		}
-	}
-	ft_redirect_in_out_2(fd, left_fd, redirections);
-	return (255);
-}
 
 int				append_redir(t_redir *redirection, t_redir *prev)
 {

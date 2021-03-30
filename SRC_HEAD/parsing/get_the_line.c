@@ -6,11 +6,20 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/13 15:51:29 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 19:20:15 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 11:02:15 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "sh.h"
+
+char			*ignore_blanks(char *str)
+{
+	if (*str == '\\')
+		str += 1;
+	while (is_blank(*str))
+		str++;
+	return (str);
+}
 
 static size_t	len_new_buff(const char *buf)
 {

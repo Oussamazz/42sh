@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/13 22:24:04 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/29 17:19:36 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 10:52:00 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,21 +95,6 @@ static int		exp_tild(t_expansion *v, t_lexer **token_node, t_env **env_list,
 	ft_strdel(&v->env_value);
 	ft_strdel(&v->data);
 	return (ft_strlen_delim(v->buf, " ;$|><\n\t"));
-}
-
-void	exp_parse_init(t_expansion *v, char **buf)
-{
-	if ((*buf)[(*v).i] == '$')
-		(*buf)++;
-	(*v).j = 0;
-	(*v).buf = (*buf);
-}
-
-void	exp_chek(char *buf, t_expansion *v)
-{
-	while (buf[(*v).i] && !is_quote(buf[(*v).i]) &&
-		!ft_is_there(" ;$|><\n\t", buf[(*v).i]) && buf[(*v).i] != '\\')
-		(*v).i++;
 }
 
 int				expansion_parse(t_lexer **token_node, char *buf,
