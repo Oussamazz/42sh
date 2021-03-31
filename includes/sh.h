@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   sh.h                                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
+/*   By: yabakhar <yabakhar@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/11/07 23:01:13 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/30 11:07:07 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/03/30 12:41:36 by yabakhar         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,9 @@
 # define PREV_JOB 2
 # define TABLE_SIZE 1000
 
-pid_t	g_pid;
-int		g_id;
-char	*g_commandline;
-
+pid_t					g_pid;
+int						g_id;
+char					*g_commandline;
 
 enum {
 	F_TOKENZ,
@@ -69,22 +68,22 @@ enum {
 	F_JOBS
 };
 
-
-typedef enum	e_split{
+typedef enum			e_split{
 	Normal,
 	Continue,
 	Break,
 	ReturnNull,
 	Returnagg
-}				t_split;
+}						t_split;
 
 typedef struct			s_alias
 {
-	char			*name;
-	char			*value;
-	struct	s_alias *next;
-}					t_alias;
-t_alias				*g_alias;
+	char				*name;
+	char				*value;
+	struct s_alias		*next;
+}						t_alias;
+
+t_alias					*g_alias;
 
 typedef struct			s_a_v
 {
@@ -106,9 +105,9 @@ typedef struct			s_c_v
 	int					flag;
 }						t_c_v;
 
-size_t			g_agg_len;
-char			*g_tty_name;
-int				g_the_status;
+size_t					g_agg_len;
+char					*g_tty_name;
+int						g_the_status;
 
 typedef struct			s_mypipe
 {
@@ -118,20 +117,24 @@ typedef struct			s_mypipe
 	int					temp;
 	int					cmd_no;
 	int					status;
-}					t_mypipe;
-typedef	struct				s_ht
+}						t_mypipe;
+
+typedef	struct			s_ht
 {
-	char					*value;
-	char					*key;
-	int						hits;
-	struct	s_ht			*next;
-}							t_ht;
-typedef	struct				s_hash
+	char				*value;
+	char				*key;
+	int					hits;
+	struct s_ht			*next;
+}						t_ht;
+
+typedef	struct			s_hash
 {
-	t_ht					**list;
-}							t_hash;
-t_hash	*g_hashtable;
-char 	*g_binfile;
+	t_ht				**list;
+}						t_hash;
+
+t_hash					*g_hashtable;
+char					*g_binfile;
+
 typedef struct			s_pointt
 {
 	int					node_index;
@@ -140,18 +143,21 @@ typedef struct			s_pointt
 	int					pipe_index;
 	int					no_space;
 }						t_pointt;
-typedef struct          s_c_b
+
+typedef struct			s_c_b
 {
-	int                 i;
-	int                 flag;
-	int                 j;
-}                       t_c_b;
+	int					i;
+	int					flag;
+	int					j;
+}						t_c_b;
+
 typedef struct			s_env
 {
 	char				*env_var_name;
 	char				*env_var_value;
 	struct s_env		*next;
 }						t_env;
+
 typedef enum			e_type
 {
 	WORD = 1,
@@ -169,11 +175,13 @@ typedef enum			e_type
 	OR,
 	ENV
 }						t_type;
+
 typedef struct			s_quote
 {
 	char				*string;
 	size_t				size;
 }						t_quote;
+
 typedef struct			s_lexer
 {
 	t_pointt			coor;
@@ -181,13 +189,16 @@ typedef struct			s_lexer
 	t_type				type;
 	struct s_lexer		*next;
 }						t_lexer;
+
 typedef struct			s_his
 {
 	char				*data;
 	struct s_his		*next;
 }						t_his;
-t_his			*g_his;
-int				g_alltokenzsize;
+
+t_his					*g_his;
+int						g_alltokenzsize;
+
 typedef struct			s_redir
 {
 	char				*lfd;
@@ -195,6 +206,7 @@ typedef struct			s_redir
 	char				*sym;
 	struct s_redir		*next;
 }						t_redir;
+
 typedef struct			s_miniast
 {
 	char				**cmd;
@@ -205,7 +217,9 @@ typedef struct			s_miniast
 	struct s_miniast	*pipe;
 	struct s_miniast	*sep;
 }						t_miniast;
-t_miniast *g_tree;
+
+t_miniast				*g_tree;
+
 typedef struct			s_mystruct
 {
 	int					i;
@@ -223,6 +237,7 @@ typedef struct			s_mystruct
 	t_env				**env_list;
 	t_pointt			coord;
 }						t_mystruct;
+
 typedef struct			s_split_redir
 {
 	size_t				i;
@@ -236,6 +251,7 @@ typedef struct			s_split_redir
 	size_t				agg_len_str;
 	int					status;
 }						t_split_redir;
+
 typedef	struct			s_getfullcmd
 {
 	char				*cmd;
@@ -247,6 +263,7 @@ typedef	struct			s_getfullcmd
 	int					flag;
 	int					read;
 }						t_getfullcmd;
+
 typedef struct			s_here_doc
 {
 	int					flag;
@@ -254,6 +271,7 @@ typedef struct			s_here_doc
 	char				*tmp;
 	char				*buffer;
 }						t_here_doc;
+
 typedef struct			s_expand
 {
 	char				**arr;
@@ -264,6 +282,7 @@ typedef struct			s_expand
 	int					j;
 	int					val_size;
 }						t_expand;
+
 typedef struct			s_expansion
 {
 	int					i;
@@ -273,6 +292,7 @@ typedef struct			s_expansion
 	char				*env_value;
 	char				*buf;
 }						t_expansion;
+
 typedef struct			s_tilde_exp
 {
 	int					i;
@@ -299,54 +319,56 @@ typedef	struct			s_job_ctrl
 	int					status;
 	int					mode;
 	char				**cmd;
-	struct	s_job_ctrl	*next; 
+	struct s_job_ctrl	*next;
 }						t_job_ctrl;
 
-typedef struct          s_f_g
+typedef struct			s_f_g
 {
 	int					status;
 	int					fd;
 	t_job_ctrl			*ptr;
 	int					job_id;
-}                       t_f_g;
+}						t_f_g;
 
-typedef struct          s_cd
+typedef struct			s_cd
 {
 	int					i;
 	int					args_no;
 	char				*new_path;
 	char				*cwd;
 	char				buff[MAX_INDEX];
-}                       t_cd;
+}						t_cd;
 
-typedef struct  		s_wlen
+typedef struct			s_wlen
 {
 	int					len;
 	int					type;
 	int					index;
 }						t_wlen;
 
-typedef struct  		s_wc
+typedef struct			s_wc
 {
-	int			i;
-	int			flag;
-	int			res;
+	int					i;
+	int					flag;
+	int					res;
 }						t_wc;
 
-typedef struct  		s_cd_smpl
+typedef struct			s_cd_smpl
 {
-	struct stat	st;
-	char		*tmp;
-	char		*tmp2;
+	struct stat			st;
+	char				*tmp;
+	char				*tmp2;
 }						t_cd_smpl;
-t_job_ctrl *g_jobs_lst;
-t_job_ctrl *g_copy;
-t_env		*g_head;
+
+t_job_ctrl				*g_jobs_lst;
+t_job_ctrl				*g_copy;
+t_env					*g_head;
+
 void					source_sh(t_env **head);
 char					*here_doc(char *delim);
 void					append_list(t_lexer **root, char *data, t_type type,
 	t_pointt *cor);
-void		init_coord(t_pointt *cor);
+void					init_coord(t_pointt *cor);
 void					append_list_redi(t_lexer **root, char *data,
 	t_type type, t_pointt *cor);
 void					append_list_pipe(t_lexer **root, char *data,
@@ -363,7 +385,7 @@ int						aggr_function(char *str, t_pointt *cor,
 	t_lexer **lexer);
 int						quote_function(char *buf, t_lexer **tokenz,
 	t_pointt *cord, char *quote);
-int     				token_is_sep(int type);
+int						token_is_sep(int type);
 int						quote_handling_function(t_lexer **token_node,
 	t_quote *quot, char quote, t_pointt *coord);
 int						simple_word_function(char *buf,
@@ -402,7 +424,8 @@ int						check_command_redir(t_lexer **head, char *buf,
 t_type					last_node_type(t_lexer *tokenz);
 char					**strsplit(char const *s);
 int						ft_is_aggr(char c);
-void					backslash_checker(t_getfullcmd *v, int *len, char **tmp);
+void					backslash_checker(t_getfullcmd *v, int *len,
+	char **tmp);
 t_quote					*quote_completion(t_quote **data, char quote);
 size_t					get_list_size(t_lexer *tokenz);
 char					*get_left_fd_(char *buf);
@@ -448,7 +471,8 @@ int						ft_str_is_digit(char *lfd);
 void					ft_reset_fd(char *tty_name, int file_d);
 int						parse_commands(t_miniast **head,
 	t_lexer *tokenz, t_env **env);
-char		*ft_strjoin_until_char(char const *s1, char const *s2, char c);
+char					*ft_strjoin_until_char(char const *s1, char const *s2,
+	char c);
 void					print_sigpip_int(int status);
 char					**fill_node(t_lexer *token,
 	t_redir **redirections, t_env **env, int alltoken_size);
@@ -498,32 +522,33 @@ void					free_env_list(t_env **head);
 void					free_vars(t_mystruct *v, int *to_free, int size);
 void					execute_pipes2(t_miniast *tree, t_mypipe *pipes);
 int						execute_pip_child(t_miniast *tree, t_mypipe *pipes,
-	char **tabs, t_env **env_list);
+char					**tabs, t_env **env_list);
 void					sig_groupe(void);
-char       				 **get_pipes_members(t_miniast *lst);
+char					**get_pipes_members(t_miniast *lst);
 void					append_job(char **arr, t_mypipe pipes, int mode);
-char    				**get_job_members(t_miniast *tree);
+char					**get_job_members(t_miniast *tree);
 void					expansion_func(t_expand *v, t_env **head);
 void					exp_parse_init(t_expansion *v, char **buf);
 void					exp_chek(char *buf, t_expansion *v);
 int						is_background(t_lexer *tokenz);
 int						is_logic_op(t_lexer *tokenz);
 int						env_skip(t_lexer **token, int *type);
-int						delete_node(t_job_ctrl  **head_ref, int g_pid);
-void    				jobs_blt(char **cmd);
-void    				main_infos(t_job_ctrl *ptr);
-void 					checkchild2(int sig);
+int						delete_node(t_job_ctrl **head_ref, int g_pid);
+void					jobs_blt(char **cmd);
+void					main_infos(t_job_ctrl *ptr);
+void					checkchild2(int sig);
 void					print_job_node(int g_pid);
 void					pid_infos(t_job_ctrl *ptr);
 void					details_infos(t_job_ctrl *ptr);
-int    					fg_blt(char **cmd);
-int     				bg_blt(char **cmd);
+int						fg_blt(char **cmd);
+int						bg_blt(char **cmd);
 int						brackets(char *str);
-char 					*get_the_line(const char *buf);
-void    				sub_shell_exec(char *line, t_lexer **tokenz, t_env **env_list);
+char					*get_the_line(const char *buf);
+void					sub_shell_exec(char *line, t_lexer **tokenz,
+	t_env **env_list);
 t_hash					*ht_create(void);
 char					*ft_hashtable(char **args, char **tabs,
-						t_hash **h_table, char **print);
+	t_hash **h_table, char **print);
 void					ft_hash(char **args, t_hash **h_table);
 void					reset_hits(char **args, t_hash **h_table);
 void					delete_hashtable(t_hash **h_table, int len);
@@ -538,7 +563,7 @@ void					d_flag(t_hash **h_table, char **args);
 void					t_flag(t_hash **h_table, char **args);
 void					p_flag(t_hash **h_table, char **args);
 void					search_hash(t_hash **h_table, char **args,
-int len);
+	int len);
 t_ht					*hash_p_insert(char *arg, char *path);
 void					ft_hash_error(char *str);
 void					l_flag_error(char *str);
@@ -554,7 +579,7 @@ char					*valid_path(char *cmd_name, char **tabs, char **print);
 t_ht					*alloc_list(t_ht *list);
 t_hash					*alloc_hash(t_hash **h_table);
 char					*ft_hash_complete_s(t_hash *hashtable,
-						char **args, char **tabs, char **print);
+	char **args, char **tabs, char **print);
 int						ft_hash_complete(char **print, char **args);
 char					*absolute_path(char *path, char *command);
 int						ft_argslen(char **arr);
@@ -593,39 +618,47 @@ void					ft_envcpy(t_env **head);
 void					ft_execenv(t_env **head, t_lexer *tokenz, int flag);
 int						ft_tmpvarcheck(t_lexer *tokenz);
 void					ft_addtmpvar(t_env **head, char *data);
-void                    free2dm(char ***str);
-void                    clean_vars(t_a_v *vars, int flag);
-char                    *return_value(char *name, t_alias *alias);
-int                     is_indice(int c);
-int                     counter(char **str);
-t_alias                 *copy_list(t_alias *alias);
-void                    init_alias(t_a_v *vars, int s, int e, char **line);
-int                     if_del_found(t_c_v *var, char **line);
-int                     check_line_var(t_c_v *var, t_alias **alias, char **line);
-void                    alias_check(char **line, t_alias **alias);
-void                    alias_bultin(char **line, t_alias **alias);
-void                    get_start_end_line(t_a_v *vars, char **line, int e, t_alias **alias);
-int                     if_no_start_line(t_a_v *vars, char **line, int *s, int *e);
-int                     if_there_start_line(t_a_v *vars, char **line, int *s, int *e);
-void                    printfx(char **line, int s, int e, t_alias **alias);
-void                    replace_line(int *s, int e, char **line);
-char                    *ft_strdup_from_to(const char *s, int start, int end);
-t_alias                 *check_alias_repeate(char *name, t_alias *alias);
-void                    del(void *s, void *str);
-void                    ft_one_alias_del(t_alias **alst, void (*del)(void *, void *));
-void                    free_alias_list(t_alias **alst, void (*del)(void *, void *));
-void                    add_to_alias_file(char *line, t_alias **alias);
-void                    add_alias_list_to_file(t_alias *alias);
-int                     isthere_alnum(char *str);
-int                     checker_alias(char **str);
-int                     if_i_found_it(t_alias *pr, t_alias *ptr, t_alias **al, char *str);
-void                    get_value_from_list(char *line, t_alias *alias, int flag);
-void                    create_alias_list(void);
-t_alias                 *alias_create(char *name, char *value);
-t_alias                 *alias_lst_adder(t_alias **old, t_alias *new);
-void                    delete_alias_var(t_alias **alias, char **str);
-void                    ft_move_replace(char *str);
-void    				execute_fc(char *line);
+void					free2dm(char ***str);
+void					clean_vars(t_a_v *vars, int flag);
+char					*return_value(char *name, t_alias *alias);
+int						is_indice(int c);
+int						counter(char **str);
+t_alias					*copy_list(t_alias *alias);
+void					init_alias(t_a_v *vars, int s, int e, char **line);
+int						if_del_found(t_c_v *var, char **line);
+int						check_line_var(t_c_v *var, t_alias **alias,
+	char **line);
+void					alias_check(char **line, t_alias **alias);
+void					alias_bultin(char **line, t_alias **alias);
+void					get_start_end_line(t_a_v *vars, char **line, int e,
+	t_alias **alias);
+int						if_no_start_line(t_a_v *vars, char **line, int *s,
+	int *e);
+int						if_there_start_line(t_a_v *vars, char **line, int *s,
+	int *e);
+void					printfx(char **line, int s, int e, t_alias **alias);
+void					replace_line(int *s, int e, char **line);
+char					*ft_strdup_from_to(const char *s, int start, int end);
+t_alias					*check_alias_repeate(char *name, t_alias *alias);
+void					del(void *s, void *str);
+void					ft_one_alias_del(t_alias **alst,
+	void (*del)(void *, void *));
+void					free_alias_list(t_alias **alst,
+	void (*del)(void *, void *));
+void					add_to_alias_file(char *line, t_alias **alias);
+void					add_alias_list_to_file(t_alias *alias);
+int						isthere_alnum(char *str);
+int						checker_alias(char **str);
+int						if_i_found_it(t_alias *pr, t_alias *ptr, t_alias **al,
+	char *str);
+void					get_value_from_list(char *line, t_alias *alias,
+	int flag);
+void					create_alias_list(void);
+t_alias					*alias_create(char *name, char *value);
+t_alias					*alias_lst_adder(t_alias **old, t_alias *new);
+void					delete_alias_var(t_alias **alias, char **str);
+void					ft_move_replace(char *str);
+void					execute_fc(char *line);
 void					print_tokenz(t_lexer *tokenz);
 t_lexer					*move_list(t_lexer *tokenz, int alltokenzsize);
 #endif
