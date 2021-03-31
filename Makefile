@@ -6,7 +6,7 @@ INC = ./includes/sh.h ./includes/readline.h ./includes/error_msg.h
 SRC_DIR_PARSE:= ./SRC_HEAD/
 OBJ_DIR_HEAD:= ./objs/
 
-FLAGS = -g -Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 
 SRC_ENV= dbl_func.o list_func.o  set.o       tools1.o     vartools.o tools2.o
 
