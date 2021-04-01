@@ -6,7 +6,7 @@
 /*   By: oelazzou <oelazzou@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/03/30 10:36:40 by oelazzou          #+#    #+#             */
-/*   Updated: 2021/03/30 10:37:59 by oelazzou         ###   ########.fr       */
+/*   Updated: 2021/04/01 12:23:54 by oelazzou         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,6 @@ void			blt_check(t_miniast *tree, t_env **env_list)
 		type_builtin(tree->cmd, env_list);
 	else if (ft_strequ(tree->cmd[0], "cd"))
 		blt_cd(tree->cmd, env_list);
-	else if (ft_strequ(tree->cmd[0], "fc"))
-		parce_param_fc(tree->cmd);
 	else if (ft_strequ(tree->cmd[0], "export"))
 		ft_export(tree->cmd);
 	else if (ft_strequ(tree->cmd[0], "unset"))
