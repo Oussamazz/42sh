@@ -55,7 +55,7 @@ Welcome to 42sh, your implementation of a UNIX-like shell written in C. This she
 - Manage its own environment
 - Built-in commands including `cd`, `echo`, `env`, `printenv`, `pwd`, `setenv`, `unsetenv`
 - Prompt based on the last exit status
-- Support for non-interactive mode
+- Support for non-interactive mode (running process in background/foreground)
 
 Explore more functionalities as you dive into the shell!
 
