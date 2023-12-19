@@ -18,8 +18,6 @@
 7. [Non-Interactive Mode](#non-interactive-mode)
 8. [How to Compile](#how-to-compile)
 9. [Dependencies](#dependencies)
-10. [Contributing](#contributing)
-11. [License](#license)
 
 ---
 
@@ -65,7 +63,12 @@ Explore more functionalities as you dive into the shell!
 
 ## Usage
 
-[Provide instructions on how to use your shell, including basic commands and examples.]
+```bash
+# Example compilation command
+make
+# Example execution command
+./42sh [OPTIONS]
+```
 
 ---
 
@@ -80,8 +83,7 @@ Explore more functionalities as you dive into the shell!
 - `pwd`: Print the current working directory
 - `setenv`: Set environment variables
 - `unsetenv`: Unset environment variables
-
-[Include any additional built-in commands and their descriptions.]
+...
 
 ---
 
@@ -89,17 +91,8 @@ Explore more functionalities as you dive into the shell!
 
 The shell provides a dynamic prompt based on the last exit status, making it easier to understand the outcome of the previous command.
 
----
-
-## Non-Interactive Mode
-
-In non-interactive mode, the shell can be used for scripting and batch processing. Ensure to check the documentation for specific usage in non-interactive mode.
-
----
 
 ## How to Compile
-
-[Provide instructions on how to compile your shell.]
 
 ```bash
 # Example compilation command
@@ -112,6 +105,6 @@ make all
 
 Ensure you have the following dependencies installed:
 
-- [List of dependencies]
+- [cc/gcc, (readline)]
 
 ---
