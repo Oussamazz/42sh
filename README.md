@@ -15,9 +15,8 @@
 4. [Usage](#usage)
 5. [Built-in Commands](#built-in-commands)
 6. [Prompt and Exit Status](#prompt-and-exit-status)
-7. [Non-Interactive Mode](#non-interactive-mode)
-8. [How to Compile](#how-to-compile)
-9. [Dependencies](#dependencies)
+7. [How to Compile](#how-to-compile)
+8. [Dependencies](#dependencies)
 
 ---
 
