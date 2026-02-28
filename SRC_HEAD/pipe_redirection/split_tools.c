@@ -15,12 +15,11 @@
 char		*redirection_varname(char ***arr, char *str, size_t *i)
 {
 	size_t	c_len;
-	char	**agg;
 	char	*tmp;
 
 	tmp = NULL;
+	(void)arr;
 	c_len = 0;
-	agg = *arr;
 	while (!is_blank(str[*i + c_len]) &&
 		str[*i + c_len] != ';' && str[*i + c_len] != '|' &&
 			str[*i + c_len] && !ft_is_there(AGG_REDI, str[*i + c_len]))

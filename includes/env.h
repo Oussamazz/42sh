@@ -18,8 +18,8 @@
 # define SEARCH 1
 # include "libft.h"
 
-char					**g_envtab;
-char					**g_settab;
+extern char					**g_envtab;
+extern char					**g_settab;
 typedef struct			s_envv
 {
 	char				*name;
@@ -29,7 +29,7 @@ typedef struct			s_envv
 	struct s_envv		*next;
 }						t_envv;
 
-t_envv					*g_set;
+extern t_envv					*g_set;
 int						ft_dblstrlen(char **str);
 char					**ft_strdbldup(char **str);
 void					ft_strdbldel(char ***str);

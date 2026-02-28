@@ -16,10 +16,8 @@ int			expansion_function(char *buf, t_lexer **token_node,
 	t_pointt *coord, t_env **env_list)
 {
 	int		i;
-	char	*tmp;
 
 	i = 0;
-	tmp = NULL;
 	if (buf[i] == '$' && (buf[i + 1] == '('))
 		return (-1);
 	return (expansion_parse(token_node, buf + i, env_list, coord));
@@ -27,9 +25,6 @@ int			expansion_function(char *buf, t_lexer **token_node,
 
 int			sep_function(t_lexer **token_node, t_pointt *coord)
 {
-	int		i;
-
-	i = 0;
 	coord->pipe_index = 1;
 	coord->aggr_index = 1;
 	append_list(token_node, ";", SEP, coord);
@@ -39,10 +34,8 @@ int			sep_function(t_lexer **token_node, t_pointt *coord)
 int			aggr_function(char *buf, t_pointt *coord, t_lexer **token_node)
 {
 	char	**agg;
-	char	*buf_dup;
 	int		i;
 
-	buf_dup = NULL;
 	agg = NULL;
 	i = 0;
 	if (!*(buf + 1))

@@ -51,10 +51,8 @@ int			get_the_word(char *buf, t_lexer **token_node,
 
 char		*get_dollars(char *buf)
 {
-	int		i;
 	int		count;
 
-	i = 0;
 	count = 0;
 	while (*buf == '$')
 	{

@@ -150,11 +150,11 @@ typedef struct		s_line
 	char			c[2];
 }					t_line;
 
-t_line *g_line;
-char *g_str;
-int g_clt_c;
-int g_clt_d;
-int g_lohtory;
+extern t_line *g_line;
+extern char *g_str;
+extern int g_clt_c;
+extern int g_clt_d;
+extern int g_lohtory;
 
 /*
 ** readline function

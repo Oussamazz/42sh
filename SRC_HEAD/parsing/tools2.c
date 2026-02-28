@@ -80,11 +80,9 @@ char			*expansion_brackets(char *buf, t_mystruct *v)
 {
 	char		*data;
 	char		*dollars;
-	char		c;
 
 	data = NULL;
 	dollars = NULL;
-	c = 0;
 	if (!(data = get_the_line(buf + 1)))
 		return (NULL);
 	if (ft_strequ(data, "?"))
@@ -94,7 +92,6 @@ char			*expansion_brackets(char *buf, t_mystruct *v)
 		return (buf + 4);
 	}
 	dollars = get_value_expansion(data, v->env_list);
-	c = *(buf + ft_strlen(data) + 3);
 	if (dollars)
 		append_list(&v->tokenz, dollars, EXPANSION, &v->coord);
 	buf = buf + ft_strlen(data) + 3;

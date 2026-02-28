@@ -102,10 +102,8 @@ t_miniast		*tree_advance(t_miniast *tree)
 int				execute(t_miniast *tree, t_env **env_list)
 {
 	char		**tabs;
-	int			fd;
 	char		*line;
 
-	fd = 0;
 	line = NULL;
 	tabs = g_settab;
 	while (tree != NULL && tree->cmd[0])

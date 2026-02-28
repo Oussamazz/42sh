@@ -66,10 +66,8 @@ int			isthere_alnum(char *str)
 int			checker_alias(char **str)
 {
 	int		i;
-	int		j;
 
 	i = 0;
-	j = 0;
 	if (str)
 	{
 		while (str[i])

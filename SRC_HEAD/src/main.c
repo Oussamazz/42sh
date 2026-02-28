@@ -11,6 +11,34 @@
 /* ************************************************************************** */
 
 #include "sh.h"
+// from readline.h
+t_line		*g_line;
+char		*g_str;
+int			g_clt_c;
+int			g_clt_d;
+int			g_lohtory;
+
+// from sh.h
+pid_t		g_pid;
+int			g_id;
+char		*g_commandline;
+t_alias		*g_alias;
+size_t		g_agg_len;
+char		*g_tty_name;
+int			g_the_status;
+t_hash		*g_hashtable;
+char		*g_binfile;
+t_his		*g_his;
+int			g_alltokenzsize;
+t_miniast	*g_tree;
+t_job_ctrl	*g_jobs_lst;
+t_job_ctrl	*g_copy;
+t_env		*g_head;
+
+// from env.h
+char		**g_envtab;
+char		**g_settab;
+t_envv		*g_set;
 
 int					main(int ac, char **av, char **env)
 {

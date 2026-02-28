@@ -31,13 +31,9 @@ void	ft_addtmpvar(t_env **head, char *data)
 
 void	ft_execenv(t_env **head, t_lexer *tokenz, int flag)
 {
-	t_env	*tmp;
 	int		tmp_check;
-	t_lexer	*head_lexer;
 
 	(void)flag;
-	tmp = *head;
-	head_lexer = tokenz;
 	while (tokenz && tokenz->type == ENV)
 	{
 		tmp_check = ft_tmpvarcheck(tokenz);

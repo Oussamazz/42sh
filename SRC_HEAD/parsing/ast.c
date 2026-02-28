@@ -95,12 +95,9 @@ int			fill_(t_miniast **head, t_miniast **data_,
 
 int			parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 {
-	char		**cmd;
 	t_miniast	*data;
-	t_redir		*redirections;
 	int			type;
 
-	cmd = NULL;
 	type = 0;
 	if (!g_alltokenzsize)
 		g_alltokenzsize = get_list_size(tokenz);
@@ -108,7 +105,6 @@ int			parse_commands(t_miniast **head, t_lexer *tokenz, t_env **env)
 	{
 		if (env_skip(&tokenz, &type))
 			continue ;
-		redirections = NULL;
 		if ((*head) == NULL && env && tokenz && tokenz->data)
 		{
 			if (fill_(head, &data, tokenz, env) < 0)

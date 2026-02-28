@@ -64,10 +64,8 @@ void	ft_export(char **ta)
 
 void	ft_envcpy(t_env **head)
 {
-	t_env	*tmp;
 	t_envv	*head_set;
 
-	tmp = NULL;
 	head_set = g_set;
 	free_env_list(head);
 	while (g_set)

@@ -55,9 +55,9 @@
 # define PREV_JOB 2
 # define TABLE_SIZE 1000
 
-pid_t					g_pid;
-int						g_id;
-char					*g_commandline;
+extern pid_t					g_pid;
+extern int						g_id;
+extern char					*g_commandline;
 
 enum {
 	F_TOKENZ,
@@ -83,7 +83,7 @@ typedef struct			s_alias
 	struct s_alias		*next;
 }						t_alias;
 
-t_alias					*g_alias;
+extern t_alias					*g_alias;
 
 typedef struct			s_a_v
 {
@@ -105,9 +105,9 @@ typedef struct			s_c_v
 	int					flag;
 }						t_c_v;
 
-size_t					g_agg_len;
-char					*g_tty_name;
-int						g_the_status;
+extern size_t					g_agg_len;
+extern char					*g_tty_name;
+extern int						g_the_status;
 
 typedef struct			s_mypipe
 {
@@ -132,8 +132,8 @@ typedef	struct			s_hash
 	t_ht				**list;
 }						t_hash;
 
-t_hash					*g_hashtable;
-char					*g_binfile;
+extern t_hash					*g_hashtable;
+extern char					*g_binfile;
 
 typedef struct			s_pointt
 {
@@ -196,8 +196,8 @@ typedef struct			s_his
 	struct s_his		*next;
 }						t_his;
 
-t_his					*g_his;
-int						g_alltokenzsize;
+extern t_his					*g_his;
+extern int						g_alltokenzsize;
 
 typedef struct			s_redir
 {
@@ -218,7 +218,7 @@ typedef struct			s_miniast
 	struct s_miniast	*sep;
 }						t_miniast;
 
-t_miniast				*g_tree;
+extern t_miniast				*g_tree;
 
 typedef struct			s_mystruct
 {
@@ -360,9 +360,9 @@ typedef struct			s_cd_smpl
 	char				*tmp2;
 }						t_cd_smpl;
 
-t_job_ctrl				*g_jobs_lst;
-t_job_ctrl				*g_copy;
-t_env					*g_head;
+extern t_job_ctrl				*g_jobs_lst;
+extern t_job_ctrl				*g_copy;
+extern t_env					*g_head;
 
 void					source_sh(t_env **head);
 char					*here_doc(char *delim);
